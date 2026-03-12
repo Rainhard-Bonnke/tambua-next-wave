@@ -1,0 +1,84 @@
+import { Link } from "react-router-dom";
+import { Star, MapPin, Clock, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { safaris } from "@/data/safaris";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+
+const FeaturedSafaris = () => {
+  const { ref, isVisible } = useScrollAnimation();
+
+  return (
+    <section className="section-padding bg-background" ref={ref}>
+      <div className="container-wide mx-auto">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-12 gap-4">
+          <div>
+            <span className="text-accent font-semibold text-sm uppercase tracking-wider">Our Packages</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mt-2">Featured Safaris</h2>
+            <p className="text-muted-foreground mt-2 max-w-xl">
+              Handpicked safari packages designed to give you the ultimate African adventure.
+            </p>
+          </div>
+          <Button asChild variant="outline" className="rounded-xl shrink-0">
+            <Link to="/safaris">View All <ArrowRight className="w-4 h-4 ml-2" /></Link>
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {safaris.map((safari, index) => (
+            <div
+              key={safari.id}
+              className={`group bg-card rounded-2xl overflow-hidden border border-border hover:shadow-xl transition-all duration-500 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+              style={{ transitionDelay: `${index * 100}ms` }}
+            >
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <img
+                  src={safari.image}
+                  alt={safari.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute top-3 left-3 bg-accent text-accent-foreground text-xs font-semibold px-3 py-1 rounded-full">
+                  {safari.category}
+                </div>
+              </div>
+              <div className="p-5 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1 text-accent text-sm">
+                    <Star className="w-4 h-4 fill-current" />
+                    <span className="font-semibold">{safari.rating}</span>
+                    <span className="text-muted-foreground">({safari.reviews})</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-muted-foreground text-xs">
+                    <Clock className="w-3.5 h-3.5" />
+                    {safari.duration}
+                  </div>
+                </div>
+                <h3 className="font-bold text-foreground text-lg group-hover:text-primary transition-colors">
+                  {safari.title}
+                </h3>
+                <div className="flex items-center gap-1 text-muted-foreground text-sm">
+                  <MapPin className="w-4 h-4" />
+                  {safari.location}
+                </div>
+                <div className="flex items-center justify-between pt-2 border-t border-border">
+                  <div>
+                    <span className="text-xs text-muted-foreground">From</span>
+                    <span className="text-xl font-bold text-primary ml-1">${safari.price}</span>
+                    <span className="text-xs text-muted-foreground">/person</span>
+                  </div>
+                  <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg">
+                    Details
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default FeaturedSafaris;
