@@ -20,6 +20,7 @@ const Contact = () => {
   };
 
   return (
+    <PageTransition>
     <div className="min-h-screen">
       <Navbar />
       <main>
