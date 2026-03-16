@@ -1,5 +1,6 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import PageTransition from "@/components/layout/PageTransition";
 import { Calendar, ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
@@ -64,6 +65,7 @@ const Blog = () => {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
+    <PageTransition>
     <div className="min-h-screen">
       <Navbar />
       <main>
@@ -111,6 +113,7 @@ const Blog = () => {
       </main>
       <Footer />
     </div>
+    </PageTransition>
   );
 };
 

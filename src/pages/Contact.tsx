@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import PageTransition from "@/components/layout/PageTransition";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -19,6 +20,7 @@ const Contact = () => {
   };
 
   return (
+    <PageTransition>
     <div className="min-h-screen">
       <Navbar />
       <main>
@@ -115,6 +117,7 @@ const Contact = () => {
       </main>
       <Footer />
     </div>
+    </PageTransition>
   );
 };
 

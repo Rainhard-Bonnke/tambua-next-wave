@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import PageTransition from "@/components/layout/PageTransition";
 import { Button } from "@/components/ui/button";
 import { safaris } from "@/data/safaris";
+import BookingModal from "@/components/booking/BookingModal";
 import { Star, MapPin, Clock, Filter } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
@@ -11,96 +13,108 @@ const categories = ["All", "Wildlife Safari", "Beach Holiday", "Cultural Tour"];
 
 const Safaris = () => {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [selectedSafari, setSelectedSafari] = useState("");
   const { ref, isVisible } = useScrollAnimation();
 
   const filtered = activeCategory === "All" ? safaris : safaris.filter((s) => s.category === activeCategory);
 
+  const handleBook = (safariId: string) => {
+    setSelectedSafari(safariId);
+    setBookingOpen(true);
+  };
+
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      <main>
-        {/* Hero */}
-        <section className="relative pt-32 pb-20 bg-primary text-primary-foreground">
-          <div className="container-wide mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <span className="text-accent font-semibold text-sm uppercase tracking-wider">Our Packages</span>
-            <h1 className="text-4xl sm:text-5xl font-bold mt-3">Safari Packages</h1>
-            <p className="text-primary-foreground/70 mt-4 max-w-2xl mx-auto text-lg">
-              Choose from our curated selection of safari experiences across East Africa.
-            </p>
-          </div>
-        </section>
-
-        {/* Filters & Grid */}
-        <section className="section-padding bg-background" ref={ref}>
-          <div className="container-wide mx-auto">
-            <div className="flex items-center gap-2 mb-8 flex-wrap">
-              <Filter className="w-5 h-5 text-muted-foreground" />
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                    activeCategory === cat ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
+    <PageTransition>
+      <div className="min-h-screen">
+        <Navbar />
+        <main>
+          <section className="relative pt-32 pb-20 bg-primary text-primary-foreground">
+            <div className="container-wide mx-auto px-4 sm:px-6 lg:px-8 text-center">
+              <span className="text-accent font-semibold text-sm uppercase tracking-wider">Our Packages</span>
+              <h1 className="text-4xl sm:text-5xl font-bold mt-3">Safari Packages</h1>
+              <p className="text-primary-foreground/70 mt-4 max-w-2xl mx-auto text-lg">
+                Choose from our curated selection of safari experiences across East Africa.
+              </p>
             </div>
+          </section>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((safari, index) => (
-                <div
-                  key={safari.id}
-                  className={`group bg-card rounded-2xl overflow-hidden border border-border hover:shadow-xl transition-all duration-500 ${
-                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                  }`}
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <div className="relative aspect-[16/10] overflow-hidden">
-                    <img src={safari.image} alt={safari.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
-                    <div className="absolute top-3 left-3 bg-accent text-accent-foreground text-xs font-semibold px-3 py-1 rounded-full">{safari.category}</div>
+          <section className="section-padding bg-background" ref={ref}>
+            <div className="container-wide mx-auto">
+              <div className="flex items-center gap-2 mb-8 flex-wrap">
+                <Filter className="w-5 h-5 text-muted-foreground" />
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveCategory(cat)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                      activeCategory === cat ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filtered.map((safari, index) => (
+                  <div
+                    key={safari.id}
+                    className={`group bg-card rounded-2xl overflow-hidden border border-border hover:shadow-xl transition-all duration-500 ${
+                      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                    }`}
+                    style={{ transitionDelay: `${index * 100}ms` }}
+                  >
+                    <Link to={`/safaris/${safari.id}`} className="block">
+                      <div className="relative aspect-[16/10] overflow-hidden">
+                        <img src={safari.image} alt={safari.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                        <div className="absolute top-3 left-3 bg-accent text-accent-foreground text-xs font-semibold px-3 py-1 rounded-full">{safari.category}</div>
+                      </div>
+                    </Link>
+                    <div className="p-5 space-y-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1 text-accent text-sm">
+                          <Star className="w-4 h-4 fill-current" />
+                          <span className="font-semibold">{safari.rating}</span>
+                          <span className="text-muted-foreground">({safari.reviews})</span>
+                        </div>
+                        <div className="flex items-center gap-1 text-muted-foreground text-xs">
+                          <Clock className="w-3.5 h-3.5" />{safari.duration}
+                        </div>
+                      </div>
+                      <Link to={`/safaris/${safari.id}`}>
+                        <h3 className="font-bold text-foreground text-lg">{safari.title}</h3>
+                      </Link>
+                      <p className="text-muted-foreground text-sm">{safari.description}</p>
+                      <div className="flex items-center gap-1 text-muted-foreground text-sm">
+                        <MapPin className="w-4 h-4" />{safari.location}
+                      </div>
+                      <div className="flex flex-wrap gap-1">
+                        {safari.highlights.map((h) => (
+                          <span key={h} className="bg-muted text-muted-foreground text-xs px-2 py-1 rounded-full">{h}</span>
+                        ))}
+                      </div>
+                      <div className="flex items-center justify-between pt-3 border-t border-border">
+                        <div>
+                          <span className="text-xs text-muted-foreground">From</span>
+                          <span className="text-xl font-bold text-primary ml-1">${safari.price}</span>
+                          <span className="text-xs text-muted-foreground">/person</span>
+                        </div>
+                        <Button size="sm" onClick={() => handleBook(safari.id)} className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-lg">
+                          Book Now
+                        </Button>
+                      </div>
+                    </div>
                   </div>
-                  <div className="p-5 space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1 text-accent text-sm">
-                        <Star className="w-4 h-4 fill-current" />
-                        <span className="font-semibold">{safari.rating}</span>
-                        <span className="text-muted-foreground">({safari.reviews})</span>
-                      </div>
-                      <div className="flex items-center gap-1 text-muted-foreground text-xs">
-                        <Clock className="w-3.5 h-3.5" />{safari.duration}
-                      </div>
-                    </div>
-                    <h3 className="font-bold text-foreground text-lg">{safari.title}</h3>
-                    <p className="text-muted-foreground text-sm">{safari.description}</p>
-                    <div className="flex items-center gap-1 text-muted-foreground text-sm">
-                      <MapPin className="w-4 h-4" />{safari.location}
-                    </div>
-                    <div className="flex flex-wrap gap-1">
-                      {safari.highlights.map((h) => (
-                        <span key={h} className="bg-muted text-muted-foreground text-xs px-2 py-1 rounded-full">{h}</span>
-                      ))}
-                    </div>
-                    <div className="flex items-center justify-between pt-3 border-t border-border">
-                      <div>
-                        <span className="text-xs text-muted-foreground">From</span>
-                        <span className="text-xl font-bold text-primary ml-1">${safari.price}</span>
-                        <span className="text-xs text-muted-foreground">/person</span>
-                      </div>
-                      <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-lg">
-                        <Link to="/contact">Book Now</Link>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
+          </section>
+        </main>
+        <Footer />
+        <BookingModal open={bookingOpen} onOpenChange={setBookingOpen} preselectedSafari={selectedSafari} />
+      </div>
+    </PageTransition>
   );
 };
 
