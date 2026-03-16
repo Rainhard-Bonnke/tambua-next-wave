@@ -10,6 +10,7 @@ const Destinations = () => {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
+    <PageTransition>
     <div className="min-h-screen">
       <Navbar />
       <main>
