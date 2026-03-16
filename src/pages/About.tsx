@@ -1,5 +1,6 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import PageTransition from "@/components/layout/PageTransition";
 import { useScrollAnimation, useCounter } from "@/hooks/useScrollAnimation";
 import { CheckCircle2, Heart, Leaf, Globe, Users, Award } from "lucide-react";
 
