@@ -27,6 +27,7 @@ const About = () => {
   const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation();
 
   return (
+    <PageTransition>
     <div className="min-h-screen">
       <Navbar />
       <main>
