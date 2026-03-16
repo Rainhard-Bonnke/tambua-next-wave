@@ -166,7 +166,7 @@ const SafariDetail = () => {
                     <ul className="space-y-2">
                       {excluded.map((item) => (
                         <li key={item} className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <span className="w-4 h-4 flex items-center justify-center shrink-0 text-destructive">✕</span> {item}
+                          <span className="w-4 h-4 flex items-center justify-center shrink-0 text-muted-foreground">✕</span> {item}
                         </li>
                       ))}
                     </ul>

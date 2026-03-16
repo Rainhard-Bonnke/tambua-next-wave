@@ -1,11 +1,20 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Star, MapPin, Clock, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { safaris } from "@/data/safaris";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import BookingModal from "@/components/booking/BookingModal";
 
 const FeaturedSafaris = () => {
   const { ref, isVisible } = useScrollAnimation();
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [selectedSafari, setSelectedSafari] = useState("");
+
+  const handleBook = (safariId: string) => {
+    setSelectedSafari(safariId);
+    setBookingOpen(true);
+  };
 
   return (
     <section className="section-padding bg-background" ref={ref}>
@@ -32,17 +41,12 @@ const FeaturedSafaris = () => {
               }`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              <div className="relative aspect-[16/10] overflow-hidden">
-                <img
-                  src={safari.image}
-                  alt={safari.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div className="absolute top-3 left-3 bg-accent text-accent-foreground text-xs font-semibold px-3 py-1 rounded-full">
-                  {safari.category}
+              <Link to={`/safaris/${safari.id}`} className="block">
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img src={safari.image} alt={safari.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                  <div className="absolute top-3 left-3 bg-accent text-accent-foreground text-xs font-semibold px-3 py-1 rounded-full">{safari.category}</div>
                 </div>
-              </div>
+              </Link>
               <div className="p-5 space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1 text-accent text-sm">
@@ -51,16 +55,14 @@ const FeaturedSafaris = () => {
                     <span className="text-muted-foreground">({safari.reviews})</span>
                   </div>
                   <div className="flex items-center gap-1 text-muted-foreground text-xs">
-                    <Clock className="w-3.5 h-3.5" />
-                    {safari.duration}
+                    <Clock className="w-3.5 h-3.5" />{safari.duration}
                   </div>
                 </div>
-                <h3 className="font-bold text-foreground text-lg group-hover:text-primary transition-colors">
-                  {safari.title}
-                </h3>
+                <Link to={`/safaris/${safari.id}`}>
+                  <h3 className="font-bold text-foreground text-lg group-hover:text-primary transition-colors">{safari.title}</h3>
+                </Link>
                 <div className="flex items-center gap-1 text-muted-foreground text-sm">
-                  <MapPin className="w-4 h-4" />
-                  {safari.location}
+                  <MapPin className="w-4 h-4" />{safari.location}
                 </div>
                 <div className="flex items-center justify-between pt-2 border-t border-border">
                   <div>
@@ -68,8 +70,8 @@ const FeaturedSafaris = () => {
                     <span className="text-xl font-bold text-primary ml-1">${safari.price}</span>
                     <span className="text-xs text-muted-foreground">/person</span>
                   </div>
-                  <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg">
-                    Details
+                  <Button size="sm" onClick={() => handleBook(safari.id)} className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-lg">
+                    Book Now
                   </Button>
                 </div>
               </div>
@@ -77,6 +79,7 @@ const FeaturedSafaris = () => {
           ))}
         </div>
       </div>
+      <BookingModal open={bookingOpen} onOpenChange={setBookingOpen} preselectedSafari={selectedSafari} />
     </section>
   );
 };
