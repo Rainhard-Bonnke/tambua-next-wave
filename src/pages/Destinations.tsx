@@ -55,6 +55,7 @@ const Destinations = () => {
       </main>
       <Footer />
     </div>
+    </PageTransition>
   );
 };
 

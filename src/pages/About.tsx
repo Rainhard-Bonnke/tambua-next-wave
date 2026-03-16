@@ -133,6 +133,7 @@ const About = () => {
       </main>
       <Footer />
     </div>
+    </PageTransition>
   );
 };
 

@@ -117,6 +117,7 @@ const Contact = () => {
       </main>
       <Footer />
     </div>
+    </PageTransition>
   );
 };
 

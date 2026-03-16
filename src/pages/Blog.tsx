@@ -113,6 +113,7 @@ const Blog = () => {
       </main>
       <Footer />
     </div>
+    </PageTransition>
   );
 };
 
