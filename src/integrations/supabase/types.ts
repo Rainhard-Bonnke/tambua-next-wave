@@ -14,7 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      inquiry_submissions: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string
+          google_sync_attempted_at: string | null
+          google_sync_error: string | null
+          guests: string | null
+          id: string
+          inquiry_type: Database["public"]["Enums"]["inquiry_type"]
+          message: string | null
+          phone: string | null
+          preferred_date: string | null
+          safari_id: string | null
+          safari_title: string | null
+          status: string
+          subject: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name: string
+          google_sync_attempted_at?: string | null
+          google_sync_error?: string | null
+          guests?: string | null
+          id?: string
+          inquiry_type: Database["public"]["Enums"]["inquiry_type"]
+          message?: string | null
+          phone?: string | null
+          preferred_date?: string | null
+          safari_id?: string | null
+          safari_title?: string | null
+          status?: string
+          subject?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string
+          google_sync_attempted_at?: string | null
+          google_sync_error?: string | null
+          guests?: string | null
+          id?: string
+          inquiry_type?: Database["public"]["Enums"]["inquiry_type"]
+          message?: string | null
+          phone?: string | null
+          preferred_date?: string | null
+          safari_id?: string | null
+          safari_title?: string | null
+          status?: string
+          subject?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +76,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      inquiry_type: "booking" | "contact"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +203,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      inquiry_type: ["booking", "contact"],
+    },
   },
 } as const
