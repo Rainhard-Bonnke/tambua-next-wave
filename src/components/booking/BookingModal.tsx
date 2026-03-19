@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { format } from "date-fns";
-import { CalendarIcon, Users, MapPin, Send } from "lucide-react";
+import { CalendarIcon, Users, MapPin, Send, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { safaris } from "@/data/safaris";
+import { submitInquiry } from "@/lib/inquiry";
 import { toast } from "sonner";
 
 interface BookingModalProps {
@@ -18,23 +19,72 @@ interface BookingModalProps {
   preselectedSafari?: string;
 }
 
+const emptyForm = {
+  name: "",
+  email: "",
+  phone: "",
+  safari: "",
+  guests: "2",
+  notes: "",
+};
+
 const BookingModal = ({ open, onOpenChange, preselectedSafari }: BookingModalProps) => {
   const [date, setDate] = useState<Date>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
+    ...emptyForm,
     safari: preselectedSafari || "",
-    guests: "2",
-    notes: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (preselectedSafari) {
+      setForm((current) => ({ ...current, safari: preselectedSafari }));
+    }
+  }, [preselectedSafari]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Booking inquiry sent! We'll confirm your safari within 24 hours.");
-    onOpenChange(false);
-    setForm({ name: "", email: "", phone: "", safari: "", guests: "2", notes: "" });
-    setDate(undefined);
+
+    const selectedSafari = safaris.find((safari) => safari.id === form.safari);
+
+    if (!selectedSafari) {
+      toast.error("Please select a safari package.");
+      return;
+    }
+
+    if (!date) {
+      toast.error("Please choose your preferred travel date.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const result = await submitInquiry({
+        inquiryType: "booking",
+        fullName: form.name,
+        email: form.email,
+        phone: form.phone,
+        safariId: selectedSafari.id,
+        safariTitle: selectedSafari.title,
+        preferredDate: format(date, "yyyy-MM-dd"),
+        guests: form.guests,
+        message: form.notes,
+      });
+
+      toast.success(
+        result.googleSheetsSynced
+          ? "Booking inquiry sent and recorded successfully. We'll contact you within 24 hours."
+          : "Booking inquiry sent successfully. Our team will confirm the details shortly.",
+      );
+      onOpenChange(false);
+      setForm(emptyForm);
+      setDate(undefined);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "We could not send your booking inquiry.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -43,7 +93,7 @@ const BookingModal = ({ open, onOpenChange, preselectedSafari }: BookingModalPro
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-foreground">Book Your Safari</DialogTitle>
           <DialogDescription className="text-muted-foreground text-sm">
-            Fill in your details and we'll get back to you within 24 hours with a confirmed itinerary.
+            Share your travel details and we&apos;ll confirm availability, pricing, and the next steps within 24 hours.
           </DialogDescription>
         </DialogHeader>
 
@@ -132,12 +182,12 @@ const BookingModal = ({ open, onOpenChange, preselectedSafari }: BookingModalPro
             <Textarea placeholder="Any special requirements, dietary needs, or preferences..." rows={3} value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} />
           </div>
 
-          <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90 rounded-xl py-5 text-base font-semibold">
-            <Send className="w-5 h-5 mr-2" /> Submit Booking Inquiry
+          <Button type="submit" disabled={isSubmitting} className="w-full bg-accent text-accent-foreground hover:bg-accent/90 rounded-xl py-5 text-base font-semibold disabled:opacity-70">
+            {isSubmitting ? <Loader2 className="w-5 h-5 mr-2 animate-spin" /> : <Send className="w-5 h-5 mr-2" />} Submit Booking Inquiry
           </Button>
 
           <p className="text-xs text-muted-foreground text-center">
-            No payment required now. We'll confirm availability and send you a detailed quote.
+            No payment is required now. We&apos;ll confirm availability and send you a tailored quote.
           </p>
         </form>
       </DialogContent>

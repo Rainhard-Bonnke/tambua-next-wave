@@ -19,7 +19,7 @@ const Destinations = () => {
             <span className="text-accent font-semibold text-sm uppercase tracking-wider">Explore</span>
             <h1 className="text-4xl sm:text-5xl font-bold mt-3">Our Destinations</h1>
             <p className="text-primary-foreground/70 mt-4 max-w-2xl mx-auto text-lg">
-              From sweeping savannahs to tropical coastlines, explore Kenya's most spectacular destinations.
+              Explore East Africa&apos;s most compelling safari, primate, cultural, and coastal destinations from one trusted base in Nairobi.
             </p>
           </div>
         </section>

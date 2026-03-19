@@ -9,38 +9,48 @@ import BookingModal from "@/components/booking/BookingModal";
 import { Star, MapPin, Clock, CheckCircle2, ArrowLeft, Users, Calendar, Shield } from "lucide-react";
 
 const itineraries: Record<string, string[]> = {
-  "masai-mara-classic": [
-    "Day 1: Depart Nairobi → Arrive Masai Mara → Afternoon game drive",
-    "Day 2: Full-day game drive across the Mara plains → Sundowner drinks",
-    "Day 3: Sunrise hot-air balloon safari → Maasai village visit → Game drive",
-    "Day 4: Morning game drive → Depart to Nairobi",
+  "masai-mara-serengeti-circuit": [
+    "Day 1: Arrive Nairobi → briefing and overnight stay",
+    "Day 2: Drive to Masai Mara → afternoon game drive",
+    "Day 3: Full-day Mara safari → river crossings and big-cat tracking",
+    "Day 4: Cross into Tanzania → continue to Serengeti with evening game drive",
+    "Day 5: Full-day Serengeti exploration → optional balloon safari",
+    "Day 6: Ngorongoro rim stop or cultural visit depending on routing",
+    "Day 7: Departure transfer via Arusha or Nairobi",
   ],
-  "amboseli-elephant": [
-    "Day 1: Nairobi → Amboseli National Park → Afternoon game drive with Kilimanjaro views",
-    "Day 2: Full-day game drive → Visit Observation Hill → Sunset at camp",
-    "Day 3: Early morning game drive → Depart to Nairobi",
+  "amboseli-tarangire-trails": [
+    "Day 1: Nairobi → Amboseli → sunset game drive beneath Kilimanjaro",
+    "Day 2: Full-day Amboseli safari → Observation Hill and marshlands",
+    "Day 3: Cross to Tanzania → continue to Tarangire National Park",
+    "Day 4: Full-day Tarangire game drive among baobabs and elephant herds",
+    "Day 5: Return transfer to Arusha or Nairobi",
   ],
-  "diani-beach-escape": [
-    "Day 1: Transfer to Diani Beach → Resort check-in → Beach relaxation",
-    "Day 2: Snorkeling trip to Kisite-Mpunguti Marine Park",
-    "Day 3: Dhow sailing & mangrove exploration",
-    "Day 4: Free day — spa, water sports, or explore Diani",
-    "Day 5: Breakfast → Transfer to Mombasa airport",
+  "uganda-gorilla-escape": [
+    "Day 1: Arrive Entebbe → transfer to Bwindi region",
+    "Day 2: Gorilla trekking briefing → rainforest trek → community visit",
+    "Day 3: Optional forest walk or Batwa cultural experience",
+    "Day 4: Scenic return transfer for departure",
   ],
-  "lake-nakuru-flamingo": [
-    "Day 1: Nairobi → Lake Nakuru → Afternoon game drive → Baboon Cliff viewpoint",
-    "Day 2: Full-day game drive → Rhino sanctuary → Return to Nairobi",
+  "zanzibar-bush-beach": [
+    "Day 1: Arrive northern Tanzania → short safari game drive",
+    "Day 2: Morning wildlife experience → flight to Zanzibar",
+    "Day 3: Stone Town heritage walk and spice tour",
+    "Day 4: Beach day with optional dhow cruise or snorkeling",
+    "Day 5: Leisure along the coast",
+    "Day 6: Departure transfer",
   ],
-  "tsavo-adventure": [
-    "Day 1: Nairobi → Tsavo East → Aruba Dam game drive",
-    "Day 2: Full-day game drive → Mudanda Rock → Lugard Falls",
-    "Day 3: Cross to Tsavo West → Mzima Springs → Shetani Lava Flow",
-    "Day 4: Morning game drive → Return to Nairobi",
+  "rwanda-primates-culture": [
+    "Day 1: Arrive Kigali → city highlights and genocide memorial visit",
+    "Day 2: Transfer to Volcanoes National Park → cultural village stop",
+    "Day 3: Primate experience or volcano foothill exploration",
+    "Day 4: Lake Kivu relaxation or scenic drive through Rwanda's hills",
+    "Day 5: Return to Kigali for departure",
   ],
-  "lamu-cultural": [
-    "Day 1: Flight to Lamu → Old Town walking tour → Lamu Fort & Museum",
-    "Day 2: Dhow cruise → Shela Beach → Swahili cooking class",
-    "Day 3: Manda Island excursion → Return flight to Nairobi",
+  "lamu-swahili-coastline": [
+    "Day 1: Fly to Lamu → heritage walk through Old Town",
+    "Day 2: Dhow sailing, seafood lunch, and Shela beach time",
+    "Day 3: Slow island day with optional wellness or water activities",
+    "Day 4: Return flight and departure",
   ],
 };
 
@@ -71,7 +81,6 @@ const SafariDetail = () => {
     <div className="min-h-screen">
       <Navbar />
       <main>
-        {/* Hero */}
         <section className="relative h-[60vh] min-h-[400px]">
           <img src={safari.image} alt={safari.title} className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/20" />
@@ -99,21 +108,18 @@ const SafariDetail = () => {
           </div>
         </section>
 
-        {/* Content */}
         <section className="section-padding bg-background">
           <div className="container-wide mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-              {/* Main Content */}
               <div className="lg:col-span-2 space-y-10">
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
                   <h2 className="text-2xl font-bold text-foreground mb-4">Overview</h2>
                   <p className="text-muted-foreground leading-relaxed">{safari.description}</p>
                   <p className="text-muted-foreground leading-relaxed mt-3">
-                    This carefully curated experience takes you through some of Kenya's most spectacular landscapes, offering incredible wildlife encounters and cultural experiences that will create memories to last a lifetime.
+                    This carefully planned itinerary combines standout wildlife, local culture, and well-paced travel across East Africa, giving you a richer regional perspective without losing comfort or flexibility.
                   </p>
                 </motion.div>
 
-                {/* Highlights */}
                 <div>
                   <h2 className="text-2xl font-bold text-foreground mb-4">Highlights</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -126,7 +132,6 @@ const SafariDetail = () => {
                   </div>
                 </div>
 
-                {/* Itinerary */}
                 <div>
                   <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
                     <Calendar className="w-6 h-6 text-accent" /> Itinerary
@@ -149,14 +154,13 @@ const SafariDetail = () => {
                   </div>
                 </div>
 
-                {/* Included / Excluded */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <h3 className="text-lg font-bold text-foreground mb-3">What's Included</h3>
                     <ul className="space-y-2">
                       {included.map((item) => (
                         <li key={item} className="flex items-center gap-2 text-sm text-foreground">
-                          <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" /> {item}
+                          <CheckCircle2 className="w-4 h-4 text-accent shrink-0" /> {item}
                         </li>
                       ))}
                     </ul>
@@ -174,7 +178,6 @@ const SafariDetail = () => {
                 </div>
               </div>
 
-              {/* Sidebar - Booking Card */}
               <div className="lg:col-span-1">
                 <div className="sticky top-24 bg-card rounded-2xl border border-border p-6 shadow-lg space-y-5">
                   <div>
@@ -213,7 +216,7 @@ const SafariDetail = () => {
                   <div className="flex items-start gap-2 p-3 bg-primary/5 rounded-lg">
                     <Shield className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                     <div className="text-xs text-muted-foreground">
-                      <span className="font-semibold text-foreground">Free cancellation</span> up to 30 days before departure. Best price guaranteed.
+                      <span className="font-semibold text-foreground">Flexible planning</span> with tailored routing, regional add-ons, and expert support before departure.
                     </div>
                   </div>
                 </div>

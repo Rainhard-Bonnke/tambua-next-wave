@@ -5,18 +5,43 @@ import PageTransition from "@/components/layout/PageTransition";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle2 } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, Loader2 } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { submitInquiry } from "@/lib/inquiry";
 import { toast } from "sonner";
+
+const emptyForm = { name: "", email: "", phone: "", subject: "", message: "" };
 
 const Contact = () => {
   const { ref, isVisible } = useScrollAnimation();
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState(emptyForm);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent successfully! We'll get back to you within 24 hours.");
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    setIsSubmitting(true);
+
+    try {
+      const result = await submitInquiry({
+        inquiryType: "contact",
+        fullName: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        subject: formData.subject,
+        message: formData.message,
+      });
+
+      toast.success(
+        result.googleSheetsSynced
+          ? "Message sent and recorded successfully. We'll get back to you within 24 hours."
+          : "Message sent successfully. Our team will follow up within 24 hours.",
+      );
+      setFormData(emptyForm);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "We could not send your message right now.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -29,7 +54,7 @@ const Contact = () => {
             <span className="text-accent font-semibold text-sm uppercase tracking-wider">Get In Touch</span>
             <h1 className="text-4xl sm:text-5xl font-bold mt-3">Contact Us</h1>
             <p className="text-primary-foreground/70 mt-4 max-w-2xl mx-auto text-lg">
-              Ready to plan your dream safari? We'd love to hear from you.
+              Planning Kenya, Uganda, Tanzania, Rwanda, or a wider East Africa journey? We&apos;d love to help.
             </p>
           </div>
         </section>
@@ -37,12 +62,11 @@ const Contact = () => {
         <section className="section-padding bg-background" ref={ref}>
           <div className="container-wide mx-auto">
             <div className={`grid grid-cols-1 lg:grid-cols-5 gap-12 transition-all duration-700 ${isVisible ? "opacity-100" : "opacity-0 translate-y-8"}`}>
-              {/* Contact Info */}
               <div className="lg:col-span-2 space-y-8">
                 <div>
                   <h2 className="text-2xl font-bold text-foreground mb-4">Get in Touch</h2>
                   <p className="text-muted-foreground">
-                    Have questions about our safaris? Want a custom itinerary? Reach out and our team will respond within 24 hours.
+                    Have questions about safaris, gorilla trekking, beach extensions, or a custom East Africa itinerary? Reach out and our team will respond within 24 hours.
                   </p>
                 </div>
 
@@ -51,7 +75,7 @@ const Contact = () => {
                     { icon: MapPin, label: "Address", value: "Plainsview Road, Off Mombasa Road, Nairobi, Kenya" },
                     { icon: Phone, label: "Phone", value: "+254 722 000 000" },
                     { icon: Mail, label: "Email", value: "info@tambuaafrica.com" },
-                    { icon: Clock, label: "Working Hours", value: "Mon - Sat: 8:00 AM - 6:00 PM" },
+                    { icon: Clock, label: "Working Hours", value: "Mon - Sat: 8:00 AM - 6:00 PM EAT" },
                   ].map((item) => (
                     <div key={item.label} className="flex items-start gap-4">
                       <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
@@ -67,18 +91,17 @@ const Contact = () => {
 
                 <div className="p-5 rounded-2xl bg-primary text-primary-foreground">
                   <h3 className="font-bold mb-2 flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-accent" /> Why Book With Us?
+                    <CheckCircle2 className="w-5 h-5 text-accent" /> Why Travel With Us?
                   </h3>
                   <ul className="space-y-2 text-sm text-primary-foreground/80">
-                    <li>• No booking fees or hidden charges</li>
-                    <li>• Free cancellation up to 7 days before</li>
-                    <li>• 24/7 customer support during your trip</li>
-                    <li>• Best price guarantee</li>
+                    <li>• Regional safari planning across East Africa</li>
+                    <li>• Tailor-made itineraries for wildlife, culture, and coast</li>
+                    <li>• 24/7 trip support before and during travel</li>
+                    <li>• Transparent pricing with trusted local expertise</li>
                   </ul>
                 </div>
               </div>
 
-              {/* Contact Form */}
               <div className="lg:col-span-3">
                 <form onSubmit={handleSubmit} className="bg-card rounded-2xl border border-border p-6 sm:p-8 space-y-5">
                   <h3 className="text-xl font-bold text-foreground">Send us a Message</h3>
@@ -99,15 +122,15 @@ const Contact = () => {
                     </div>
                     <div className="space-y-2">
                       <label className="text-sm font-medium text-foreground">Subject</label>
-                      <Input placeholder="Safari Inquiry" value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} required />
+                      <Input placeholder="East Africa safari planning" value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} required />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-foreground">Message</label>
-                    <Textarea placeholder="Tell us about your dream safari..." rows={5} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} required />
+                    <Textarea placeholder="Tell us about your dream itinerary, countries of interest, travel dates, or budget..." rows={5} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} required />
                   </div>
-                  <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90 rounded-xl py-6 text-base font-semibold">
-                    <Send className="w-5 h-5 mr-2" /> Send Message
+                  <Button type="submit" disabled={isSubmitting} className="w-full bg-accent text-accent-foreground hover:bg-accent/90 rounded-xl py-6 text-base font-semibold disabled:opacity-70">
+                    {isSubmitting ? <Loader2 className="w-5 h-5 mr-2 animate-spin" /> : <Send className="w-5 h-5 mr-2" />} Send Message
                   </Button>
                 </form>
               </div>
