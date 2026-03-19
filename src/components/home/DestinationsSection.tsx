@@ -11,9 +11,9 @@ const DestinationsSection = () => {
       <div className="container-wide mx-auto">
         <div className="text-center mb-12">
           <span className="text-accent font-semibold text-sm uppercase tracking-wider">Destinations</span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mt-2">Explore Kenya</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mt-2">Explore East Africa</h2>
           <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
-            From sweeping savannahs to tropical coastlines, discover the diverse landscapes of Kenya.
+            From Kenya's savannahs to Uganda's rainforests and Tanzania's island coast, discover a richer East Africa travel map.
           </p>
         </div>
 
