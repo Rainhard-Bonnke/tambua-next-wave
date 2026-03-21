@@ -10,6 +10,7 @@ export interface Safari {
   description: string;
   highlights: string[];
   category: string;
+  stripePriceId: string;
 }
 
 export const safaris: Safari[] = [
@@ -25,6 +26,7 @@ export const safaris: Safari[] = [
     description: "Track the Great Migration across two iconic ecosystems with big-cat sightings, dramatic river crossings, and unforgettable savannah sunsets.",
     highlights: ["Great Migration Route", "Big Five Game Drives", "Cross-Border Safari"],
     category: "Wildlife Safari",
+    stripePriceId: "price_1TDSADDpOZ9uljPIUswwk5k6",
   },
   {
     id: "amboseli-tarangire-trails",
@@ -38,6 +40,7 @@ export const safaris: Safari[] = [
     description: "Pair Amboseli's Kilimanjaro panoramas with Tarangire's baobab-studded plains for a classic elephant-focused adventure.",
     highlights: ["Kilimanjaro Views", "Large Elephant Herds", "Baobab Landscapes"],
     category: "Wildlife Safari",
+    stripePriceId: "price_1TDSAgDpOZ9uljPIufzHnnB1",
   },
   {
     id: "uganda-gorilla-escape",
@@ -51,6 +54,7 @@ export const safaris: Safari[] = [
     description: "Journey into Bwindi Impenetrable Forest for a once-in-a-lifetime gorilla trekking experience with rich rainforest scenery.",
     highlights: ["Gorilla Trekking", "Rainforest Lodge Stay", "Community Visit"],
     category: "Wildlife Safari",
+    stripePriceId: "price_1TDSAmDpOZ9uljPIU1VEn7wW",
   },
   {
     id: "zanzibar-bush-beach",
@@ -64,6 +68,7 @@ export const safaris: Safari[] = [
     description: "Blend a short northern Tanzania safari with turquoise-water downtime on Zanzibar's spice-scented coast.",
     highlights: ["Stone Town Tour", "Indian Ocean Beaches", "Safari Extension"],
     category: "Beach Holiday",
+    stripePriceId: "price_1TDSAnDpOZ9uljPI0qMCYgD7",
   },
   {
     id: "rwanda-primates-culture",
@@ -77,6 +82,7 @@ export const safaris: Safari[] = [
     description: "Explore Rwanda through primate encounters, lake scenery, and immersive cultural experiences anchored by premium local hospitality.",
     highlights: ["Volcanoes National Park", "Kigali City Tour", "Lake Kivu Retreat"],
     category: "Cultural Tour",
+    stripePriceId: "price_1TDSApDpOZ9uljPI7dMRcShK",
   },
   {
     id: "lamu-swahili-coastline",
@@ -90,5 +96,6 @@ export const safaris: Safari[] = [
     description: "Slow down on Kenya's historic coast with dhow cruises, Swahili architecture, and barefoot island relaxation.",
     highlights: ["UNESCO Heritage Walk", "Sunset Dhow Cruise", "Swahili Cuisine"],
     category: "Beach Holiday",
+    stripePriceId: "price_1TDSAqDpOZ9uljPIxcWH53hR",
   },
 ];
