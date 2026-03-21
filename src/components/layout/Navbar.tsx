@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon, User, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -18,6 +19,7 @@ const Navbar = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const location = useLocation();
+  const { user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -90,12 +92,36 @@ const Navbar = () => {
             >
               {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
+
+            {user ? (
+              <Button
+                asChild
+                variant="outline"
+                className={`hidden sm:inline-flex ${!isScrolled ? "border-white/30 text-white hover:bg-white/10" : ""}`}
+              >
+                <Link to="/dashboard">
+                  <User className="w-4 h-4 mr-2" /> My Bookings
+                </Link>
+              </Button>
+            ) : (
+              <Button
+                asChild
+                variant="outline"
+                className={`hidden sm:inline-flex ${!isScrolled ? "border-white/30 text-white hover:bg-white/10" : ""}`}
+              >
+                <Link to="/login">
+                  <LogIn className="w-4 h-4 mr-2" /> Sign In
+                </Link>
+              </Button>
+            )}
+
             <Button
               asChild
               className="hidden sm:inline-flex bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
             >
-              <Link to="/contact">Book Now</Link>
+              <Link to="/safaris">Book Now</Link>
             </Button>
+
             <button
               onClick={() => setIsMobileOpen(!isMobileOpen)}
               className={`lg:hidden p-2 rounded-lg transition-colors ${
@@ -125,8 +151,17 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+            {user ? (
+              <Link to="/dashboard" className="block px-4 py-3 rounded-lg text-sm font-medium text-foreground hover:bg-muted">
+                My Bookings
+              </Link>
+            ) : (
+              <Link to="/login" className="block px-4 py-3 rounded-lg text-sm font-medium text-foreground hover:bg-muted">
+                Sign In
+              </Link>
+            )}
             <Button asChild className="w-full mt-3 bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link to="/contact">Book Now</Link>
+              <Link to="/safaris">Book Now</Link>
             </Button>
           </div>
         </div>
