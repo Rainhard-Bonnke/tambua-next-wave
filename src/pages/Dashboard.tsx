@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Calendar, Users, MapPin, LogOut, Loader2, CreditCard } from "lucide-react";
+import { Calendar, Users, MapPin, LogOut, Loader2, CreditCard, Download } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageTransition from "@/components/layout/PageTransition";
@@ -35,6 +35,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
+  const [downloadingId, setDownloadingId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -64,6 +65,34 @@ const Dashboard = () => {
     else {
       toast.success("Booking cancelled");
       fetchBookings();
+    }
+  };
+
+  const downloadReceipt = async (bookingId: string) => {
+    setDownloadingId(bookingId);
+    try {
+      const { data, error } = await supabase.functions.invoke("generate-receipt", {
+        body: { booking_id: bookingId },
+      });
+
+      if (error) throw error;
+
+      // data is already an ArrayBuffer or Blob from the edge function
+      const blob = data instanceof Blob ? data : new Blob([data], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `receipt-${bookingId.slice(0, 8)}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      toast.success("Receipt downloaded");
+    } catch (err) {
+      console.error("Receipt download error:", err);
+      toast.error("Could not download receipt");
+    } finally {
+      setDownloadingId(null);
     }
   };
 
@@ -126,11 +155,29 @@ const Dashboard = () => {
                       )}
                     </div>
                   </div>
-                  {booking.status === "pending" && (
-                    <Button variant="destructive" size="sm" onClick={() => cancelBooking(booking.id)} className="rounded-xl">
-                      Cancel
-                    </Button>
-                  )}
+                  <div className="flex gap-2">
+                    {(booking.status === "confirmed" || booking.status === "completed") && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => downloadReceipt(booking.id)}
+                        disabled={downloadingId === booking.id}
+                        className="rounded-xl"
+                      >
+                        {downloadingId === booking.id ? (
+                          <Loader2 className="w-4 h-4 animate-spin mr-1" />
+                        ) : (
+                          <Download className="w-4 h-4 mr-1" />
+                        )}
+                        Receipt
+                      </Button>
+                    )}
+                    {booking.status === "pending" && (
+                      <Button variant="destructive" size="sm" onClick={() => cancelBooking(booking.id)} className="rounded-xl">
+                        Cancel
+                      </Button>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
