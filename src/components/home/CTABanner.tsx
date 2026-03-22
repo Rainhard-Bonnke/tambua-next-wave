@@ -8,7 +8,7 @@ const CTABanner = () => {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1920&q=80')",
+          backgroundImage: "url('https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=1920&q=80')",
         }}
       >
         <div className="absolute inset-0 bg-primary/85" />
