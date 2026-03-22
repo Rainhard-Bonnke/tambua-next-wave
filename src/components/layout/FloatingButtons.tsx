@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
-import { ArrowUp, MessageCircle } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowUp, MessageCircle, Shield } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 
 const FloatingButtons = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setShowScrollTop(window.scrollY > 400);
@@ -11,37 +16,69 @@ const FloatingButtons = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const checkAdmin = async () => {
+      if (!user) { setIsAdmin(false); return; }
+      const { data } = await supabase.rpc("is_admin", { _user_id: user.id });
+      setIsAdmin(!!data);
+    };
+    checkAdmin();
+  }, [user]);
+
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+    <>
+      {/* Left side — Admin button */}
       <AnimatePresence>
-        {showScrollTop && (
-          <motion.button
+        {isAdmin && (
+          <motion.div
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            onClick={scrollToTop}
-            className="w-12 h-12 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:bg-primary/90 transition-colors"
-            aria-label="Scroll to top"
+            className="fixed bottom-6 left-6 z-50"
           >
-            <ArrowUp className="w-5 h-5" />
-          </motion.button>
+            <Link
+              to="/admin"
+              className="w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:bg-primary/90 transition-colors"
+              title="Admin Dashboard"
+            >
+              <Shield className="w-6 h-6" />
+            </Link>
+          </motion.div>
         )}
       </AnimatePresence>
 
-      <motion.a
-        href="https://wa.me/254722000000?text=Hello%20Tambua%20Africa!%20I'm%20interested%20in%20a%20safari."
-        target="_blank"
-        rel="noopener noreferrer"
-        className="w-14 h-14 rounded-full bg-[#25D366] text-white shadow-lg flex items-center justify-center hover:bg-[#20BD5A] transition-colors"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        aria-label="Chat on WhatsApp"
-      >
-        <MessageCircle className="w-6 h-6" />
-      </motion.a>
-    </div>
+      {/* Right side — Scroll top + WhatsApp */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+        <AnimatePresence>
+          {showScrollTop && (
+            <motion.button
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0, opacity: 0 }}
+              onClick={scrollToTop}
+              className="w-12 h-12 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:bg-primary/90 transition-colors"
+              aria-label="Scroll to top"
+            >
+              <ArrowUp className="w-5 h-5" />
+            </motion.button>
+          )}
+        </AnimatePresence>
+
+        <motion.a
+          href="https://wa.me/254722000000?text=Hello%20Tambua%20Africa!%20I'm%20interested%20in%20a%20safari."
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-14 h-14 rounded-full bg-[#25D366] text-white shadow-lg flex items-center justify-center hover:bg-[#20BD5A] transition-colors"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label="Chat on WhatsApp"
+        >
+          <MessageCircle className="w-6 h-6" />
+        </motion.a>
+      </div>
+    </>
   );
 };
 

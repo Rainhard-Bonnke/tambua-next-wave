@@ -2,30 +2,60 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { X } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const photos = [
-  { src: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80", alt: "Elephants in Masai Mara", category: "Wildlife" },
-  { src: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?w=800&q=80", alt: "Wildebeest migration", category: "Wildlife" },
-  { src: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800&q=80", alt: "Diani Beach sunset", category: "Beach" },
-  { src: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80", alt: "Flamingos at Lake Nakuru", category: "Wildlife" },
-  { src: "https://images.unsplash.com/photo-1549366021-9f761d450615?w=800&q=80", alt: "Tsavo landscape", category: "Landscape" },
-  { src: "https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=800&q=80", alt: "Lamu architecture", category: "Culture" },
-  { src: "https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?w=800&q=80", alt: "Safari jeep at sunset", category: "Safari" },
-  { src: "https://images.unsplash.com/photo-1504598318550-17eba1008a68?w=800&q=80", alt: "Lion pride resting", category: "Wildlife" },
-  { src: "https://images.unsplash.com/photo-1489392191049-fc10c97e64b6?w=800&q=80", alt: "Giraffe at sunrise", category: "Wildlife" },
-  { src: "https://images.unsplash.com/photo-1517960413843-0aee8e2b3285?w=800&q=80", alt: "Tropical beach", category: "Beach" },
-  { src: "https://images.unsplash.com/photo-1612690669207-fed642192c40?w=800&q=80", alt: "Hot air balloon safari", category: "Safari" },
-  { src: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800&q=80", alt: "African sunset", category: "Landscape" },
+  // Wildlife
+  { src: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=800&q=80", alt: "Elephants in Masai Mara", category: "Wildlife" },
+  { src: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=800&q=80", alt: "Wildebeest migration", category: "Wildlife" },
+  { src: "https://images.unsplash.com/photo-1504598318550-17eba1008a68?auto=format&fit=crop&w=800&q=80", alt: "Lion pride resting", category: "Wildlife" },
+  { src: "https://images.unsplash.com/photo-1489392191049-fc10c97e64b6?auto=format&fit=crop&w=800&q=80", alt: "Giraffe at sunrise", category: "Wildlife" },
+  { src: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?auto=format&fit=crop&w=800&q=80", alt: "Zebras on the savannah", category: "Wildlife" },
+  { src: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=800&q=80", alt: "Leopard in a tree", category: "Wildlife" },
+  { src: "https://images.unsplash.com/photo-1474511320723-9a56873571b7?auto=format&fit=crop&w=800&q=80", alt: "Hippos in the river", category: "Wildlife" },
+  { src: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=800&q=80", alt: "Cheetah on the hunt", category: "Wildlife" },
+  { src: "https://images.unsplash.com/photo-1611602132416-da82f09da0e9?auto=format&fit=crop&w=800&q=80", alt: "Elephants with Mt. Kilimanjaro", category: "Wildlife" },
+  { src: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800&q=80", alt: "Flamingos at Lake Nakuru", category: "Wildlife" },
+
+  // Beach
+  { src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80", alt: "Tropical beach paradise", category: "Beach" },
+  { src: "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=800&q=80", alt: "Zanzibar coast", category: "Beach" },
+  { src: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80", alt: "Crystal clear waters", category: "Beach" },
+  { src: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=800&q=80", alt: "Sunset on the Indian Ocean", category: "Beach" },
+
+  // Landscape
+  { src: "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=800&q=80", alt: "Tsavo landscape", category: "Landscape" },
+  { src: "https://images.unsplash.com/photo-1609198092458-38a293c7ac4b?auto=format&fit=crop&w=800&q=80", alt: "Kilimanjaro at dawn", category: "Landscape" },
+  { src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80", alt: "Mountain peaks at sunrise", category: "Landscape" },
+  { src: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80", alt: "African lake at golden hour", category: "Landscape" },
+  { src: "https://images.unsplash.com/photo-1432405972618-c6b0cfba8673?auto=format&fit=crop&w=800&q=80", alt: "Dramatic waterfall", category: "Landscape" },
+
+  // Safari
+  { src: "https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?auto=format&fit=crop&w=800&q=80", alt: "Safari jeep at sunset", category: "Safari" },
+  { src: "https://images.unsplash.com/photo-1612891130437-82e4e3d974a4?auto=format&fit=crop&w=800&q=80", alt: "Game drive experience", category: "Safari" },
+  { src: "https://images.unsplash.com/photo-1534177616064-ef1fc0283e42?auto=format&fit=crop&w=800&q=80", alt: "Open safari vehicle", category: "Safari" },
+
+  // Culture
+  { src: "https://images.unsplash.com/photo-1596005554384-d293674c91d7?auto=format&fit=crop&w=800&q=80", alt: "Swahili architecture", category: "Culture" },
+  { src: "https://images.unsplash.com/photo-1580746738099-1d1489f59a82?auto=format&fit=crop&w=800&q=80", alt: "Ethiopian heritage site", category: "Culture" },
+  { src: "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?auto=format&fit=crop&w=800&q=80", alt: "Cape Town cityscape", category: "Culture" },
+
+  // Gorilla
+  { src: "https://images.unsplash.com/photo-1605745341112-85968b19335b?auto=format&fit=crop&w=800&q=80", alt: "Mountain gorilla in Bwindi", category: "Gorilla" },
 ];
 
-const categories = ["All", "Wildlife", "Beach", "Landscape", "Safari", "Culture"];
+const categories = ["All", "Wildlife", "Beach", "Landscape", "Safari", "Culture", "Gorilla"];
 
 const Gallery = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [lightbox, setLightbox] = useState<number | null>(null);
 
   const filtered = activeCategory === "All" ? photos : photos.filter((p) => p.category === activeCategory);
+
+  const navigateLightbox = (dir: 1 | -1) => {
+    if (lightbox === null) return;
+    setLightbox((lightbox + dir + filtered.length) % filtered.length);
+  };
 
   return (
     <div className="min-h-screen">
@@ -36,7 +66,7 @@ const Gallery = () => {
             <span className="text-accent font-semibold text-sm uppercase tracking-wider">Gallery</span>
             <h1 className="text-4xl sm:text-5xl font-bold mt-3">Safari Moments</h1>
             <p className="text-primary-foreground/70 mt-4 max-w-2xl mx-auto text-lg">
-              A glimpse into the breathtaking experiences that await you in East Africa.
+              A glimpse into the breathtaking experiences that await you across East Africa.
             </p>
           </div>
         </section>
@@ -65,7 +95,7 @@ const Gallery = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.4, delay: i * 0.05 }}
+                  transition={{ duration: 0.4, delay: i * 0.03 }}
                   className="break-inside-avoid cursor-pointer group"
                   onClick={() => setLightbox(i)}
                 >
@@ -90,7 +120,7 @@ const Gallery = () => {
       </main>
       <Footer />
 
-      {/* Lightbox */}
+      {/* Lightbox with navigation */}
       <AnimatePresence>
         {lightbox !== null && (
           <motion.div
@@ -100,10 +130,23 @@ const Gallery = () => {
             className="fixed inset-0 z-[70] bg-black/90 flex items-center justify-center p-4"
             onClick={() => setLightbox(null)}
           >
-            <button className="absolute top-6 right-6 text-white/70 hover:text-white" onClick={() => setLightbox(null)}>
+            <button className="absolute top-6 right-6 text-white/70 hover:text-white z-10" onClick={() => setLightbox(null)}>
               <X className="w-8 h-8" />
             </button>
+            <button
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-10 p-2"
+              onClick={(e) => { e.stopPropagation(); navigateLightbox(-1); }}
+            >
+              <ChevronLeft className="w-8 h-8" />
+            </button>
+            <button
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-10 p-2"
+              onClick={(e) => { e.stopPropagation(); navigateLightbox(1); }}
+            >
+              <ChevronRight className="w-8 h-8" />
+            </button>
             <motion.img
+              key={filtered[lightbox].src}
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -112,6 +155,9 @@ const Gallery = () => {
               className="max-w-full max-h-[85vh] object-contain rounded-lg"
               onClick={(e) => e.stopPropagation()}
             />
+            <div className="absolute bottom-6 text-white/70 text-sm">
+              {lightbox + 1} / {filtered.length} — {filtered[lightbox].alt}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
