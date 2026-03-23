@@ -14,7 +14,7 @@ export const destinations: Destination[] = [
     name: "Masai Mara",
     country: "Kenya",
     description: "Kenya's legendary wildlife reserve — home to the Great Migration and one of Africa's most iconic safari landscapes.",
-    image: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=800&q=80",
+    image: "/images/beautiful-shot-three-cute-giraffes-field-with-trees-blue-sky.jpg",
     safariCount: 12,
   },
   {
@@ -22,7 +22,7 @@ export const destinations: Destination[] = [
     name: "Amboseli National Park",
     country: "Kenya",
     description: "Dramatic Kilimanjaro views meet large elephant herds in one of Kenya's most photogenic parks.",
-    image: "https://images.unsplash.com/photo-1551085254-e96b210db58a?auto=format&fit=crop&w=800&q=80",
+    image: "/images/pexels-maasai-magic-3752887-5574091.jpg",
     safariCount: 8,
   },
   {
@@ -30,7 +30,7 @@ export const destinations: Destination[] = [
     name: "Lamu Archipelago",
     country: "Kenya",
     description: "Kenya's Swahili coast escape — heritage towns, dhow culture, and laid-back island charm.",
-    image: "https://images.unsplash.com/photo-1596005554384-d293674c91d7?auto=format&fit=crop&w=800&q=80",
+    image: "/images/ancient-ceramic-pots-found-ruins-building-pompeii-italy.jpg",
     safariCount: 6,
   },
   {
@@ -38,7 +38,7 @@ export const destinations: Destination[] = [
     name: "Tsavo National Park",
     country: "Kenya",
     description: "Kenya's largest park — red elephants, ancient lava flows, and raw wilderness far from the crowds.",
-    image: "https://images.unsplash.com/photo-1504598318550-17eba1008a68?auto=format&fit=crop&w=800&q=80",
+    image: "/images/pile-stones-with-city-background.jpg",
     safariCount: 7,
   },
   {
@@ -46,7 +46,7 @@ export const destinations: Destination[] = [
     name: "Diani Beach",
     country: "Kenya",
     description: "White sand, turquoise waters, and coral reefs along Kenya's stunning southern coast.",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    image: "/images/pexels-abelalemseged-17272121.jpg",
     safariCount: 5,
   },
 
@@ -56,7 +56,7 @@ export const destinations: Destination[] = [
     name: "Serengeti",
     country: "Tanzania",
     description: "Vast golden plains — front-row access to the Great Migration, big cats, and world-class game viewing.",
-    image: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=800&q=80",
+    image: "/images/pexels-alexandra-karnasopoulos-1962842-4017572.jpg",
     safariCount: 14,
   },
   {
@@ -64,7 +64,7 @@ export const destinations: Destination[] = [
     name: "Ngorongoro Crater",
     country: "Tanzania",
     description: "The world's largest intact volcanic caldera — a natural wildlife amphitheater teeming with animals.",
-    image: "https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&w=800&q=80",
+    image: "/images/pexels-andname-5536965.jpg",
     safariCount: 9,
   },
   {
@@ -72,7 +72,7 @@ export const destinations: Destination[] = [
     name: "Zanzibar",
     country: "Tanzania",
     description: "Spice island magic — Indian Ocean beaches, Stone Town heritage, and barefoot luxury.",
-    image: "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=800&q=80",
+    image: "/images/pexels-joaoaguiar-7731450.jpg",
     safariCount: 8,
   },
   {
@@ -80,7 +80,7 @@ export const destinations: Destination[] = [
     name: "Mount Kilimanjaro",
     country: "Tanzania",
     description: "Africa's highest peak — conquer the roof of the continent through five distinct climate zones.",
-    image: "https://images.unsplash.com/photo-1609198092458-38a293c7ac4b?auto=format&fit=crop&w=800&q=80",
+    image: "/images/pexels-kureng-workx-2546437-4314681.jpg",
     safariCount: 6,
   },
   {
@@ -88,7 +88,7 @@ export const destinations: Destination[] = [
     name: "Tarangire National Park",
     country: "Tanzania",
     description: "Baobab-studded plains, massive elephant herds, and quiet game drives away from the tourist trail.",
-    image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800&q=80",
+    image: "/images/pexels-kureng-workx-2546437-7637401.jpg",
     safariCount: 7,
   },
 
@@ -98,7 +98,7 @@ export const destinations: Destination[] = [
     name: "Bwindi Impenetrable Forest",
     country: "Uganda",
     description: "Uganda's emerald rainforest — home to half the world's mountain gorillas and deeply immersive trekking.",
-    image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?auto=format&fit=crop&w=800&q=80",
+    image: "/images/pexels-lan-yao-324969-20879645.jpg",
     safariCount: 6,
   },
   {
@@ -106,7 +106,7 @@ export const destinations: Destination[] = [
     name: "Queen Elizabeth National Park",
     country: "Uganda",
     description: "Tree-climbing lions, Kazinga Channel boat cruises, and stunning Rift Valley scenery.",
-    image: "https://images.unsplash.com/photo-1489392191049-fc10c97e64b6?auto=format&fit=crop&w=800&q=80",
+    image: "/images/pexels-marri-shyam-366418-7463697.jpg",
     safariCount: 5,
   },
   {
@@ -114,7 +114,7 @@ export const destinations: Destination[] = [
     name: "Murchison Falls",
     country: "Uganda",
     description: "The Nile's most dramatic moment — thundering through a 7-meter gap surrounded by pristine savannah.",
-    image: "https://images.unsplash.com/photo-1513569771920-c9e1d31714af?auto=format&fit=crop&w=800&q=80",
+    image: "/images/pexels-ross-green-2159326053-36048575.jpg",
     safariCount: 4,
   },
 
@@ -124,7 +124,7 @@ export const destinations: Destination[] = [
     name: "Volcanoes National Park",
     country: "Rwanda",
     description: "Misty volcanic slopes — golden monkey treks, gorilla encounters, and luxury eco-lodges in the clouds.",
-    image: "https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?auto=format&fit=crop&w=800&q=80",
+    image: "/images/pexels-sulimansallehi-1586662.jpg",
     safariCount: 5,
   },
   {
@@ -132,7 +132,7 @@ export const destinations: Destination[] = [
     name: "Akagera National Park",
     country: "Rwanda",
     description: "Rwanda's Big Five park — savannah, wetlands, and lakes in a stunning conservation success story.",
-    image: "https://images.unsplash.com/photo-1551009175-15bdf9dcb580?auto=format&fit=crop&w=800&q=80",
+    image: "/images/pexels-taryn-elliott-5214036.jpg",
     safariCount: 4,
   },
   {
@@ -140,7 +140,7 @@ export const destinations: Destination[] = [
     name: "Lake Kivu",
     country: "Rwanda",
     description: "Emerald waters nestled between volcanic peaks — kayaking, cycling, and lakeside serenity.",
-    image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80",
+    image: "/images/beautiful-shot-three-cute-giraffes-field-with-trees-blue-sky.jpg",
     safariCount: 3,
   },
 
@@ -150,7 +150,7 @@ export const destinations: Destination[] = [
     name: "Simien Mountains",
     country: "Ethiopia",
     description: "Dramatic escarpments, endemic gelada baboons, and some of Africa's most spectacular trekking.",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80",
+    image: "/images/pexels-maasai-magic-3752887-5574091.jpg",
     safariCount: 4,
   },
   {
@@ -158,7 +158,7 @@ export const destinations: Destination[] = [
     name: "Lalibela",
     country: "Ethiopia",
     description: "Ancient rock-hewn churches carved from living stone — a spiritual and architectural wonder of the world.",
-    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80",
+    image: "/images/ancient-ceramic-pots-found-ruins-building-pompeii-italy.jpg",
     safariCount: 3,
   },
 
@@ -168,7 +168,7 @@ export const destinations: Destination[] = [
     name: "Kruger National Park",
     country: "South Africa",
     description: "Africa's most famous Big Five destination — world-class lodges and unmatched wildlife diversity.",
-    image: "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=800&q=80",
+    image: "/images/pile-stones-with-city-background.jpg",
     safariCount: 10,
   },
   {
@@ -176,7 +176,7 @@ export const destinations: Destination[] = [
     name: "Cape Town",
     country: "South Africa",
     description: "Where mountains meet ocean — Table Mountain, Cape Point, and vibrant culture at Africa's southern tip.",
-    image: "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?auto=format&fit=crop&w=800&q=80",
+    image: "/images/pexels-abelalemseged-17272121.jpg",
     safariCount: 6,
   },
 ];

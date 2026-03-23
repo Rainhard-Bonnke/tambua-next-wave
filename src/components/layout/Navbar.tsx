@@ -48,16 +48,12 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">T</span>
-            </div>
-            <div className="flex flex-col">
-              <span className={`font-bold text-lg leading-tight ${isScrolled ? "text-foreground" : "text-white"}`}>
-                Tambua
-              </span>
-              <span className={`text-xs leading-tight ${isScrolled ? "text-muted-foreground" : "text-white/70"}`}>
-                Africa
-              </span>
+            <div className="bg-white/90 p-1 rounded-xl backdrop-blur-sm shadow-sm transition-transform hover:scale-105">
+              <img 
+                src="/tambua-logo.png" 
+                alt="Tambua Africa" 
+                className="h-10 sm:h-12 w-auto object-contain"
+              />
             </div>
           </Link>
 
@@ -96,8 +92,7 @@ const Navbar = () => {
             {user ? (
               <Button
                 asChild
-                variant="outline"
-                className={`hidden sm:inline-flex ${!isScrolled ? "border-white/30 text-white hover:bg-white/10" : ""}`}
+                className="hidden sm:inline-flex bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
               >
                 <Link to="/dashboard">
                   <User className="w-4 h-4 mr-2" /> My Bookings
@@ -106,8 +101,7 @@ const Navbar = () => {
             ) : (
               <Button
                 asChild
-                variant="outline"
-                className={`hidden sm:inline-flex ${!isScrolled ? "border-white/30 text-white hover:bg-white/10" : ""}`}
+                className="hidden sm:inline-flex bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
               >
                 <Link to="/login">
                   <LogIn className="w-4 h-4 mr-2" /> Sign In
@@ -152,13 +146,17 @@ const Navbar = () => {
               </Link>
             ))}
             {user ? (
-              <Link to="/dashboard" className="block px-4 py-3 rounded-lg text-sm font-medium text-foreground hover:bg-muted">
-                My Bookings
-              </Link>
+              <Button asChild className="w-full mt-3 bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">
+                <Link to="/dashboard">
+                  <User className="w-4 h-4 mr-2" /> My Bookings
+                </Link>
+              </Button>
             ) : (
-              <Link to="/login" className="block px-4 py-3 rounded-lg text-sm font-medium text-foreground hover:bg-muted">
-                Sign In
-              </Link>
+              <Button asChild className="w-full mt-3 bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">
+                <Link to="/login">
+                  <LogIn className="w-4 h-4 mr-2" /> Sign In
+                </Link>
+              </Button>
             )}
             <Button asChild className="w-full mt-3 bg-accent text-accent-foreground hover:bg-accent/90">
               <Link to="/safaris">Book Now</Link>

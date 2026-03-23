@@ -5,43 +5,21 @@ import Footer from "@/components/layout/Footer";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const photos = [
-  // Wildlife
-  { src: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=800&q=80", alt: "Elephants in Masai Mara", category: "Wildlife" },
-  { src: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=800&q=80", alt: "Wildebeest migration", category: "Wildlife" },
-  { src: "https://images.unsplash.com/photo-1504598318550-17eba1008a68?auto=format&fit=crop&w=800&q=80", alt: "Lion pride resting", category: "Wildlife" },
-  { src: "https://images.unsplash.com/photo-1489392191049-fc10c97e64b6?auto=format&fit=crop&w=800&q=80", alt: "Giraffe at sunrise", category: "Wildlife" },
-  { src: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?auto=format&fit=crop&w=800&q=80", alt: "Zebras on the savannah", category: "Wildlife" },
-  { src: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=800&q=80", alt: "Leopard in a tree", category: "Wildlife" },
-  { src: "https://images.unsplash.com/photo-1517960413843-0aee8e2b3285?auto=format&fit=crop&w=800&q=80", alt: "Hippos in the river", category: "Wildlife" },
-  { src: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=800&q=80", alt: "Cheetah on the hunt", category: "Wildlife" },
-  { src: "https://images.unsplash.com/photo-1551085254-e96b210db58a?auto=format&fit=crop&w=800&q=80", alt: "Elephants with Mt. Kilimanjaro", category: "Wildlife" },
-  { src: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800&q=80", alt: "Flamingos at Lake Nakuru", category: "Wildlife" },
-
-  // Beach
-  { src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80", alt: "Tropical beach paradise", category: "Beach" },
-  { src: "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=800&q=80", alt: "Zanzibar coast", category: "Beach" },
-  { src: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80", alt: "Crystal clear waters", category: "Beach" },
-  { src: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=800&q=80", alt: "Sunset on the Indian Ocean", category: "Beach" },
-
-  // Landscape
-  { src: "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=800&q=80", alt: "Tsavo landscape", category: "Landscape" },
-  { src: "https://images.unsplash.com/photo-1609198092458-38a293c7ac4b?auto=format&fit=crop&w=800&q=80", alt: "Kilimanjaro at dawn", category: "Landscape" },
-  { src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80", alt: "Mountain peaks at sunrise", category: "Landscape" },
-  { src: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80", alt: "African lake at golden hour", category: "Landscape" },
-  { src: "https://images.unsplash.com/photo-1513569771920-c9e1d31714af?auto=format&fit=crop&w=800&q=80", alt: "Dramatic waterfall", category: "Landscape" },
-
-  // Safari
-  { src: "https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?auto=format&fit=crop&w=800&q=80", alt: "Safari jeep at sunset", category: "Safari" },
-  { src: "https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&w=800&q=80", alt: "Game drive experience", category: "Safari" },
-  { src: "https://images.unsplash.com/photo-1551009175-15bdf9dcb580?auto=format&fit=crop&w=800&q=80", alt: "Open safari vehicle", category: "Safari" },
-
-  // Culture
-  { src: "https://images.unsplash.com/photo-1596005554384-d293674c91d7?auto=format&fit=crop&w=800&q=80", alt: "Swahili architecture", category: "Culture" },
-  { src: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80", alt: "Ethiopian heritage site", category: "Culture" },
-  { src: "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?auto=format&fit=crop&w=800&q=80", alt: "Cape Town cityscape", category: "Culture" },
-
-  // Gorilla
-  { src: "https://images.unsplash.com/photo-1605745341112-85968b19335b?auto=format&fit=crop&w=800&q=80", alt: "Mountain gorilla in Bwindi", category: "Gorilla" },
+  { src: "/images/beautiful-shot-three-cute-giraffes-field-with-trees-blue-sky.jpg", alt: "Giraffes in the wild", category: "Wildlife" },
+  { src: "/images/pexels-maasai-magic-3752887-5574091.jpg", alt: "Maasai Magic", category: "Culture" },
+  { src: "/images/ancient-ceramic-pots-found-ruins-building-pompeii-italy.jpg", alt: "Ancient Ruins", category: "Culture" },
+  { src: "/images/pile-stones-with-city-background.jpg", alt: "Cityscape Stones", category: "Landscape" },
+  { src: "/images/pexels-abelalemseged-17272121.jpg", alt: "African Scenery", category: "Landscape" },
+  { src: "/images/pexels-alexandra-karnasopoulos-1962842-4017572.jpg", alt: "Safari Adventure", category: "Safari" },
+  { src: "/images/pexels-andname-5536965.jpg", alt: "Scenic Views", category: "Landscape" },
+  { src: "/images/pexels-joaoaguiar-7731450.jpg", alt: "Wildlife Moments", category: "Wildlife" },
+  { src: "/images/pexels-kureng-workx-2546437-4314681.jpg", alt: "Safari Highlights", category: "Safari" },
+  { src: "/images/pexels-kureng-workx-2546437-7637401.jpg", alt: "Safari Expedition", category: "Safari" },
+  { src: "/images/pexels-lan-yao-324969-20879645.jpg", alt: "Nature Detail", category: "Landscape" },
+  { src: "/images/pexels-marri-shyam-366418-7463697.jpg", alt: "Beautiful Horizon", category: "Landscape" },
+  { src: "/images/pexels-ross-green-2159326053-36048575.jpg", alt: "Cultural Portrait", category: "Culture" },
+  { src: "/images/pexels-sulimansallehi-1586662.jpg", alt: "Animal Sightings", category: "Wildlife" },
+  { src: "/images/pexels-taryn-elliott-5214036.jpg", alt: "Beach Retreat", category: "Beach" },
 ];
 
 const categories = ["All", "Wildlife", "Beach", "Landscape", "Safari", "Culture", "Gorilla"];

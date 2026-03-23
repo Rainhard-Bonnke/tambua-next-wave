@@ -38,12 +38,8 @@ const Dashboard = () => {
   const [downloadingId, setDownloadingId] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!authLoading && !user) {
-      navigate("/login");
-      return;
-    }
     if (user) fetchBookings();
-  }, [user, authLoading]);
+  }, [user]);
 
   const fetchBookings = async () => {
     const { data, error } = await supabase
