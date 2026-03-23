@@ -45,7 +45,7 @@ const posts = [
     id: "5",
     title: "Photography Tips for Your African Safari",
     excerpt: "Capture stunning wildlife photos on your next safari adventure with these professional photography tips and techniques.",
-    image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80",
     date: "Feb 8, 2026",
     category: "Photography",
     readTime: "5 min read",
