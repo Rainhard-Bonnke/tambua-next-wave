@@ -12,9 +12,9 @@ const photos = [
   { src: "https://images.unsplash.com/photo-1489392191049-fc10c97e64b6?auto=format&fit=crop&w=800&q=80", alt: "Giraffe at sunrise", category: "Wildlife" },
   { src: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?auto=format&fit=crop&w=800&q=80", alt: "Zebras on the savannah", category: "Wildlife" },
   { src: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=800&q=80", alt: "Leopard in a tree", category: "Wildlife" },
-  { src: "https://images.unsplash.com/photo-1474511320723-9a56873571b7?auto=format&fit=crop&w=800&q=80", alt: "Hippos in the river", category: "Wildlife" },
+  { src: "https://images.unsplash.com/photo-1517960413843-0aee8e2b3285?auto=format&fit=crop&w=800&q=80", alt: "Hippos in the river", category: "Wildlife" },
   { src: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=800&q=80", alt: "Cheetah on the hunt", category: "Wildlife" },
-  { src: "https://images.unsplash.com/photo-1611602132416-da82f09da0e9?auto=format&fit=crop&w=800&q=80", alt: "Elephants with Mt. Kilimanjaro", category: "Wildlife" },
+  { src: "https://images.unsplash.com/photo-1551085254-e96b210db58a?auto=format&fit=crop&w=800&q=80", alt: "Elephants with Mt. Kilimanjaro", category: "Wildlife" },
   { src: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800&q=80", alt: "Flamingos at Lake Nakuru", category: "Wildlife" },
 
   // Beach
@@ -28,16 +28,16 @@ const photos = [
   { src: "https://images.unsplash.com/photo-1609198092458-38a293c7ac4b?auto=format&fit=crop&w=800&q=80", alt: "Kilimanjaro at dawn", category: "Landscape" },
   { src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80", alt: "Mountain peaks at sunrise", category: "Landscape" },
   { src: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80", alt: "African lake at golden hour", category: "Landscape" },
-  { src: "https://images.unsplash.com/photo-1432405972618-c6b0cfba8673?auto=format&fit=crop&w=800&q=80", alt: "Dramatic waterfall", category: "Landscape" },
+  { src: "https://images.unsplash.com/photo-1513569771920-c9e1d31714af?auto=format&fit=crop&w=800&q=80", alt: "Dramatic waterfall", category: "Landscape" },
 
   // Safari
   { src: "https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?auto=format&fit=crop&w=800&q=80", alt: "Safari jeep at sunset", category: "Safari" },
-  { src: "https://images.unsplash.com/photo-1612891130437-82e4e3d974a4?auto=format&fit=crop&w=800&q=80", alt: "Game drive experience", category: "Safari" },
-  { src: "https://images.unsplash.com/photo-1534177616064-ef1fc0283e42?auto=format&fit=crop&w=800&q=80", alt: "Open safari vehicle", category: "Safari" },
+  { src: "https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&w=800&q=80", alt: "Game drive experience", category: "Safari" },
+  { src: "https://images.unsplash.com/photo-1551009175-15bdf9dcb580?auto=format&fit=crop&w=800&q=80", alt: "Open safari vehicle", category: "Safari" },
 
   // Culture
   { src: "https://images.unsplash.com/photo-1596005554384-d293674c91d7?auto=format&fit=crop&w=800&q=80", alt: "Swahili architecture", category: "Culture" },
-  { src: "https://images.unsplash.com/photo-1580746738099-1d1489f59a82?auto=format&fit=crop&w=800&q=80", alt: "Ethiopian heritage site", category: "Culture" },
+  { src: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80", alt: "Ethiopian heritage site", category: "Culture" },
   { src: "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?auto=format&fit=crop&w=800&q=80", alt: "Cape Town cityscape", category: "Culture" },
 
   // Gorilla

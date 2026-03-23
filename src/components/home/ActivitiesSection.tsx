@@ -6,7 +6,7 @@ const activities = [
     icon: Compass,
     title: "Cultural Tours",
     description: "Immerse yourself in the rich traditions and heritage of East African communities.",
-    image: "https://images.unsplash.com/photo-1580746738099-1d1489f59a82?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&q=80",
   },
   {
     icon: Palmtree,

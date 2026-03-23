@@ -17,37 +17,36 @@ const FloatingButtons = () => {
   }, []);
 
   useEffect(() => {
+    let cancelled = false;
     const checkAdmin = async () => {
       if (!user) { setIsAdmin(false); return; }
       const { data } = await supabase.rpc("is_admin", { _user_id: user.id });
-      setIsAdmin(!!data);
+      if (!cancelled) setIsAdmin(!!data);
     };
     checkAdmin();
-  }, [user]);
+    return () => { cancelled = true; };
+  }, [user?.id]);
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <>
       {/* Left side — Admin button */}
-      <AnimatePresence>
-        {isAdmin && (
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            className="fixed bottom-6 left-6 z-50"
+      {isAdmin && (
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          className="fixed bottom-6 left-6 z-50"
+        >
+          <Link
+            to="/admin"
+            className="w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:bg-primary/90 transition-colors"
+            title="Admin Dashboard"
           >
-            <Link
-              to="/admin"
-              className="w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:bg-primary/90 transition-colors"
-              title="Admin Dashboard"
-            >
-              <Shield className="w-6 h-6" />
-            </Link>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <Shield className="w-6 h-6" />
+          </Link>
+        </motion.div>
+      )}
 
       {/* Right side — Scroll top + WhatsApp */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">

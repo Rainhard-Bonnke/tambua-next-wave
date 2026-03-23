@@ -22,7 +22,7 @@ export const destinations: Destination[] = [
     name: "Amboseli National Park",
     country: "Kenya",
     description: "Dramatic Kilimanjaro views meet large elephant herds in one of Kenya's most photogenic parks.",
-    image: "https://images.unsplash.com/photo-1611602132416-da82f09da0e9?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1551085254-e96b210db58a?auto=format&fit=crop&w=800&q=80",
     safariCount: 8,
   },
   {
@@ -64,7 +64,7 @@ export const destinations: Destination[] = [
     name: "Ngorongoro Crater",
     country: "Tanzania",
     description: "The world's largest intact volcanic caldera — a natural wildlife amphitheater teeming with animals.",
-    image: "https://images.unsplash.com/photo-1612891130437-82e4e3d974a4?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&w=800&q=80",
     safariCount: 9,
   },
   {
@@ -114,7 +114,7 @@ export const destinations: Destination[] = [
     name: "Murchison Falls",
     country: "Uganda",
     description: "The Nile's most dramatic moment — thundering through a 7-meter gap surrounded by pristine savannah.",
-    image: "https://images.unsplash.com/photo-1432405972618-c6b0cfba8673?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1513569771920-c9e1d31714af?auto=format&fit=crop&w=800&q=80",
     safariCount: 4,
   },
 
@@ -132,7 +132,7 @@ export const destinations: Destination[] = [
     name: "Akagera National Park",
     country: "Rwanda",
     description: "Rwanda's Big Five park — savannah, wetlands, and lakes in a stunning conservation success story.",
-    image: "https://images.unsplash.com/photo-1534177616064-ef1fc0283e42?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1551009175-15bdf9dcb580?auto=format&fit=crop&w=800&q=80",
     safariCount: 4,
   },
   {
@@ -158,7 +158,7 @@ export const destinations: Destination[] = [
     name: "Lalibela",
     country: "Ethiopia",
     description: "Ancient rock-hewn churches carved from living stone — a spiritual and architectural wonder of the world.",
-    image: "https://images.unsplash.com/photo-1580746738099-1d1489f59a82?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80",
     safariCount: 3,
   },
 
