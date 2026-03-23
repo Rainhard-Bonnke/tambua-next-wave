@@ -128,7 +128,7 @@ const Gallery = () => {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              src={filtered[lightbox].src.replace("w=800", "w=1400")}
+              src={filtered[lightbox].src}
               alt={filtered[lightbox].alt}
               className="max-w-full max-h-[85vh] object-contain rounded-lg"
               onClick={(e) => e.stopPropagation()}

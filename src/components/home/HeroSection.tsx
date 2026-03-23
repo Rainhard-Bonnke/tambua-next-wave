@@ -12,16 +12,17 @@ const HeroSection = () => {
             "url('/images/beautiful-shot-three-cute-giraffes-field-with-trees-blue-sky.jpg')",
         }}
       >
+        <img 
+          src="/images/beautiful-shot-three-cute-giraffes-field-with-trees-blue-sky.jpg" 
+          className="hidden" 
+          alt="" 
+          fetchpriority="high" 
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
       </div>
 
       <div className="relative z-10 container-wide mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-4xl mx-auto space-y-6">
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2 text-white/90 text-sm">
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            East Africa Specialists • Region-Wide Journeys
-          </div>
-
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
             Explore <span className="font-display italic text-accent">Africa</span> Through the
             Heart of the East
