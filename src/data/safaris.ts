@@ -92,7 +92,7 @@ export const safaris: Safari[] = [
     price: 920,
     rating: 4.8,
     reviews: 151,
-    image: "https://images.unsplash.com/photo-1549366021-9f761d450615?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1596005554384-d293674c91d7?w=800&q=80",
     description: "Slow down on Kenya's historic coast with dhow cruises, Swahili architecture, and barefoot island relaxation.",
     highlights: ["UNESCO Heritage Walk", "Sunset Dhow Cruise", "Swahili Cuisine"],
     category: "Beach Holiday",
