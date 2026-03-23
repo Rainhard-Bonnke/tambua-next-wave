@@ -50,7 +50,7 @@ export const safaris: Safari[] = [
     price: 2390,
     rating: 4.9,
     reviews: 176,
-    image: "https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=800&q=80",
     description: "Journey into Bwindi Impenetrable Forest for a once-in-a-lifetime gorilla trekking experience with rich rainforest scenery.",
     highlights: ["Gorilla Trekking", "Rainforest Lodge Stay", "Community Visit"],
     category: "Wildlife Safari",
