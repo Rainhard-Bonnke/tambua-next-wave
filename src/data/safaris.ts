@@ -107,7 +107,7 @@ export const safaris: Safari[] = [
     price: 2450,
     rating: 4.9,
     reviews: 287,
-    image: "https://images.unsplash.com/photo-1621414050946-1b936a78426f?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1612891130437-82e4e3d974a4?w=800&q=80",
     description: "Descend into the world's largest volcanic caldera before sweeping across the Serengeti's endless plains.",
     highlights: ["Ngorongoro Crater Floor", "Serengeti Sunsets", "Big Five Encounters"],
     category: "Wildlife Safari",
