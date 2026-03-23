@@ -6,13 +6,13 @@ const activities = [
     icon: Compass,
     title: "Cultural Tours",
     description: "Immerse yourself in the rich traditions and heritage of East African communities.",
-    image: "https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1580746738099-1d1489f59a82?w=600&q=80",
   },
   {
     icon: Palmtree,
     title: "Beach Holidays",
     description: "Relax on pristine white sand beaches along the beautiful Kenyan coastline.",
-    image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80",
   },
   {
     icon: Binoculars,

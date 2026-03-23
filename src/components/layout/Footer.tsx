@@ -85,7 +85,7 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-lg mb-4">Popular Safaris</h4>
             <ul className="space-y-2">
-              {["Masai Mara Safari", "Amboseli Safari", "Diani Beach Holiday", "Tsavo Adventure", "Lake Nakuru Tour", "Lamu Cultural Tour"].map(
+              {["Masai Mara & Serengeti", "Uganda Gorilla Escape", "Zanzibar Beach Retreat", "Kilimanjaro Summit Trek", "Rwanda Primates Tour", "Cape Town & Kruger"].map(
                 (item) => (
                   <li key={item}>
                     <Link

@@ -9,7 +9,7 @@ import BookingModal from "@/components/booking/BookingModal";
 import { Star, MapPin, Clock, Filter } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
-const categories = ["All", "Wildlife Safari", "Beach Holiday", "Cultural Tour"];
+const categories = ["All", "Wildlife Safari", "Beach Holiday", "Cultural Tour", "Adventure"];
 
 const Safaris = () => {
   const [activeCategory, setActiveCategory] = useState("All");
