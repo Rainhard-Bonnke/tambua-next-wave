@@ -8,20 +8,24 @@ import {
 
 const faqs = [
   {
-    q: "What is the best time to visit Kenya for a safari?",
-    a: "The best time for a Kenyan safari is during the dry seasons: January–March and July–October. The Great Migration in the Masai Mara happens from July to October, which is a spectacular time to visit.",
+    q: "What is the best time to visit East Africa for a safari?",
+    a: "The dry seasons (June–October and January–March) are ideal for wildlife viewing across Kenya and Tanzania. The Great Migration moves through the Serengeti and Masai Mara from July to October. Uganda and Rwanda are great year-round for gorilla trekking, with drier months (June–September, December–February) preferred.",
   },
   {
-    q: "Do I need a visa to visit Kenya?",
-    a: "Most visitors need an eTA (Electronic Travel Authorization) to enter Kenya. You can apply online at etakenya.go.ke. Some nationalities may require a traditional visa. We'll help guide you through the process.",
+    q: "Do I need visas for multiple East African countries?",
+    a: "Kenya, Rwanda, and Uganda offer an East Africa Tourist Visa that covers all three countries for $100. Tanzania requires a separate visa. Ethiopia and South Africa also have their own visa processes. We'll guide you through all entry requirements for your itinerary.",
   },
   {
-    q: "What vaccinations do I need?",
-    a: "Yellow fever vaccination is required if traveling from an endemic country. We recommend consulting your doctor about malaria prophylaxis, Hepatitis A & B, and Typhoid vaccinations at least 6 weeks before travel.",
+    q: "What vaccinations do I need for East Africa?",
+    a: "Yellow fever vaccination is required for entry into most East African countries. We recommend consulting your doctor about malaria prophylaxis, Hepatitis A & B, and Typhoid vaccinations at least 6 weeks before travel.",
   },
   {
-    q: "What should I pack for a safari?",
-    a: "Pack lightweight, neutral-colored clothing (khaki, olive, tan), comfortable walking shoes, a wide-brimmed hat, sunscreen, binoculars, and a good camera. Evenings can be cool, so bring a light jacket.",
+    q: "What should I pack for an African safari?",
+    a: "Pack lightweight, neutral-colored clothing (khaki, olive, tan), comfortable walking shoes, a wide-brimmed hat, sunscreen, binoculars, and a good camera. Evenings can be cool at altitude, so bring a warm layer. For gorilla treks, include waterproof gear and sturdy hiking boots.",
+  },
+  {
+    q: "Can I combine multiple countries in one trip?",
+    a: "Absolutely! Multi-country itineraries are our specialty. Popular combinations include Kenya–Tanzania (Mara & Serengeti), Uganda–Rwanda (gorilla trekking), and Tanzania–Zanzibar (bush to beach). We handle all cross-border logistics seamlessly.",
   },
   {
     q: "Are your safaris suitable for children?",
@@ -30,10 +34,6 @@ const faqs = [
   {
     q: "What is your cancellation policy?",
     a: "Free cancellation up to 30 days before departure for a full refund. Cancellations 15-29 days before receive a 50% refund. Within 14 days, no refund is available. We recommend travel insurance.",
-  },
-  {
-    q: "Can I customize my safari itinerary?",
-    a: "Absolutely! All our packages can be customized to suit your preferences, budget, and timeframe. Contact us with your requirements and we'll create a bespoke itinerary just for you.",
   },
   {
     q: "What is included in the safari price?",

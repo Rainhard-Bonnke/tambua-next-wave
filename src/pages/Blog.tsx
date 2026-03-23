@@ -54,7 +54,7 @@ const posts = [
     id: "6",
     title: "Diani Beach: Kenya's Best Kept Secret",
     excerpt: "Discover why Diani Beach has been voted Africa's leading beach destination year after year and what makes it so special.",
-    image: "https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
     date: "Jan 30, 2026",
     category: "Destinations",
     readTime: "4 min read",

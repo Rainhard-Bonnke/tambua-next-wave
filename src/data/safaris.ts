@@ -121,7 +121,7 @@ export const safaris: Safari[] = [
     price: 3200,
     rating: 4.8,
     reviews: 198,
-    image: "https://images.unsplash.com/photo-1621414050945-18be31bab874?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1609198092458-38a293c7ac4b?w=800&q=80",
     description: "Conquer Africa's highest peak via the Machame Route — five climate zones, breathtaking views, and an unforgettable summit night.",
     highlights: ["Machame Route", "Five Climate Zones", "Uhuru Peak Summit"],
     category: "Adventure",
