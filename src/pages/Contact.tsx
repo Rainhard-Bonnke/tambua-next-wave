@@ -31,10 +31,14 @@ const Contact = () => {
         message: formData.message,
       });
 
+      const whatsappText = `Hello! My name is ${formData.name}.\n\nI have an inquiry regarding: ${formData.subject}\n\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`;
+      const whatsappUrl = `https://wa.me/254745617108?text=${encodeURIComponent(whatsappText)}`;
+      window.open(whatsappUrl, '_blank');
+
       toast.success(
         result.googleSheetsSynced
-          ? "Message sent and recorded successfully. We'll get back to you within 24 hours."
-          : "Message sent successfully. Our team will follow up within 24 hours.",
+          ? "Message sent! Opening WhatsApp to connect directly with our team."
+          : "Message sent! Opening WhatsApp to connect directly with our team.",
       );
       setFormData(emptyForm);
     } catch (error) {

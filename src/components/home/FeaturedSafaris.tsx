@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Star, MapPin, Clock, ArrowRight } from "lucide-react";
+import { Star, MapPin, Clock, ArrowRight, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { safaris } from "@/data/safaris";
+import { useSafaris } from "@/hooks/useSafaris";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import BookingModal from "@/components/booking/BookingModal";
 
@@ -15,6 +15,8 @@ const FeaturedSafaris = () => {
     setSelectedSafari(safariId);
     setBookingOpen(true);
   };
+
+  const { data: safaris = [], isLoading } = useSafaris();
 
   return (
     <section className="section-padding bg-background" ref={ref}>
@@ -33,8 +35,13 @@ const FeaturedSafaris = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {safaris.map((safari, index) => (
-            <div
+          {isLoading ? (
+            <div className="col-span-1 sm:col-span-2 lg:col-span-3 flex justify-center py-12">
+              <Loader2 className="w-8 h-8 animate-spin text-accent" />
+            </div>
+          ) : (
+            safaris.slice(0, 6).map((safari, index) => (
+              <div
               key={safari.id}
               className={`group bg-card rounded-2xl overflow-hidden border border-border hover:shadow-xl transition-all duration-500 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -76,7 +83,7 @@ const FeaturedSafaris = () => {
                 </div>
               </div>
             </div>
-          ))}
+          )))}
         </div>
       </div>
       <BookingModal open={bookingOpen} onOpenChange={setBookingOpen} preselectedSafari={selectedSafari} />

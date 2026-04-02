@@ -2,14 +2,14 @@ import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const partners = [
-  { name: "Kenya Wildlife Service", initials: "KWS" },
-  { name: "Kenya Tourism Board", initials: "KTB" },
-  { name: "KATO", initials: "KATO" },
-  { name: "TripAdvisor", initials: "TA" },
-  { name: "Safari Bookings", initials: "SB" },
-  { name: "Eco Tourism Kenya", initials: "ETK" },
-  { name: "IATA", initials: "IATA" },
-  { name: "UN Tourism", initials: "UNT" },
+  { name: "Kenya Wildlife Service", logo: "/images/logos/kws.png" },
+  { name: "Magical Kenya", logo: "/images/logos/magical-kenya.png" },
+  { name: "KATO", logo: "/images/logos/kato.png" },
+  { name: "TripAdvisor", logo: "/images/logos/tripadvisor.svg" },
+  { name: "Safari Bookings", logo: "/images/logos/safaribookings.png" },
+  { name: "Eco Tourism Kenya", logo: "/images/logos/ecotourism.png" },
+  { name: "IATA", logo: "/images/logos/iata.svg" },
+  { name: "UN Tourism", logo: "/images/logos/un-tourism.svg" },
 ];
 
 const PartnersSection = () => {
@@ -23,19 +23,22 @@ const PartnersSection = () => {
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mt-2">Our Partners & Affiliations</h2>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-8 items-center justify-items-center">
           {partners.map((partner, i) => (
             <motion.div
               key={partner.name}
               initial={{ opacity: 0, y: 20 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.05, duration: 0.4 }}
-              className="flex flex-col items-center justify-center p-4 rounded-xl bg-background border border-border hover:shadow-md hover:border-accent/30 transition-all cursor-default"
+              className="flex flex-col items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
+              title={partner.name}
             >
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-2">
-                <span className="text-primary font-bold text-sm">{partner.initials}</span>
-              </div>
-              <span className="text-xs text-muted-foreground text-center font-medium leading-tight">{partner.name}</span>
+              <img
+                src={partner.logo}
+                alt={partner.name}
+                className="h-10 w-full object-contain"
+                loading="lazy"
+              />
             </motion.div>
           ))}
         </div>

@@ -2,12 +2,13 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageTransition from "@/components/layout/PageTransition";
-import { destinations } from "@/data/destinations";
-import { ArrowRight, MapPin } from "lucide-react";
+import { useDestinations } from "@/hooks/useDestinations";
+import { ArrowRight, MapPin, Loader2 } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Destinations = () => {
   const { ref, isVisible } = useScrollAnimation();
+  const { data: destinations = [], isLoading } = useDestinations();
 
   // Group destinations by country
   const countries = [...new Set(destinations.map((d) => d.country))];
@@ -33,7 +34,10 @@ const Destinations = () => {
 
           <section className="section-padding bg-background" ref={ref}>
             <div className="container-wide mx-auto">
-              {grouped.map((group, gi) => (
+              {isLoading ? (
+                <div className="flex justify-center py-12"><Loader2 className="w-8 h-8 animate-spin text-accent" /></div>
+              ) : (
+                grouped.map((group, gi) => (
                 <div key={group.country} className="mb-16 last:mb-0">
                   <div className="flex items-center gap-3 mb-6">
                     <MapPin className="w-5 h-5 text-accent" />
@@ -70,7 +74,7 @@ const Destinations = () => {
                     ))}
                   </div>
                 </div>
-              ))}
+              )))}
             </div>
           </section>
         </main>

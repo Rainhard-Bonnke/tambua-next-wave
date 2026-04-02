@@ -11,6 +11,7 @@ import CookieConsent from "@/components/layout/CookieConsent";
 import ErrorBoundary from "@/components/layout/ErrorBoundary";
 import SuspenseFallback from "@/components/layout/SuspenseFallback";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import { AIAgentChat } from "@/components/chat/AIAgentChat";
 
 // Performance: Lazy load pages to reduce initial bundle size
 const Index = lazy(() => import("./pages/Index.tsx"));
@@ -74,6 +75,7 @@ const App = () => (
         <AuthProvider>
           <AnimatedRoutes />
           <FloatingButtons />
+          <AIAgentChat />
           <CookieConsent />
         </AuthProvider>
       </BrowserRouter>

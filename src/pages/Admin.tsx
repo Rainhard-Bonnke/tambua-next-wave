@@ -11,6 +11,9 @@ import { Loader2, Search, Users, Calendar, DollarSign, BarChart3, LogOut } from 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageTransition from "@/components/layout/PageTransition";
+import { AdminSafaris } from "@/components/admin/AdminSafaris";
+import { AdminDestinations } from "@/components/admin/AdminDestinations";
+import { AdminInsights } from "@/components/admin/AdminInsights";
 
 interface AdminBooking {
   id: string;
@@ -39,6 +42,7 @@ const statusColors: Record<string, string> = {
 const Admin = () => {
   const { user, signOut, loading: authLoading } = useAuth();
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("bookings");
   const [bookings, setBookings] = useState<AdminBooking[]>([]);
   const [profiles, setProfiles] = useState<Record<string, AdminProfile>>({});
   const [loading, setLoading] = useState(true);
@@ -71,6 +75,7 @@ const Admin = () => {
       setBookings(bookingsData as AdminBooking[]);
 
       // Load profiles for all users
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const userIds = [...new Set(bookingsData.map((b: any) => b.user_id))];
       if (userIds.length > 0) {
         const { data: profilesData } = await supabase
@@ -79,6 +84,7 @@ const Admin = () => {
           .in("id", userIds);
         if (profilesData) {
           const map: Record<string, AdminProfile> = {};
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           profilesData.forEach((p: any) => { map[p.id] = p; });
           setProfiles(map);
         }
@@ -90,6 +96,7 @@ const Admin = () => {
   const updateStatus = async (bookingId: string, newStatus: string) => {
     const { error } = await supabase
       .from("bookings")
+      /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
       .update({ status: newStatus as any, updated_at: new Date().toISOString() })
       .eq("id", bookingId);
 
@@ -139,8 +146,28 @@ const Admin = () => {
             </Button>
           </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="flex gap-2 mb-8 border-b border-border pb-px">
+            {["bookings", "safaris", "destinations", "insights"].map(tab => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-4 py-2 font-medium text-sm capitalize border-b-2 transition-colors ${
+                  activeTab === tab ? "border-accent text-accent" : "border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+
+          {activeTab === "safaris" && <AdminSafaris />}
+          {activeTab === "destinations" && <AdminDestinations />}
+          {activeTab === "insights" && <AdminInsights />}
+
+          {activeTab === "bookings" && (
+            <>
+              {/* Stats */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <div className="bg-card rounded-2xl border border-border p-6">
               <div className="flex items-center gap-3">
                 <BarChart3 className="w-8 h-8 text-accent" />
@@ -252,6 +279,7 @@ const Admin = () => {
               )}
             </div>
           </div>
+          </>)}
         </div>
       </div>
       <Footer />

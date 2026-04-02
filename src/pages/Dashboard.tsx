@@ -9,6 +9,11 @@ import { Calendar, Users, MapPin, LogOut, Loader2, CreditCard, Download } from "
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageTransition from "@/components/layout/PageTransition";
+import EditBookingModal from "@/components/booking/EditBookingModal";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useSafaris } from "@/hooks/useSafaris";
 
 interface Booking {
   id: string;
@@ -36,6 +41,13 @@ const Dashboard = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [downloadingId, setDownloadingId] = useState<string | null>(null);
+  const [editingBooking, setEditingBooking] = useState<Booking | null>(null);
+  
+  const [payingBooking, setPayingBooking] = useState<Booking | null>(null);
+  const [paymentMethod, setPaymentMethod] = useState<"card" | "mpesa">("card");
+  const [mpesaPhone, setMpesaPhone] = useState("");
+  const [isPaying, setIsPaying] = useState(false);
+  const { data: safaris = [] } = useSafaris();
 
   useEffect(() => {
     if (user) fetchBookings();
@@ -54,6 +66,7 @@ const Dashboard = () => {
   const cancelBooking = async (id: string) => {
     const { error } = await supabase
       .from("bookings")
+      /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
       .update({ status: "cancelled" as any, updated_at: new Date().toISOString() })
       .eq("id", id);
 
@@ -169,9 +182,17 @@ const Dashboard = () => {
                       </Button>
                     )}
                     {booking.status === "pending" && (
-                      <Button variant="destructive" size="sm" onClick={() => cancelBooking(booking.id)} className="rounded-xl">
-                        Cancel
-                      </Button>
+                      <div className="flex gap-2">
+                        <Button variant="default" size="sm" onClick={() => setPayingBooking(booking)} className="rounded-xl bg-accent text-accent-foreground hover:bg-accent/90">
+                          Pay Now
+                        </Button>
+                        <Button variant="outline" size="sm" onClick={() => setEditingBooking(booking)} className="rounded-xl">
+                          Edit
+                        </Button>
+                        <Button variant="destructive" size="sm" onClick={() => cancelBooking(booking.id)} className="rounded-xl">
+                          Cancel
+                        </Button>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -180,6 +201,53 @@ const Dashboard = () => {
           )}
         </div>
       </div>
+      <EditBookingModal 
+        booking={editingBooking} 
+        open={!!editingBooking} 
+        onOpenChange={(open) => !open && setEditingBooking(null)} 
+        onSuccess={fetchBookings} 
+      />
+
+      <Dialog open={!!payingBooking} onOpenChange={(open) => !open && setPayingBooking(null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Complete Your Payment</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Select Payment Method</label>
+              <Select value={paymentMethod} onValueChange={(v: "card" | "mpesa") => setPaymentMethod(v)}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="card">Credit / Debit Card (Stripe)</SelectItem>
+                  <SelectItem value="mpesa">M-Pesa (Mobile Money)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            {paymentMethod === "card" && (
+              <p className="text-sm text-muted-foreground bg-muted/50 p-3 rounded-lg flex items-center gap-2">
+                <CreditCard className="w-4 h-4 text-accent" /> You'll be securely redirected to Stripe checkout.
+              </p>
+            )}
+
+            {paymentMethod === "mpesa" && (
+              <div className="space-y-2">
+                <label className="text-sm font-medium">M-Pesa Phone Number</label>
+                <Input type="tel" placeholder="254700000000" value={mpesaPhone} onChange={(e) => setMpesaPhone(e.target.value)} required />
+                <p className="text-xs text-muted-foreground">You will receive an STK Push on your phone to complete the payment.</p>
+              </div>
+            )}
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setPayingBooking(null)}>Cancel</Button>
+            <Button className="bg-accent hover:bg-accent/90 text-white" onClick={handlePayment} disabled={isPaying || (paymentMethod === "mpesa" && !mpesaPhone.trim())}>
+              {isPaying ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+              {paymentMethod === "card" ? "Proceed to Stripe" : "Send STK Push"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       <Footer />
     </PageTransition>
   );
