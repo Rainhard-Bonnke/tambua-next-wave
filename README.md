@@ -1,73 +1,62 @@
-# Welcome to your Lovable project
+# Tambua Africa
 
-## Project info
+A modern web application for safari bookings and travel management built with React, TypeScript, and Tailwind CSS.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Project Overview
 
-## How can I edit this code?
+Tambua Africa is a comprehensive safari booking platform featuring:
+- Safari package browsing and booking
+- Destination information
+- Admin dashboard for managing safaris and bookings
+- Real-time chat with AI agents
+- Integration with Supabase for backend services
+- M-Pesa payment processing
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
+## Technologies
 
 This project is built with:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **Frontend**: React, TypeScript, Vite
+- **Styling**: Tailwind CSS, shadcn-ui
+- **Backend**: Supabase (PostgreSQL), Edge Functions
+- **Payments**: M-Pesa integration
+- **Testing**: Vitest, Playwright
 
-## How can I deploy this project?
+## Getting Started
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+### Requirements
+- Node.js (via nvm: [install nvm](https://github.com/nvm-sh/nvm#installing-and-updating))
+- Bun or npm for package management
 
-## Can I connect a custom domain to my Lovable project?
+### Installation
 
-Yes, you can!
+```sh
+# Clone the repository
+git clone https://github.com/cresdynamics-lang/tambuaafrica.git
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+# Navigate to the project directory
+cd tambuaafrica
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+# Install dependencies
+bun install
+# or
+npm install
+
+# Start the development server
+npm run dev
+```
+
+## Development
+
+- **Build**: `npm run build`
+- **Test**: `npm run test`
+- **Lint**: `npm run lint`
+- **Format**: `npm run format`
+
+## Deployment
+
+Follow the build process and deploy using your preferred hosting platform.
+
+## Contributing
+
+Please ensure all tests pass and code follows the linting standards before submitting pull requests.
