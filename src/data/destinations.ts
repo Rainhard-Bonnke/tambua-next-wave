@@ -4,6 +4,7 @@ export interface Destination {
   country: string;
   description: string;
   image: string;
+  images?: string[];
   safariCount: number;
 }
 
@@ -13,16 +14,24 @@ export const destinations: Destination[] = [
     id: "masai-mara",
     name: "Masai Mara",
     country: "Kenya",
-    description: "Kenya's legendary wildlife reserve — home to the Great Migration and one of Africa's most iconic safari landscapes.",
-    image: "/images/beautiful-shot-three-cute-giraffes-field-with-trees-blue-sky.jpg",
+    description: "Kenya's legendary wildlife reserve — home to the Great Migration, magnificent lions, and sprawling golden savannah landscapes.",
+    image: "https://images.pexels.com/photos/247376/pexels-photo-247376.jpeg",
+    images: [
+      "https://images.pexels.com/photos/247376/pexels-photo-247376.jpeg",
+      "https://images.pexels.com/photos/2862070/pexels-photo-2862070.jpeg"
+    ],
     safariCount: 12,
   },
   {
     id: "amboseli",
     name: "Amboseli National Park",
     country: "Kenya",
-    description: "Dramatic Kilimanjaro views meet large elephant herds in one of Kenya's most photogenic parks.",
-    image: "/images/pexels-maasai-magic-3752887-5574091.jpg",
+    description: "Dramatic Kilimanjaro views meet massive African elephant herds wandering through this incredibly photogenic iconic park.",
+    image: "https://images.pexels.com/photos/59989/elephant-herd-of-elephants-african-bush-elephant-africa-59989.jpeg",
+    images: [
+      "https://images.pexels.com/photos/59989/elephant-herd-of-elephants-african-bush-elephant-africa-59989.jpeg",
+      "https://images.pexels.com/photos/2615535/pexels-photo-2615535.jpeg"
+    ],
     safariCount: 8,
   },
   {
@@ -178,5 +187,31 @@ export const destinations: Destination[] = [
     description: "Where mountains meet ocean — Table Mountain, Cape Point, and vibrant culture at Africa's southern tip.",
     image: "/images/pexels-abelalemseged-17272121.jpg",
     safariCount: 6,
+  },
+
+  // Premium Hotels & Lounges
+  {
+    id: "mara-safari-club",
+    name: "Mara Safari Lodge & Lounge",
+    country: "Premium Hotels & Lounges",
+    description: "Experience absolute luxury in the wild. A truly authentic safari lodge featuring opulent accommodations, a world-class outdoor lounge, and exquisite dining with uninterrupted views of the majestic plains.",
+    image: "https://images.pexels.com/photos/8968154/pexels-photo-8968154.jpeg",
+    images: [
+      "https://images.pexels.com/photos/8968154/pexels-photo-8968154.jpeg",
+      "https://images.pexels.com/photos/1565326/pexels-photo-1565326.jpeg"
+    ],
+    safariCount: 1,
+  },
+  {
+    id: "zanzibar-beach-resort",
+    name: "Serengeti Oasis Lodge",
+    country: "Premium Hotels & Lounges",
+    description: "A breathtaking exclusive bush retreat. Features beautiful rustic-chic lodges, an incredible evening campfire lounge under the stars, and an elevated vantage point over the wilderness.",
+    image: "https://images.pexels.com/photos/35074968/pexels-photo-35074968.jpeg",
+    images: [
+      "https://images.pexels.com/photos/35074968/pexels-photo-35074968.jpeg",
+      "https://images.pexels.com/photos/7163685/pexels-photo-7163685.jpeg"
+    ],
+    safariCount: 1,
   },
 ];

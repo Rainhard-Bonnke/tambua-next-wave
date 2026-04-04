@@ -44,7 +44,7 @@ const DestinationsSection = () => {
                 <h3 className="text-white font-bold text-lg sm:text-xl">{dest.name}</h3>
                 <p className="text-white/70 text-xs sm:text-sm mt-1 hidden sm:block">{dest.description}</p>
                 <div className="flex items-center gap-2 mt-2 text-accent text-sm font-medium">
-                  {dest.safariCount} Safaris <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  {dest.safariCount} Hotels & Lounges
                 </div>
               </div>
             </Link>
