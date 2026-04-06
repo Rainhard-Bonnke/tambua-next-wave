@@ -4,7 +4,7 @@ import PageTransition from "@/components/layout/PageTransition";
 import { Calendar, ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
-const posts = [
+import { posts } from "@/data/blogPosts";
   {
     id: "1",
     title: "Top 10 Safari Experiences in Kenya for 2026",

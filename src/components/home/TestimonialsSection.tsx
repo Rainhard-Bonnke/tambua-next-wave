@@ -29,12 +29,14 @@ const TestimonialsSection = () => {
             "{t.quote}"
           </p>
           <div className="flex items-center justify-center gap-4 mb-4">
-            <img
-              src={t.avatar}
-              alt={t.name}
-              className="w-14 h-14 rounded-full object-cover border-2 border-accent"
-              loading="lazy"
-            />
+            <div className="w-14 h-14 rounded-full flex items-center justify-center bg-accent/10 border-2 border-accent text-accent font-bold text-xl select-none">
+              {t.name
+                .split(' ')
+                .map(word => word[0])
+                .join('')
+                .toUpperCase()
+                .slice(0, 2)}
+            </div>
             <div className="text-left">
               <div className="font-bold text-foreground">{t.name}</div>
               <div className="text-sm text-muted-foreground">{t.title}</div>
