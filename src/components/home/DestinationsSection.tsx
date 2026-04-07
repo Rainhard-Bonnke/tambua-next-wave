@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
-import { destinations } from "@/data/destinations";
+import { ArrowRight, Loader2 } from "lucide-react";
+import { useDestinations } from "@/hooks/useDestinations";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const DestinationsSection = () => {
   const { ref, isVisible } = useScrollAnimation();
+
+  const { data: destinations = [], isLoading } = useDestinations();
 
   // Show a curated selection of 6 across different countries
   const featured = destinations.filter((d) =>
@@ -23,7 +25,12 @@ const DestinationsSection = () => {
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-          {featured.map((dest, index) => (
+          {isLoading ? (
+            <div className="col-span-2 lg:col-span-3 flex justify-center py-12">
+              <Loader2 className="w-8 h-8 animate-spin text-accent" />
+            </div>
+          ) : (
+            featured.map((dest, index) => (
             <Link
               key={dest.id}
               to="/destinations"
@@ -48,7 +55,7 @@ const DestinationsSection = () => {
                 </div>
               </div>
             </Link>
-          ))}
+          )))}
         </div>
 
         <div className="text-center mt-8">

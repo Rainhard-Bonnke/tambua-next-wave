@@ -4,9 +4,9 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageTransition from "@/components/layout/PageTransition";
 import { Button } from "@/components/ui/button";
-import { safaris } from "@/data/safaris";
+import { useSafaris } from "@/hooks/useSafaris";
 import BookingModal from "@/components/booking/BookingModal";
-import { Star, MapPin, Clock, Filter } from "lucide-react";
+import { Star, MapPin, Clock, Filter, Loader2 } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const categories = ["All", "Wildlife Safari", "Beach Holiday", "Cultural Tour", "Adventure"];
@@ -16,6 +16,7 @@ const Safaris = () => {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [selectedSafari, setSelectedSafari] = useState("");
   const { ref, isVisible } = useScrollAnimation();
+  const { data: safaris = [], isLoading } = useSafaris();
 
   const filtered = activeCategory === "All" ? safaris : safaris.filter((s) => s.category === activeCategory);
 
@@ -57,7 +58,12 @@ const Safaris = () => {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filtered.map((safari, index) => (
+                {isLoading ? (
+                  <div className="col-span-1 sm:col-span-2 lg:col-span-3 flex justify-center py-12">
+                    <Loader2 className="w-8 h-8 animate-spin text-accent" />
+                  </div>
+                ) : (
+                  filtered.map((safari, index) => (
                   <div
                     key={safari.id}
                     className={`group bg-card rounded-2xl overflow-hidden border border-border hover:shadow-xl transition-all duration-500 ${
@@ -106,7 +112,7 @@ const Safaris = () => {
                       </div>
                     </div>
                   </div>
-                ))}
+                )))}
               </div>
             </div>
           </section>

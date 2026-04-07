@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { safaris } from "@/data/safaris";
+import { useSafari } from "@/hooks/useSafaris";
 import BookingModal from "@/components/booking/BookingModal";
-import { Star, MapPin, Clock, CheckCircle2, ArrowLeft, Users, Calendar, Shield } from "lucide-react";
+import { Star, MapPin, Clock, CheckCircle2, ArrowLeft, Users, Calendar, Shield, Loader2 } from "lucide-react";
 
 const itineraries: Record<string, string[]> = {
   "masai-mara-serengeti-circuit": [
@@ -60,7 +60,15 @@ const excluded = ["International flights", "Visa fees", "Travel insurance", "Tip
 const SafariDetail = () => {
   const { id } = useParams();
   const [bookingOpen, setBookingOpen] = useState(false);
-  const safari = safaris.find((s) => s.id === id);
+  const { data: safari, isLoading } = useSafari(id);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-accent" />
+      </div>
+    );
+  }
 
   if (!safari) {
     return (

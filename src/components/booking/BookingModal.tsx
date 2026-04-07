@@ -9,7 +9,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { safaris } from "@/data/safaris";
+import { useSafaris } from "@/hooks/useSafaris";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { submitInquiry } from "@/lib/inquiry";
@@ -36,6 +36,9 @@ const BookingModal = ({ open, onOpenChange, preselectedSafari }: BookingModalPro
   const navigate = useNavigate();
   const [date, setDate] = useState<Date>();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<"card" | "mpesa">("card");
+  const [mpesaPhone, setMpesaPhone] = useState("");
+  const { data: safaris = [] } = useSafaris();
   const [form, setForm] = useState({
     ...emptyForm,
     safari: preselectedSafari || "",
@@ -57,20 +60,43 @@ const BookingModal = ({ open, onOpenChange, preselectedSafari }: BookingModalPro
     setIsSubmitting(true);
 
     try {
-      // If user is logged in, create a booking and redirect to Stripe checkout
+      // If user is logged in, create a booking and route to chosen payment gateway
       if (user) {
-        const { data, error } = await supabase.functions.invoke("create-checkout", {
-          body: {
-            safariId: selectedSafari.id,
-            safariTitle: selectedSafari.title,
-            priceId: selectedSafari.stripePriceId,
-            guests: form.guests,
-            preferredDate: format(date, "yyyy-MM-dd"),
-            notes: form.notes,
-          },
-        });
+        if (paymentMethod === "card") {
+          const { data, error } = await supabase.functions.invoke("create-checkout", {
+            body: {
+              safariId: selectedSafari.id,
+              safariTitle: selectedSafari.title,
+              priceId: selectedSafari.stripePriceId,
+              guests: form.guests,
+              preferredDate: format(date, "yyyy-MM-dd"),
+              notes: form.notes,
+            },
+          });
 
-        if (error || data?.error) throw new Error(data?.error || error?.message || "Checkout failed");
+          if (error || data?.error) throw new Error(data?.error || error?.message || "Checkout failed");
+          if (data?.url) window.location.href = data.url;
+        } else {
+          // M-Pesa
+          if (!mpesaPhone.trim()) throw new Error("Please enter your M-Pesa phone number in the correct format (e.g. 2547XXXXXXXX)");
+          // The edge-function expects "amount" value. Let's send a conversion roughly or fallback to direct conversion (1 USD = 130 KES roughly)
+          const mpesaAmount = selectedSafari.price * parseInt(form.guests) * 130;
+          
+          const { data, error } = await supabase.functions.invoke("mpesa-stk-push", {
+            body: {
+              phone: mpesaPhone,
+              amount: mpesaAmount,
+              safariId: selectedSafari.id,
+              safariTitle: selectedSafari.title,
+              guests: form.guests,
+              preferredDate: format(date, "yyyy-MM-dd"),
+              notes: form.notes,
+            },
+          });
+
+          if (error || data?.error) throw new Error(data?.error || error?.message || "M-Pesa payment failed to initialize.");
+          toast.success("M-Pesa validation sent! Check your phone to complete payment.");
+        }
 
         // Also sync to Google Sheets
         try {
@@ -89,9 +115,15 @@ const BookingModal = ({ open, onOpenChange, preselectedSafari }: BookingModalPro
           // Non-critical: sheet sync can fail silently
         }
 
+        if (paymentMethod === "mpesa") {
+          onOpenChange(false);
+          setForm(emptyForm);
+          setDate(undefined);
+          return; // The toast is already displayed
+        }
+
         onOpenChange(false);
-        // Redirect to Stripe checkout
-        if (data?.url) window.location.href = data.url;
+        // Redirect to Stripe checkout handled above
       } else {
         // Guest: just submit inquiry (no payment)
         const result = await submitInquiry({
@@ -106,10 +138,14 @@ const BookingModal = ({ open, onOpenChange, preselectedSafari }: BookingModalPro
           message: form.notes,
         });
 
+        const whatsappText = `Hello Tambua Next Wave! I would like to book a safari.\n\nSafari: ${selectedSafari.title}\nName: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nDate: ${format(date, "yyyy-MM-dd")}\nGuests: ${form.guests}\n\nNotes: ${form.notes || "None"}`;
+        const whatsappUrl = `https://wa.me/254745617108?text=${encodeURIComponent(whatsappText)}`;
+        window.open(whatsappUrl, '_blank');
+
         toast.success(
           result.googleSheetsSynced
-            ? "Booking inquiry sent! We'll contact you within 24 hours."
-            : "Booking inquiry sent! Our team will follow up shortly."
+            ? "Booking inquiry sent! Opening WhatsApp to connect directly."
+            : "Booking inquiry sent! Opening WhatsApp to connect directly."
         );
         onOpenChange(false);
         setForm(emptyForm);
@@ -215,9 +251,40 @@ const BookingModal = ({ open, onOpenChange, preselectedSafari }: BookingModalPro
           </div>
 
           {user && (
-            <div className="bg-muted/50 rounded-xl p-3 flex items-center gap-2 text-sm text-muted-foreground">
-              <CreditCard className="w-4 h-4 text-accent" />
-              You'll be redirected to secure Stripe checkout after submitting.
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">Select Payment Method</label>
+                <Select value={paymentMethod} onValueChange={(v: "card" | "mpesa") => setPaymentMethod(v)}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="card">Credit / Debit Card (Stripe)</SelectItem>
+                    <SelectItem value="mpesa">M-Pesa (Mobile Money)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {paymentMethod === "card" && (
+                <div className="bg-muted/50 rounded-xl p-3 flex items-center gap-2 text-sm text-muted-foreground">
+                  <CreditCard className="w-4 h-4 text-accent" />
+                  You'll be redirected to secure Stripe checkout after submitting.
+                </div>
+              )}
+              
+              {paymentMethod === "mpesa" && (
+                <div className="space-y-2 bg-muted/30 p-4 rounded-xl border border-border">
+                  <label className="text-sm font-medium text-foreground">M-Pesa Phone Number</label>
+                  <Input 
+                    type="tel" 
+                    placeholder="254700000000" 
+                    value={mpesaPhone} 
+                    onChange={(e) => setMpesaPhone(e.target.value)} 
+                    required 
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Enter your Safaricom number. You will receive an STK prompt on your phone.
+                  </p>
+                </div>
+              )}
             </div>
           )}
 
