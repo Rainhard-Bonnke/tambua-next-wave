@@ -32,7 +32,8 @@ export const useSafaris = () => {
         return localSafaris;
       }
     },
-    staleTime: 1000 * 60 * 5, // Cache for 5 mins
+    staleTime: 1000 * 60 * 30, // Increase to 30 mins for instant navigation
+    gcTime: 1000 * 60 * 60,   // Keep in memory for 1 hour
   });
 };
 
