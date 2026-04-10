@@ -197,6 +197,11 @@ const Dashboard = () => {
               <p className="text-muted-foreground">{user?.email}</p>
             </div>
             <div className="flex items-center gap-4">
+              {isAdmin && (
+                <Button onClick={() => navigate("/admin")} className="rounded-xl bg-accent text-accent-foreground hover:bg-accent/90 font-bold">
+                  <ShieldCheck className="w-4 h-4 mr-2" /> Admin Panel
+                </Button>
+              )}
               <Button variant="outline" onClick={handleSignOut} className="rounded-xl">
                 <LogOut className="w-4 h-4 mr-2" /> Sign Out
               </Button>
