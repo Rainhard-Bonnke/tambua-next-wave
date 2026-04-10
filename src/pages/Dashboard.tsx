@@ -5,11 +5,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Calendar, Users, MapPin, LogOut, Loader2, CreditCard, Download } from "lucide-react";
+import { Calendar, Users, MapPin, LogOut, Loader2, CreditCard, Download, ShieldCheck } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageTransition from "@/components/layout/PageTransition";
 import EditBookingModal from "@/components/booking/EditBookingModal";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -183,9 +184,16 @@ const Dashboard = () => {
               <h1 className="text-3xl font-bold text-foreground">My Bookings</h1>
               <p className="text-muted-foreground">{user?.email}</p>
             </div>
-            <Button variant="outline" onClick={handleSignOut} className="rounded-xl">
-              <LogOut className="w-4 h-4 mr-2" /> Sign Out
-            </Button>
+            <div className="flex items-center gap-4">
+              {isAdmin && (
+                <Button onClick={() => navigate("/admin")} className="rounded-xl bg-accent text-accent-foreground hover:bg-accent/90 font-bold">
+                  <ShieldCheck className="w-4 h-4 mr-2" /> Admin Panel
+                </Button>
+              )}
+              <Button variant="outline" onClick={handleSignOut} className="rounded-xl">
+                <LogOut className="w-4 h-4 mr-2" /> Sign Out
+              </Button>
+            </div>
           </div>
 
           {bookings.length === 0 ? (
