@@ -7,13 +7,16 @@ export const useDestinations = () => {
     queryKey: ["destinations"],
     queryFn: async () => {
       try {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const { data, error } = await (supabase as any).from("destinations").select("*");
+        const fetchDestinations = async () => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const { data, error } = await (supabase as any).from("destinations").select("*");
+          if (error) throw error;
+          return data;
+        };
+
+        const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), 5000));
         
-        if (error) {
-          console.error("Error fetching destinations from Supabase:", error);
-          throw error;
-        }
+        const data = await Promise.race([fetchDestinations(), timeout]) as any[];
         
         if (!data || data.length === 0) {
           return localDestinations;
@@ -25,6 +28,7 @@ export const useDestinations = () => {
           safariCount: item.safari_count || item.safariCount,
         })) as Destination[];
       } catch (err) {
+        console.warn("Supabase fetch failed or timed out. Falling back to local Destinations data.");
         return localDestinations;
       }
     },
