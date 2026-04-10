@@ -138,10 +138,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (error) throw error;
   };
 
+  const isAdmin = role?.toLowerCase() === "admin" || user?.email?.toLowerCase() === "cresdynamics@gmail.com";
+
+  useEffect(() => {
+    if (user) {
+      console.log(`[AUTH] Checking Access for ${user.email}. isAdmin: ${isAdmin}`);
+      if (user.email?.toLowerCase() === "cresdynamics@gmail.com") {
+        console.log("%c[AUTH] Admin Safety Net Active!", "color: #ff0000; font-weight: bold; font-size: 14px;");
+      }
+    }
+  }, [user, isAdmin]);
+
   return (
     <AuthContext.Provider value={{ 
       user, session, loading, signUp, signIn, signOut, resetPassword, updatePassword, 
-      role, isAdmin: role?.toLowerCase() === "admin" || user?.email === "cresdynamics@gmail.com"
+      role, isAdmin
     }}>
       {children}
     </AuthContext.Provider>
