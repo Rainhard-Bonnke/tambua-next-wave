@@ -57,6 +57,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     let mounted = true;
 
     const initializeAuth = async () => {
+      // Diagnostic check for environment variables
+      if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY) {
+        console.error("CRITICAL: Missing Supabase Environment Variables!");
+        console.warn("If this is on Vercel, you must add VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY to your Project Settings.");
+        setLoading(false);
+        return;
+      }
+
       const { data: { session } } = await supabase.auth.getSession();
       
       if (mounted) {

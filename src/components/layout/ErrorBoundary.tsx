@@ -21,6 +21,23 @@ class ErrorBoundary extends Component<Props, State> {
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error("Uncaught error:", error, errorInfo);
+    
+    // Automatically recover from chunk loading errors (caused by new deployments)
+    const isChunkError = error.message.includes("Failed to fetch dynamically imported module") ||
+                        error.message.includes("Loading chunk") ||
+                        error.message.includes("Unexpected token '<'") ||
+                        error.message.includes("Network error");
+
+    if (isChunkError) {
+      console.warn("Chunk loading error detected. Forcing reload to fetch new site version...");
+      // Add a small delay to avoid infinite reload loops
+      const lastReload = sessionStorage.getItem('last-reload');
+      const now = Date.now();
+      if (!lastReload || now - parseInt(lastReload) > 5000) {
+        sessionStorage.setItem('last-reload', now.toString());
+        window.location.reload();
+      }
+    }
   }
 
   public render() {
