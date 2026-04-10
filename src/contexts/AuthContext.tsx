@@ -57,44 +57,65 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     let mounted = true;
 
     const initializeAuth = async () => {
-      // Diagnostic check for environment variables
-      if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY) {
-        console.error("CRITICAL: Missing Supabase Environment Variables!");
-        console.warn("If this is on Vercel, you must add VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY to your Project Settings.");
-        setLoading(false);
-        return;
-      }
-
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (mounted) {
-        setSession(session);
-        setUser(session?.user ?? null);
-        
-        if (session?.user) {
-          await fetchRole(session.user.id);
-        } else {
-          setRole(null);
+      try {
+        // Diagnostic check for environment variables
+        if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY) {
+          console.error("CRITICAL: Missing Supabase Environment Variables!");
+          return;
         }
+
+        // Add a timeout to getSession to prevent hanging the whole app
+        const getSessionPromise = supabase.auth.getSession();
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error("Auth Timeout")), 6000)
+        );
+
+        const { data: { session } } = await Promise.race([getSessionPromise, timeoutPromise]) as any;
         
-        setLoading(false);
+        if (mounted) {
+          setSession(session);
+          setUser(session?.user ?? null);
+          
+          if (session?.user) {
+            // Add a timeout to fetchRole specifically
+            try {
+              const rolePromise = fetchRole(session.user.id);
+              const roleTimeout = new Promise((_, reject) => 
+                setTimeout(() => reject(new Error("Role Timeout")), 4000)
+              );
+              await Promise.race([rolePromise, roleTimeout]);
+            } catch (roleErr) {
+              console.warn("Role fetch timed out or failed, proceeding with default permissions.");
+            }
+          } else {
+            setRole(null);
+          }
+        }
+      } catch (err) {
+        console.error("Initialization error:", err);
+      } finally {
+        if (mounted) setLoading(false);
       }
     };
 
     initializeAuth();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      if (mounted) {
-        setSession(session);
-        setUser(session?.user ?? null);
-        
-        if (session?.user) {
-          await fetchRole(session.user.id);
-        } else {
-          setRole(null);
+      try {
+        if (mounted) {
+          setSession(session);
+          setUser(session?.user ?? null);
+          
+          if (session?.user) {
+            await fetchRole(session.user.id);
+          } else {
+            setRole(null);
+          }
         }
-        
-        setLoading(false);
+      } catch (err) {
+        console.error("Auth state change error:", err);
+      } finally {
+        if (mounted) setLoading(false);
       }
     });
 

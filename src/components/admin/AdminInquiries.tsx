@@ -49,17 +49,29 @@ export const AdminInquiries = () => {
 
   const fetchInquiries = async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from("inquiry_submissions")
-      .select("*")
-      .order("created_at", { ascending: false });
+    try {
+      const fetchPromise = supabase
+        .from("inquiry_submissions")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-    if (error) {
-      toast.error("Failed to load inquiries");
-    } else {
-      setInquiries(data as Inquiry[]);
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error("Supabase Timeout")), 5000)
+      );
+
+      const { data, error } = await Promise.race([fetchPromise, timeoutPromise]) as any;
+
+      if (error) {
+        toast.error("Failed to load inquiries");
+      } else if (data) {
+        setInquiries(data as Inquiry[]);
+      }
+    } catch (err) {
+      console.warn("Inquiries fetch timed out or failed:", err);
+      // Inquiries will stay empty but UI will load
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {

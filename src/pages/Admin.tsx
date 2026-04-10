@@ -42,7 +42,7 @@ const statusColors: Record<string, string> = {
 };
 
 const Admin = () => {
-  const { user, signOut, loading: authLoading } = useAuth();
+  const { user, signOut, loading: authLoading, isAdmin: isSuperAdmin } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("bookings");
   const [bookings, setBookings] = useState<AdminBooking[]>([]);
@@ -62,60 +62,73 @@ const Admin = () => {
   const checkAdminAndLoad = async () => {
     setLoading(true);
     try {
-      // Check admin status via profile
-      const { data: profile, error: profileError } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", user!.id)
-        .single();
-      
-      if (profileError) {
-        console.error("Profile fetch error:", profileError);
-        toast.error("Error verifying admin status");
-        return;
+      // First check context-level admin status (email bypass)
+      if (isSuperAdmin) {
+        setIsAdmin(true);
+      } else {
+        // Otherwise, check admin status via profile
+        const { data: profile, error: profileError } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", user!.id)
+          .single();
+        
+        if (profileError || profile?.role?.toLowerCase() !== "admin") {
+          console.error("Access denied or profile error");
+          toast.error("You don't have admin access");
+          navigate("/dashboard");
+          return;
+        }
+        setIsAdmin(true);
       }
 
-      const roleStr = profile?.role?.toLowerCase() || "";
-      if (roleStr !== "admin") {
-        toast.error("You don't have admin access");
-        navigate("/dashboard");
-        return;
-      }
-      
-      setIsAdmin(true);
+      // Helper for timed queries
+      const withTimeout = async (promise: Promise<any>, timeoutMs: number = 5000) => {
+        const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), timeoutMs));
+        return Promise.race([promise, timeout]);
+      };
 
-      // Load bookings
-      const { data: bookingsData, error: bookingsError } = await supabase
-        .from("bookings")
-        .select("*")
-        .order("created_at", { ascending: false });
+      // RUN INDEPENDENT QUERIES IN PARALLEL
+      const [bookingsResult, inquiriesResult] = await Promise.allSettled([
+        withTimeout(supabase.from("bookings").select("*").order("created_at", { ascending: false })),
+        withTimeout(supabase.from("inquiry_submissions").select("*", { count: 'exact', head: true }).eq("status", "unread"))
+      ]);
 
-      if (bookingsData && !bookingsError) {
-        setBookings(bookingsData as AdminBooking[]);
+      // Process Bookings Result
+      if (bookingsResult.status === "fulfilled") {
+        const { data: bookingsData, error: bookingsError } = bookingsResult.value as any;
+        if (bookingsData && !bookingsError) {
+          setBookings(bookingsData as AdminBooking[]);
 
-        // Load profiles for all users
-        const userIds = [...new Set(bookingsData.map((b: any) => b.user_id))];
-        if (userIds.length > 0) {
-          const { data: profilesData } = await supabase
-            .from("profiles")
-            .select("id, full_name, phone")
-            .in("id", userIds);
-          
-          if (profilesData) {
-            const map: Record<string, AdminProfile> = {};
-            profilesData.forEach((p: any) => { map[p.id] = p; });
-            setProfiles(map);
+          // Load profiles for all users with timeout (Must happen after bookingsData arrives)
+          const userIds = [...new Set(bookingsData.map((b: any) => b.user_id))];
+          if (userIds.length > 0) {
+            try {
+              const { data: profilesData } = await withTimeout(
+                supabase.from("profiles").select("id, full_name, phone").in("id", userIds)
+              ) as any;
+              
+              if (profilesData) {
+                const map: Record<string, AdminProfile> = {};
+                profilesData.forEach((p: any) => { map[p.id] = p; });
+                setProfiles(map);
+              }
+            } catch (profileErr) {
+              console.warn("Profiles fetch timed out or failed:", profileErr);
+            }
           }
         }
+      } else {
+        console.warn("Bookings fetch timed out or failed.");
       }
 
-      // Load unread inquiries count
-      const { count: unread } = await supabase
-        .from("inquiry_submissions")
-        .select("*", { count: 'exact', head: true })
-        .eq("status", "unread");
-      
-      setUnreadCount(unread || 0);
+      // Process Inquiries Result
+      if (inquiriesResult.status === "fulfilled") {
+        const { count: unread } = inquiriesResult.value as any;
+        setUnreadCount(unread || 0);
+      } else {
+        console.warn("Inquiries fetch timed out or failed.");
+      }
     } catch (err) {
       console.error("Unexpected error in checkAdminAndLoad:", err);
       toast.error("An unexpected error occurred while loading the dashboard");

@@ -15,6 +15,13 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useSafaris } from "@/hooks/useSafaris";
+import { Skeleton } from "@/components/ui/skeleton";
+import { 
+  Tooltip, 
+  TooltipContent, 
+  TooltipProvider, 
+  TooltipTrigger 
+} from "@/components/ui/tooltip";
 
 interface Booking {
   id: string;
@@ -37,7 +44,7 @@ const statusColors: Record<string, string> = {
 };
 
 const Dashboard = () => {
-  const { user, signOut, loading: authLoading } = useAuth();
+  const { user, signOut, loading: authLoading, isAdmin } = useAuth();
   const navigate = useNavigate();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
@@ -65,7 +72,7 @@ const Dashboard = () => {
         return data;
       };
 
-      const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), 5000));
+      const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), 3000));
       
       const data = await Promise.race([fetchRequest(), timeout]);
       if (data) setBookings(data as Booking[]);
@@ -75,6 +82,28 @@ const Dashboard = () => {
       setLoading(false);
     }
   };
+
+  const BookingSkeleton = () => (
+    <div className="space-y-4">
+      {[1, 2, 3].map((i) => (
+        <div key={i} className="bg-card rounded-2xl border border-border p-6 flex flex-col sm:flex-row sm:items-center gap-4">
+          <div className="flex-1 space-y-3">
+            <div className="flex items-center gap-3">
+              <Skeleton className="h-6 w-48 rounded-lg" />
+              <Skeleton className="h-5 w-16 rounded-full" />
+            </div>
+            <div className="flex flex-wrap gap-4">
+              <Skeleton className="h-4 w-24 rounded-md" />
+              <Skeleton className="h-4 w-20 rounded-md" />
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <Skeleton className="h-9 w-24 rounded-xl" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 
   const cancelBooking = async (id: string) => {
     const { error } = await supabase
@@ -175,7 +204,7 @@ const Dashboard = () => {
     }
   };
 
-  if (authLoading || loading) {
+  if (authLoading) {
     return (
       <PageTransition>
         <Navbar />
@@ -189,7 +218,7 @@ const Dashboard = () => {
   return (
     <PageTransition>
       <Navbar />
-      <div className="min-h-screen bg-background pt-24 pb-12 px-4">
+      <div className="min-h-screen bg-background pt-24 pb-12 px-4 shadow-sm text-foreground">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-between mb-8">
             <div>
@@ -198,17 +227,37 @@ const Dashboard = () => {
             </div>
             <div className="flex items-center gap-4">
               {isAdmin && (
-                <Button onClick={() => navigate("/admin")} className="rounded-xl bg-accent text-accent-foreground hover:bg-accent/90 font-bold">
-                  <ShieldCheck className="w-4 h-4 mr-2" /> Admin Panel
-                </Button>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button 
+                        onClick={() => navigate("/admin")} 
+                        className="rounded-full w-12 h-12 bg-accent/10 text-accent hover:bg-accent/20 border border-accent/20 p-0 shadow-sm"
+                      >
+                        <ShieldCheck className="w-6 h-6" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Open Admin Dashboard</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               )}
-              <Button variant="outline" onClick={handleSignOut} className="rounded-xl">
+              <Button variant="outline" onClick={handleSignOut} className="rounded-xl border-border">
                 <LogOut className="w-4 h-4 mr-2" /> Sign Out
               </Button>
             </div>
           </div>
 
-          {bookings.length === 0 ? (
+          {loading ? (
+            <div className="space-y-6">
+              <div className="bg-card/30 rounded-2xl p-6 border border-dashed border-border flex items-center gap-4">
+                <Skeleton className="h-10 w-10 rounded-full" />
+                <Skeleton className="h-4 w-64" />
+              </div>
+              <BookingSkeleton />
+            </div>
+          ) : bookings.length === 0 ? (
             <div className="bg-card rounded-2xl border border-border p-12 text-center">
               <MapPin className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
               <h2 className="text-xl font-semibold text-foreground">No Bookings Yet</h2>

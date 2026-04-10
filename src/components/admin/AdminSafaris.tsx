@@ -11,6 +11,8 @@ import { Edit, Plus, Trash2, Loader2, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 
+import { compressImage, createPreviewUrl } from "@/lib/image-utils";
+
 const emptySafari: Partial<Safari> = {
   id: "", title: "", location: "", duration: "", price: 0, rating: 5.0, reviews: 0,
   image: "", description: "", highlights: [], category: "Wildlife Safari", stripePriceId: ""
@@ -38,14 +40,21 @@ export const AdminSafaris = () => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // 1. Show instant preview to the user
+    const previewUrl = createPreviewUrl(file);
+    setEditing((prev) => prev ? { ...prev, image: previewUrl } : null);
+    
     setUploading(true);
     try {
-      const fileExt = file.name.split(".").pop();
+      // 2. Compress the image to speed up upload
+      const compressedFile = await compressImage(file);
+      
+      const fileExt = compressedFile.name.split(".").pop();
       const fileName = `${Date.now()}-${Math.random()}.${fileExt}`;
       
       const { error: uploadError } = await supabase.storage
         .from("safaris")
-        .upload(fileName, file);
+        .upload(fileName, compressedFile);
 
       if (uploadError) throw uploadError;
 
@@ -53,9 +62,11 @@ export const AdminSafaris = () => {
         .from("safaris")
         .getPublicUrl(fileName);
 
+      // 3. Update with the final URL
       setEditing((prev) => prev ? { ...prev, image: publicUrl } : null);
       toast.success("Image uploaded!");
     } catch (error) {
+      console.error("Upload error:", error);
       toast.error("Image upload failed");
     } finally {
       setUploading(false);
