@@ -9,209 +9,88 @@ export interface Destination {
 }
 
 export const destinations: Destination[] = [
-  // Kenya
+  {
+    id: "tsavo",
+    name: "Tsavo National Park",
+    country: "Kenya",
+    description:
+      "A vast red-earth wilderness comprising Tsavo East and West, famous for its 'red elephants', the Mzima Springs, and rugged volcanic landscapes.",
+    image: "/images/destiations/Tsavo/Salt lick lodge.webp",
+    images: [
+      "/images/destiations/Tsavo/Salt lick lodge.webp",
+      "/images/destiations/Tsavo/Kilaguni lodge.webp",
+      "/images/destiations/Tsavo/Ngutuni loudge enviroment.webp",
+    ],
+    safariCount: 5,
+  },
   {
     id: "masai-mara",
-    name: "Masai Mara",
+    name: "Maasai Mara",
     country: "Kenya",
-    description: "Kenya's legendary wildlife reserve — home to the Great Migration, magnificent lions, and sprawling golden savannah landscapes.",
-    image: "https://images.pexels.com/photos/247376/pexels-photo-247376.jpeg",
+    description:
+      "The world-renowned home of the Great Migration, offering the highest density of predators and breath-taking savannah vistas.",
+    image: "/images/destiations/Maasai Mara/masai mara sopa lodge.webp",
     images: [
-      "https://images.pexels.com/photos/247376/pexels-photo-247376.jpeg",
-      "https://images.pexels.com/photos/2862070/pexels-photo-2862070.jpeg"
+      "/images/destiations/Maasai Mara/masai mara sopa lodge.webp",
+      "/images/destiations/Maasai Mara/Emaiyan camp.webp",
+      "/images/destiations/Maasai Mara/jambomara.webp",
     ],
-    safariCount: 12,
+    safariCount: 6,
+  },
+  {
+    id: "samburu",
+    name: "Samburu National Reserve",
+    country: "Kenya",
+    description:
+      "A rugged northern frontier known for rare wildlife species, the Ewaso Ng'iro River, and the vibrant Samburu culture.",
+    image: "/images/destiations/Samburu/Saruni camp.webp",
+    images: [
+      "/images/destiations/Samburu/Saruni camp.webp",
+      "/images/destiations/Samburu/Sopa lodge.webp",
+      "/images/destiations/Samburu/Samburu Riverside camp.webp",
+    ],
+    safariCount: 4,
+  },
+  {
+    id: "nakuru",
+    name: "Lake Nakuru National Park",
+    country: "Kenya",
+    description:
+      "A sanctuary for rhinos and flamingos set against the backdrop of the Great Rift Valley, featuring dramatic escarpments and acacia woodlands.",
+    image: "/images/destiations/Lake Nakuru/lake Nakuru lodge rooms.webp",
+    images: [
+      "/images/destiations/Lake Nakuru/lake Nakuru lodge rooms.webp",
+      "/images/destiations/Lake Nakuru/Sarova lion.webp",
+      "/images/destiations/Lake Nakuru/Ziwa Bush lodge.webp",
+    ],
+    safariCount: 5,
+  },
+  {
+    id: "naivasha",
+    name: "Lake Naivasha",
+    country: "Kenya",
+    description:
+      "A beautiful freshwater lake in the Rift Valley, perfect for boat safaris, birdwatching, and exploring Crescent Island.",
+    image: "/images/destiations/Lake Naivash/Sopa resort.webp",
+    images: [
+      "/images/destiations/Lake Naivash/Sopa resort.webp",
+      "/images/destiations/Lake Naivash/Chui lodge.webp",
+      "/images/destiations/Lake Naivash/Kongoni lodge.webp",
+    ],
+    safariCount: 4,
   },
   {
     id: "amboseli",
     name: "Amboseli National Park",
     country: "Kenya",
-    description: "Dramatic Kilimanjaro views meet massive African elephant herds wandering through this incredibly photogenic iconic park.",
-    image: "https://images.pexels.com/photos/59989/elephant-herd-of-elephants-african-bush-elephant-africa-59989.jpeg",
+    description:
+      "Famous for its large elephant herds and the most iconic views of Mount Kilimanjaro towering over the plains.",
+    image: "/images/destiations/Ambosel/Oloitukai.webp",
     images: [
-      "https://images.pexels.com/photos/59989/elephant-herd-of-elephants-african-bush-elephant-africa-59989.jpeg",
-      "https://images.pexels.com/photos/2615535/pexels-photo-2615535.jpeg"
+      "/images/destiations/Ambosel/Oloitukai.webp",
+      "/images/destiations/Ambosel/Tawi lodge.webp",
+      "/images/destiations/Ambosel/kibo.webp",
     ],
-    safariCount: 8,
-  },
-  {
-    id: "lamu",
-    name: "Lamu Archipelago",
-    country: "Kenya",
-    description: "Kenya's Swahili coast escape — heritage towns, dhow culture, and laid-back island charm.",
-    image: "/images/ancient-ceramic-pots-found-ruins-building-pompeii-italy.jpg",
-    safariCount: 6,
-  },
-  {
-    id: "tsavo",
-    name: "Tsavo National Park",
-    country: "Kenya",
-    description: "Kenya's largest park — red elephants, ancient lava flows, and raw wilderness far from the crowds.",
-    image: "/images/pile-stones-with-city-background.jpg",
-    safariCount: 7,
-  },
-  {
-    id: "diani",
-    name: "Diani Beach",
-    country: "Kenya",
-    description: "White sand, turquoise waters, and coral reefs along Kenya's stunning southern coast.",
-    image: "/images/pexels-abelalemseged-17272121.jpg",
     safariCount: 5,
-  },
-
-  // Tanzania
-  {
-    id: "serengeti",
-    name: "Serengeti",
-    country: "Tanzania",
-    description: "Vast golden plains — front-row access to the Great Migration, big cats, and world-class game viewing.",
-    image: "/images/pexels-alexandra-karnasopoulos-1962842-4017572.jpg",
-    safariCount: 14,
-  },
-  {
-    id: "ngorongoro",
-    name: "Ngorongoro Crater",
-    country: "Tanzania",
-    description: "The world's largest intact volcanic caldera — a natural wildlife amphitheater teeming with animals.",
-    image: "/images/pexels-andname-5536965.jpg",
-    safariCount: 9,
-  },
-  {
-    id: "zanzibar",
-    name: "Zanzibar",
-    country: "Tanzania",
-    description: "Spice island magic — Indian Ocean beaches, Stone Town heritage, and barefoot luxury.",
-    image: "/images/pexels-joaoaguiar-7731450.jpg",
-    safariCount: 8,
-  },
-  {
-    id: "kilimanjaro",
-    name: "Mount Kilimanjaro",
-    country: "Tanzania",
-    description: "Africa's highest peak — conquer the roof of the continent through five distinct climate zones.",
-    image: "/images/pexels-kureng-workx-2546437-4314681.jpg",
-    safariCount: 6,
-  },
-  {
-    id: "tarangire",
-    name: "Tarangire National Park",
-    country: "Tanzania",
-    description: "Baobab-studded plains, massive elephant herds, and quiet game drives away from the tourist trail.",
-    image: "/images/pexels-kureng-workx-2546437-7637401.jpg",
-    safariCount: 7,
-  },
-
-  // Uganda
-  {
-    id: "bwindi",
-    name: "Bwindi Impenetrable Forest",
-    country: "Uganda",
-    description: "Uganda's emerald rainforest — home to half the world's mountain gorillas and deeply immersive trekking.",
-    image: "/images/pexels-lan-yao-324969-20879645.jpg",
-    safariCount: 6,
-  },
-  {
-    id: "queen-elizabeth",
-    name: "Queen Elizabeth National Park",
-    country: "Uganda",
-    description: "Tree-climbing lions, Kazinga Channel boat cruises, and stunning Rift Valley scenery.",
-    image: "/images/pexels-marri-shyam-366418-7463697.jpg",
-    safariCount: 5,
-  },
-  {
-    id: "murchison-falls",
-    name: "Murchison Falls",
-    country: "Uganda",
-    description: "The Nile's most dramatic moment — thundering through a 7-meter gap surrounded by pristine savannah.",
-    image: "/images/pexels-ross-green-2159326053-36048575.jpg",
-    safariCount: 4,
-  },
-
-  // Rwanda
-  {
-    id: "volcanoes-rwanda",
-    name: "Volcanoes National Park",
-    country: "Rwanda",
-    description: "Misty volcanic slopes — golden monkey treks, gorilla encounters, and luxury eco-lodges in the clouds.",
-    image: "/images/pexels-sulimansallehi-1586662.jpg",
-    safariCount: 5,
-  },
-  {
-    id: "akagera",
-    name: "Akagera National Park",
-    country: "Rwanda",
-    description: "Rwanda's Big Five park — savannah, wetlands, and lakes in a stunning conservation success story.",
-    image: "/images/pexels-taryn-elliott-5214036.jpg",
-    safariCount: 4,
-  },
-  {
-    id: "lake-kivu",
-    name: "Lake Kivu",
-    country: "Rwanda",
-    description: "Emerald waters nestled between volcanic peaks — kayaking, cycling, and lakeside serenity.",
-    image: "/images/beautiful-shot-three-cute-giraffes-field-with-trees-blue-sky.jpg",
-    safariCount: 3,
-  },
-
-  // Ethiopia
-  {
-    id: "simien-mountains",
-    name: "Simien Mountains",
-    country: "Ethiopia",
-    description: "Dramatic escarpments, endemic gelada baboons, and some of Africa's most spectacular trekking.",
-    image: "/images/pexels-maasai-magic-3752887-5574091.jpg",
-    safariCount: 4,
-  },
-  {
-    id: "lalibela",
-    name: "Lalibela",
-    country: "Ethiopia",
-    description: "Ancient rock-hewn churches carved from living stone — a spiritual and architectural wonder of the world.",
-    image: "/images/ancient-ceramic-pots-found-ruins-building-pompeii-italy.jpg",
-    safariCount: 3,
-  },
-
-  // South Africa
-  {
-    id: "kruger",
-    name: "Kruger National Park",
-    country: "South Africa",
-    description: "Africa's most famous Big Five destination — world-class lodges and unmatched wildlife diversity.",
-    image: "/images/pile-stones-with-city-background.jpg",
-    safariCount: 10,
-  },
-  {
-    id: "cape-town",
-    name: "Cape Town",
-    country: "South Africa",
-    description: "Where mountains meet ocean — Table Mountain, Cape Point, and vibrant culture at Africa's southern tip.",
-    image: "/images/pexels-abelalemseged-17272121.jpg",
-    safariCount: 6,
-  },
-
-  // Premium Hotels & Lounges
-  {
-    id: "mara-safari-club",
-    name: "Mara Safari Lodge & Lounge",
-    country: "Premium Hotels & Lounges",
-    description: "Experience absolute luxury in the wild. A truly authentic safari lodge featuring opulent accommodations, a world-class outdoor lounge, and exquisite dining with uninterrupted views of the majestic plains.",
-    image: "https://images.pexels.com/photos/8968154/pexels-photo-8968154.jpeg",
-    images: [
-      "https://images.pexels.com/photos/8968154/pexels-photo-8968154.jpeg",
-      "https://images.pexels.com/photos/1565326/pexels-photo-1565326.jpeg"
-    ],
-    safariCount: 1,
-  },
-  {
-    id: "zanzibar-beach-resort",
-    name: "Serengeti Oasis Lodge",
-    country: "Premium Hotels & Lounges",
-    description: "A breathtaking exclusive bush retreat. Features beautiful rustic-chic lodges, an incredible evening campfire lounge under the stars, and an elevated vantage point over the wilderness.",
-    image: "https://images.pexels.com/photos/35074968/pexels-photo-35074968.jpeg",
-    images: [
-      "https://images.pexels.com/photos/35074968/pexels-photo-35074968.jpeg",
-      "https://images.pexels.com/photos/7163685/pexels-photo-7163685.jpeg"
-    ],
-    safariCount: 1,
   },
 ];

@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, Play } from "lucide-react";
+import OptimizedImage from "@/components/ui/optimized-image";
 
 const backgroundImages = [
-  "/images/beautiful-shot-three-cute-giraffes-field-with-trees-blue-sky.jpg",
-  "/images/pexels-maasai-magic-3752887-5574091.jpg",
-  "/images/pexels-kureng-workx-2546437-4314681.jpg",
+  "/images/nairobi-real.webp",
+  "/images/maasai-mara-final.webp",
+  "/images/diani-final.webp",
+  "/images/amboseli-final.webp",
+  "/images/lamu-island.webp",
 ];
 
 const HeroSection = () => {
@@ -24,11 +27,18 @@ const HeroSection = () => {
       {backgroundImages.map((src, index) => (
         <div
           key={src}
-          className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 ease-in-out ${
-            index === currentImage ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
+          className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+            index === currentImage ? "opacity-100 scale-100" : "opacity-0 scale-110"
           }`}
-          style={{ backgroundImage: `url('${src}')` }}
-        />
+        >
+          <OptimizedImage
+            src={src}
+            alt="Hero Background"
+            className="w-full h-full object-cover"
+            priority={index === 0}
+            quality={90}
+          />
+        </div>
       ))}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 

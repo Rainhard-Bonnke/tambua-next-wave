@@ -6,39 +6,39 @@
 
 @layer base {
   :root {
-    --background: 35 33% 96%;
-    --foreground: 195 14% 19%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 195 14% 19%;
+    --card-foreground: 0 0% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 195 14% 19%;
+    --popover-foreground: 0 0% 15%;
 
-    --primary: 24 50% 25%;
-    --primary-foreground: 35 33% 96%;
+    --primary: 0 50% 25%; /* Deep maroon/burgundy */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 24 40% 40%;
-    --secondary-foreground: 35 33% 96%;
+    --secondary: 0 15% 95%;
+    --secondary-foreground: 0 50% 30%;
 
-    --muted: 35 20% 90%;
-    --muted-foreground: 220 9% 46%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 41 65% 53%;
-    --accent-foreground: 195 14% 19%;
+    --accent: 0 60% 35%; /* Rich maroon accent */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 35 20% 88%;
-    --input: 35 20% 88%;
-    --ring: 24 50% 25%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 60% 35%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary: 0 50% 25%; /* Maroon */
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
@@ -47,37 +47,37 @@
   }
 
   .dark {
-    --background: 0 0% 7%;
-    --foreground: 35 33% 96%;
+    --background: 0 0% 3%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 10%;
-    --card-foreground: 35 33% 96%;
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 10%;
-    --popover-foreground: 35 33% 96%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 24 50% 35%;
-    --primary-foreground: 35 33% 96%;
+    --primary: 0 50% 35%; /* Darker maroon for dark mode */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 24 40% 35%;
-    --secondary-foreground: 35 33% 96%;
+    --secondary: 0 15% 15%;
+    --secondary-foreground: 0 50% 60%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 220 9% 60%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 41 65% 53%;
-    --accent-foreground: 0 0% 7%;
+    --accent: 0 60% 45%; /* Rich maroon accent for dark mode */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 18%;
-    --input: 0 0% 18%;
-    --ring: 24 50% 35%;
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
+    --ring: 0 60% 45%;
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary: 0 50% 35%; /* Dark maroon */
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
@@ -147,4 +147,19 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, hsl(var(--muted)) 25%, hsl(var(--muted) / 0.8) 50%, hsl(var(--muted)) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
 }

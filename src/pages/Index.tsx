@@ -28,9 +28,9 @@ const Index = () => {
             title="Witness the Great Migration"
             description="Embark on an unforgettable journey through Africa's most iconic landscapes, where nature's greatest spectacles unfold before your eyes."
             images={[
-              "/images/pexels-abelalemseged-17272121.jpg",
-              "/images/pexels-joaoaguiar-7731450.jpg",
-              "/images/beautiful-shot-three-cute-giraffes-field-with-trees-blue-sky.jpg"
+              "/images/amboseli-final.webp",
+              "/images/maasai-mara-wildlife.webp",
+              "/images/samburu-reserve.webp"
             ]}
             align="left"
           />
@@ -41,9 +41,9 @@ const Index = () => {
             title="Connect with Local Roots"
             description="Immerse yourself in the vibrant traditions and hospitality of East Africa. Meet the people who call this land home and share in their stories."
             images={[
-              "/images/pexels-maasai-magic-3752887-5574091.jpg",
-              "/images/pexels-taryn-elliott-5214036.jpg",
-              "/images/pexels-andname-5536965.jpg"
+              "/images/maasai-mara-authentic.webp",
+              "/images/culture.webp",
+              "/images/asher-pardey-8woRhVgXU-4-unsplash.webp"
             ]}
             interval={6000}
             align="right"
@@ -55,9 +55,9 @@ const Index = () => {
             title="Premium Safari Lodging"
             description="Experience the perfect blend of wild adventure and modern luxury. Boutique stays in the heart of the savannah, tailored just for you."
             images={[
-              "/images/pexels-lan-yao-324969-20879645.jpg",
-              "/images/pexels-ross-green-2159326053-36048575.jpg",
-              "/images/pexels-marri-shyam-366418-7463697.jpg"
+              "/images/destiations/Lake Naivash/Sopa resort.webp",
+              "/images/destiations/Tsavo/Kilaguni lodge.webp",
+              "/images/destiations/Maasai Mara/Emaiyan camp.webp"
             ]}
             interval={7000}
             align="left"

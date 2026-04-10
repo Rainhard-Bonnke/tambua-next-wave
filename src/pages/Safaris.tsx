@@ -35,7 +35,7 @@ const Safaris = () => {
               <span className="text-accent font-semibold text-sm uppercase tracking-wider">Our Packages</span>
               <h1 className="text-4xl sm:text-5xl font-bold mt-3">Safari Packages</h1>
               <p className="text-primary-foreground/70 mt-4 max-w-2xl mx-auto text-lg">
-                Choose from our curated selection of safari experiences across East Africa.
+                Choose from our curated selection of safari experiences across Kenya.
               </p>
             </div>
           </section>

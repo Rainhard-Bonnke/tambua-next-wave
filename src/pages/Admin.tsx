@@ -7,13 +7,15 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Search, Users, Calendar, DollarSign, BarChart3, LogOut } from "lucide-react";
+import { Loader2, Search, Users, Calendar, DollarSign, BarChart3, LogOut, Trash2, Eye } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageTransition from "@/components/layout/PageTransition";
 import { AdminSafaris } from "@/components/admin/AdminSafaris";
 import { AdminDestinations } from "@/components/admin/AdminDestinations";
 import { AdminInsights } from "@/components/admin/AdminInsights";
+import { AdminInquiries } from "@/components/admin/AdminInquiries";
 
 interface AdminBooking {
   id: string;
@@ -49,6 +51,8 @@ const Admin = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
+  const [selectedBooking, setSelectedBooking] = useState<AdminBooking | null>(null);
+  const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
     if (!authLoading && !user) { navigate("/login"); return; }
@@ -56,41 +60,68 @@ const Admin = () => {
   }, [user, authLoading]);
 
   const checkAdminAndLoad = async () => {
-    // Check admin status via profile
-    const { data: profile } = await supabase.from("profiles").select("role").eq("id", user!.id).single();
-    if (!profile || profile.role !== "admin") {
-      toast.error("You don't have admin access");
-      navigate("/dashboard");
-      return;
-    }
-    setIsAdmin(true);
+    setLoading(true);
+    try {
+      // Check admin status via profile
+      const { data: profile, error: profileError } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", user!.id)
+        .single();
+      
+      if (profileError) {
+        console.error("Profile fetch error:", profileError);
+        toast.error("Error verifying admin status");
+        return;
+      }
 
-    // Load bookings
-    const { data: bookingsData } = await supabase
-      .from("bookings")
-      .select("*")
-      .order("created_at", { ascending: false });
+      const roleStr = profile?.role?.toLowerCase() || "";
+      if (roleStr !== "admin") {
+        toast.error("You don't have admin access");
+        navigate("/dashboard");
+        return;
+      }
+      
+      setIsAdmin(true);
 
-    if (bookingsData) {
-      setBookings(bookingsData as AdminBooking[]);
+      // Load bookings
+      const { data: bookingsData, error: bookingsError } = await supabase
+        .from("bookings")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-      // Load profiles for all users
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const userIds = [...new Set(bookingsData.map((b: any) => b.user_id))];
-      if (userIds.length > 0) {
-        const { data: profilesData } = await supabase
-          .from("profiles")
-          .select("id, full_name, phone")
-          .in("id", userIds);
-        if (profilesData) {
-          const map: Record<string, AdminProfile> = {};
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          profilesData.forEach((p: any) => { map[p.id] = p; });
-          setProfiles(map);
+      if (bookingsData && !bookingsError) {
+        setBookings(bookingsData as AdminBooking[]);
+
+        // Load profiles for all users
+        const userIds = [...new Set(bookingsData.map((b: any) => b.user_id))];
+        if (userIds.length > 0) {
+          const { data: profilesData } = await supabase
+            .from("profiles")
+            .select("id, full_name, phone")
+            .in("id", userIds);
+          
+          if (profilesData) {
+            const map: Record<string, AdminProfile> = {};
+            profilesData.forEach((p: any) => { map[p.id] = p; });
+            setProfiles(map);
+          }
         }
       }
+
+      // Load unread inquiries count
+      const { count: unread } = await supabase
+        .from("inquiry_submissions")
+        .select("*", { count: 'exact', head: true })
+        .eq("status", "unread");
+      
+      setUnreadCount(unread || 0);
+    } catch (err) {
+      console.error("Unexpected error in checkAdminAndLoad:", err);
+      toast.error("An unexpected error occurred while loading the dashboard");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const updateStatus = async (bookingId: string, newStatus: string) => {
@@ -104,6 +135,21 @@ const Admin = () => {
     else {
       toast.success(`Booking ${newStatus}`);
       setBookings((prev) => prev.map((b) => b.id === bookingId ? { ...b, status: newStatus } : b));
+    }
+  };
+
+  const deleteBooking = async (bookingId: string) => {
+    if (!confirm("Are you sure you want to delete this booking?")) return;
+    
+    const { error } = await supabase
+      .from("bookings")
+      .delete()
+      .eq("id", bookingId);
+
+    if (error) toast.error("Could not delete booking");
+    else {
+      toast.success("Booking deleted");
+      setBookings((prev) => prev.filter((b) => b.id !== bookingId));
     }
   };
 
@@ -147,7 +193,7 @@ const Admin = () => {
           </div>
 
           <div className="flex gap-2 mb-8 border-b border-border pb-px">
-            {["bookings", "safaris", "destinations", "insights"].map(tab => (
+            {["bookings", "safaris", "destinations", "messages", "insights"].map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -156,12 +202,18 @@ const Admin = () => {
                 }`}
               >
                 {tab}
+                {tab === "messages" && unreadCount > 0 && (
+                  <span className="bg-red-500 text-white text-[10px] min-w-[16px] h-4 px-1 flex items-center justify-center rounded-full animate-pulse font-bold">
+                    {unreadCount}
+                  </span>
+                )}
               </button>
             ))}
           </div>
 
           {activeTab === "safaris" && <AdminSafaris />}
           {activeTab === "destinations" && <AdminDestinations />}
+          {activeTab === "messages" && <AdminInquiries />}
           {activeTab === "insights" && <AdminInsights />}
 
           {activeTab === "bookings" && (
@@ -258,17 +310,25 @@ const Admin = () => {
                         </Badge>
                       </td>
                       <td className="p-4">
-                        <Select value={booking.status} onValueChange={(v) => updateStatus(booking.id, v)}>
-                          <SelectTrigger className="w-[130px] h-8 text-xs rounded-lg">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="pending">Pending</SelectItem>
-                            <SelectItem value="confirmed">Confirmed</SelectItem>
-                            <SelectItem value="cancelled">Cancelled</SelectItem>
-                            <SelectItem value="completed">Completed</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <div className="flex items-center gap-2">
+                          <Select value={booking.status} onValueChange={(v) => updateStatus(booking.id, v)}>
+                            <SelectTrigger className="w-[120px] h-8 text-xs rounded-lg">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="pending">Pending</SelectItem>
+                              <SelectItem value="confirmed">Confirmed</SelectItem>
+                              <SelectItem value="cancelled">Cancelled</SelectItem>
+                              <SelectItem value="completed">Completed</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <Button size="icon" variant="ghost" className="h-8 w-8 text-muted-foreground hover:text-accent" onClick={() => setSelectedBooking(booking)}>
+                            <Eye className="w-4 h-4" />
+                          </Button>
+                          <Button size="icon" variant="ghost" className="h-8 w-8 text-muted-foreground hover:text-destructive" onClick={() => deleteBooking(booking.id)}>
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -282,6 +342,58 @@ const Admin = () => {
           </>)}
         </div>
       </div>
+
+      <Dialog open={!!selectedBooking} onOpenChange={(open) => !open && setSelectedBooking(null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Booking Details</DialogTitle>
+          </DialogHeader>
+          {selectedBooking && (
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <p className="text-muted-foreground font-medium">Customer</p>
+                  <p className="text-foreground">{profiles[selectedBooking.user_id]?.full_name || "N/A"}</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground font-medium">Phone</p>
+                  <p className="text-foreground">{profiles[selectedBooking.user_id]?.phone || "N/A"}</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground font-medium">Safari</p>
+                  <p className="text-foreground">{selectedBooking.safari_title}</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground font-medium">Date</p>
+                  <p className="text-foreground">{selectedBooking.preferred_date}</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground font-medium">Guests</p>
+                  <p className="text-foreground">{selectedBooking.guests}</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground font-medium">Amount</p>
+                  <p className="text-foreground">${(selectedBooking.total_amount / 100).toLocaleString()}</p>
+                </div>
+              </div>
+              <div className="pt-2 border-t border-border">
+                <p className="text-muted-foreground font-medium text-sm mb-1">Status</p>
+                <Badge className={statusColors[selectedBooking.status]}>
+                  {selectedBooking.status}
+                </Badge>
+              </div>
+              <div className="pt-2 border-t border-border">
+                <p className="text-muted-foreground font-medium text-sm mb-1">Booking ID</p>
+                <code className="text-xs bg-muted p-1 rounded font-mono">{selectedBooking.id}</code>
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setSelectedBooking(null)}>Close</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       <Footer />
     </PageTransition>
   );

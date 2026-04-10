@@ -5,6 +5,7 @@ const baseInquirySchema = {
   fullName: z.string().trim().min(2, "Please enter your full name.").max(100, "Name is too long."),
   email: z.string().trim().email("Please enter a valid email address.").max(255, "Email is too long."),
   phone: z.string().trim().max(50, "Phone number is too long.").optional().or(z.literal("")),
+  status: z.string().default("unread"),
 };
 
 export const bookingInquirySchema = z.object({

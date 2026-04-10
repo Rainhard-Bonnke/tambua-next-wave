@@ -6,19 +6,19 @@ const activities = [
     icon: Compass,
     title: "Cultural Tours",
     description: "Immerse yourself in the rich traditions and heritage of East African communities.",
-    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&q=80",
+    image: "/images/maasai-mara-authentic.webp",
   },
   {
     icon: Palmtree,
     title: "Beach Holidays",
     description: "Relax on pristine white sand beaches along the beautiful Kenyan coastline.",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80",
+    image: "/images/deckchair-beach.webp",
   },
   {
     icon: Binoculars,
     title: "Game Drives",
     description: "Experience thrilling wildlife encounters in Kenya's world-renowned national parks.",
-    image: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=600&q=80",
+    image: "/images/maasai-mara-real.webp",
   },
 ];
 

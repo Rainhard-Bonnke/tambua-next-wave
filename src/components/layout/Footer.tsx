@@ -32,47 +32,50 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Company Info */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="bg-white p-2 rounded-xl shadow-sm inline-block">
-                <img 
-                  src="/tambua-logo.png" 
-                  alt="Tambua Africa" 
-                  className="h-14 w-auto object-contain"
-                />
-              </div>
-            </div>
+            <h3 className="text-xl font-bold">Tambua Africa Tours & Safaris Ltd.</h3>
             <p className="text-primary-foreground/70 text-sm leading-relaxed">
-              With over 16 years of experience, we craft unforgettable safari experiences across East Africa. Let us show you the magic of the wild.
+              Plainsview Road, F21-5, Hazina Estate
             </p>
-            <div className="flex gap-3">
-              {[Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors"
-                >
-                  <Icon className="w-4 h-4" />
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Mail className="w-4 h-4" />
+                <a href="mailto:info@tambuaafrica.com" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm">
+                  info@tambuaafrica.com
                 </a>
-              ))}
+              </div>
+              <div className="flex gap-3">
+                <a href="https://facebook.com/tambuaafrica" className="w-8 h-8 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-white hover:text-primary transition-colors">
+                  <Facebook className="w-4 h-4" />
+                </a>
+                <a href="https://twitter.com/tambuaafrica" className="w-8 h-8 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-white hover:text-primary transition-colors">
+                  <Twitter className="w-4 h-4" />
+                </a>
+                <a href="https://youtube.com/tambuaafrica" className="w-8 h-8 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-white hover:text-primary transition-colors">
+                  <Youtube className="w-4 h-4" />
+                </a>
+              </div>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Quick Links</h4>
+            <h4 className="font-semibold text-lg mb-4">Pages</h4>
             <ul className="space-y-2">
               {[
                 { label: "Home", path: "/" },
+                { label: "Safaris", path: "/safaris" },
+                { label: "Kenya Safaris", path: "/safaris/kenya" },
+                { label: "Destination", path: "/destinations" },
+                { label: "Travel Info", path: "/travel-info" },
                 { label: "About Us", path: "/about" },
-                { label: "Safari Packages", path: "/safaris" },
-                { label: "Destinations", path: "/destinations" },
-                { label: "Blog", path: "/blog" },
-                { label: "Contact", path: "/contact" },
+                { label: "Gallery Page", path: "/gallery" },
+                { label: "Accommodation", path: "/accommodation" },
+                { label: "Contact Us", path: "/contact" },
               ].map((link) => (
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-primary-foreground/70 hover:text-accent transition-colors text-sm"
+                    className="text-primary-foreground/70 hover:text-white transition-colors text-sm"
                   >
                     {link.label}
                   </Link>
@@ -81,16 +84,23 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Popular Safaris */}
+          {/* Safari Itineraries */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Popular Safaris</h4>
+            <h4 className="font-semibold text-lg mb-4">Safari Itineraries</h4>
             <ul className="space-y-2">
-              {["Masai Mara & Serengeti", "Uganda Gorilla Escape", "Zanzibar Beach Retreat", "Kilimanjaro Summit Trek", "Rwanda Primates Tour", "Cape Town & Kruger"].map(
+              {[
+                "2-Days Mombasa to Amboseli Air Safari",
+                "1 Day Snorkeling Wasini Island", 
+                "1 Day Shimba Hills",
+                "2 Days Masai Mara From Nairobi",
+                "4 Days Masai Mara - Lake Nakuru-Amboseli Safari",
+                "3 Days Masai Mara Safari",
+              ].map(
                 (item) => (
                   <li key={item}>
                     <Link
                       to="/safaris"
-                      className="text-primary-foreground/70 hover:text-accent transition-colors text-sm"
+                      className="text-primary-foreground/70 hover:text-white transition-colors text-sm"
                     >
                       {item}
                     </Link>
@@ -102,19 +112,38 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Contact Us</h4>
+            <h4 className="font-semibold text-lg mb-4">Contact</h4>
             <ul className="space-y-3">
-              <li className="flex items-start gap-3 text-sm text-primary-foreground/70">
-                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-accent" />
-                <span>Plainsview Road, Off Mombasa Road, Nairobi, Kenya</span>
+              <li className="space-y-2">
+                <h5 className="font-medium text-white">Drop a Line</h5>
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 text-sm text-primary-foreground/70">
+                    <Mail className="w-4 h-4" />
+                    <a href="mailto:info@tambuaafrica.com" className="hover:text-white transition-colors">
+                      info@tambuaafrica.com
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-primary-foreground/70">
+                    <Phone className="w-4 h-4" />
+                    <span>+254 726 207 900</span>
+                  </div>
+                </div>
               </li>
-              <li className="flex items-center gap-3 text-sm text-primary-foreground/70">
-                <Phone className="w-4 h-4 shrink-0 text-accent" />
-                <span>+254 722 000 000</span>
+              <li className="space-y-2">
+                <h5 className="font-medium text-white">Email Address</h5>
+                <div className="flex items-center gap-2 text-sm text-primary-foreground/70">
+                  <Mail className="w-4 h-4" />
+                  <a href="mailto:info@tambuaafrica.com" className="hover:text-white transition-colors">
+                    info@tambuaafrica.com
+                  </a>
+                </div>
               </li>
-              <li className="flex items-center gap-3 text-sm text-primary-foreground/70">
-                <Mail className="w-4 h-4 shrink-0 text-accent" />
-                <span>info@tambuaafrica.com</span>
+              <li className="space-y-2">
+                <h5 className="font-medium text-white">Visit office</h5>
+                <div className="flex items-start gap-2 text-sm text-primary-foreground/70">
+                  <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
+                  <span>Plainsview Road, F21-5, Hazina Estate</span>
+                </div>
               </li>
             </ul>
           </div>

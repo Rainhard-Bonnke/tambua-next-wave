@@ -5,21 +5,21 @@ import Footer from "@/components/layout/Footer";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const photos = [
-  { src: "/images/beautiful-shot-three-cute-giraffes-field-with-trees-blue-sky.jpg", alt: "Giraffes in the wild", category: "Wildlife" },
-  { src: "/images/pexels-maasai-magic-3752887-5574091.jpg", alt: "Maasai Magic", category: "Culture" },
-  { src: "/images/ancient-ceramic-pots-found-ruins-building-pompeii-italy.jpg", alt: "Ancient Ruins", category: "Culture" },
-  { src: "/images/pile-stones-with-city-background.jpg", alt: "Cityscape Stones", category: "Landscape" },
-  { src: "/images/pexels-abelalemseged-17272121.jpg", alt: "African Scenery", category: "Landscape" },
-  { src: "/images/pexels-alexandra-karnasopoulos-1962842-4017572.jpg", alt: "Safari Adventure", category: "Safari" },
-  { src: "/images/pexels-andname-5536965.jpg", alt: "Scenic Views", category: "Landscape" },
-  { src: "/images/pexels-joaoaguiar-7731450.jpg", alt: "Wildlife Moments", category: "Wildlife" },
-  { src: "/images/pexels-kureng-workx-2546437-4314681.jpg", alt: "Safari Highlights", category: "Safari" },
-  { src: "/images/pexels-kureng-workx-2546437-7637401.jpg", alt: "Safari Expedition", category: "Safari" },
-  { src: "/images/pexels-lan-yao-324969-20879645.jpg", alt: "Nature Detail", category: "Landscape" },
-  { src: "/images/pexels-marri-shyam-366418-7463697.jpg", alt: "Beautiful Horizon", category: "Landscape" },
-  { src: "/images/pexels-ross-green-2159326053-36048575.jpg", alt: "Cultural Portrait", category: "Culture" },
-  { src: "/images/pexels-sulimansallehi-1586662.jpg", alt: "Animal Sightings", category: "Wildlife" },
-  { src: "/images/pexels-taryn-elliott-5214036.jpg", alt: "Beach Retreat", category: "Beach" },
+  { src: "/images/beautiful-shot-three-cute-giraffes-field-with-trees-blue-sky.webp", alt: "Giraffes in the wild", category: "Wildlife" },
+  { src: "/images/pexels-maasai-magic-3752887-5574091.webp", alt: "Maasai Magic", category: "Culture" },
+  { src: "/images/ancient-ceramic-pots-found-ruins-building-pompeii-italy.webp", alt: "Ancient Ruins", category: "Culture" },
+  { src: "/images/pile-stones-with-city-background.webp", alt: "Cityscape Stones", category: "Landscape" },
+  { src: "/images/pexels-abelalemseged-17272121.webp", alt: "African Scenery", category: "Landscape" },
+  { src: "/images/pexels-alexandra-karnasopoulos-1962842-4017572.webp", alt: "Safari Adventure", category: "Safari" },
+  { src: "/images/pexels-andname-5536965.webp", alt: "Scenic Views", category: "Landscape" },
+  { src: "/images/pexels-joaoaguiar-7731450.webp", alt: "Wildlife Moments", category: "Wildlife" },
+  { src: "/images/pexels-kureng-workx-2546437-4314681.webp", alt: "Safari Highlights", category: "Safari" },
+  { src: "/images/pexels-kureng-workx-2546437-7637401.webp", alt: "Safari Expedition", category: "Safari" },
+  { src: "/images/pexels-lan-yao-324969-20879645.webp", alt: "Nature Detail", category: "Landscape" },
+  { src: "/images/pexels-marri-shyam-366418-7463697.webp", alt: "Beautiful Horizon", category: "Landscape" },
+  { src: "/images/pexels-ross-green-2159326053-36048575.webp", alt: "Cultural Portrait", category: "Culture" },
+  { src: "/images/pexels-sulimansallehi-1586662.webp", alt: "Animal Sightings", category: "Wildlife" },
+  { src: "/images/pexels-taryn-elliott-5214036.webp", alt: "Beach Retreat", category: "Beach" },
 ];
 
 const categories = ["All", "Wildlife", "Beach", "Landscape", "Safari", "Culture", "Gorilla"];
@@ -44,7 +44,7 @@ const Gallery = () => {
             <span className="text-accent font-semibold text-sm uppercase tracking-wider">Gallery</span>
             <h1 className="text-4xl sm:text-5xl font-bold mt-3">Safari Moments</h1>
             <p className="text-primary-foreground/70 mt-4 max-w-2xl mx-auto text-lg">
-              A glimpse into the breathtaking experiences that await you across East Africa.
+              A glimpse into the breathtaking experiences that await you across Kenya.
             </p>
           </div>
         </section>

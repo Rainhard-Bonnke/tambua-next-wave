@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { useDestinations } from "@/hooks/useDestinations";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import OptimizedImage from "@/components/ui/optimized-image";
 
 const DestinationsSection = () => {
   const { ref, isVisible } = useScrollAnimation();
@@ -39,11 +40,11 @@ const DestinationsSection = () => {
               } ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              <img
+              <OptimizedImage
                 src={dest.image}
                 alt={dest.name}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                loading="lazy"
+                priority={index === 0}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">

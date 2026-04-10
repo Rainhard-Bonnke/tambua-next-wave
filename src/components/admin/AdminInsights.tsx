@@ -1,10 +1,29 @@
+import { useEffect, useState } from "react";
 import { useSafaris } from "@/hooks/useSafaris";
 import { useDestinations } from "@/hooks/useDestinations";
+import { supabase } from "@/integrations/supabase/client";
 import { Bot, LineChart, TrendingUp, Users, Activity } from "lucide-react";
 
 export const AdminInsights = () => {
   const { data: safaris = [] } = useSafaris();
   const { data: destinations = [] } = useDestinations();
+  const [stats, setStats] = useState({ revenue: 0, inquiries: 0 });
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      const { data: bookings } = await supabase.from("bookings").select("total_amount").eq("status", "confirmed" as any);
+      const { count } = await supabase.from("inquiry_submissions").select("*", { count: 'exact', head: true });
+      
+      if (bookings) {
+        const totalRevenue = bookings.reduce((sum, b) => sum + (b.total_amount || 0), 0);
+        setStats(prev => ({ ...prev, revenue: totalRevenue / 100 }));
+      }
+      if (count !== null) {
+        setStats(prev => ({ ...prev, inquiries: count }));
+      }
+    };
+    fetchStats();
+  }, []);
 
   return (
     <div className="space-y-6">
@@ -33,28 +52,28 @@ export const AdminInsights = () => {
         <div className="p-5 bg-card border border-border rounded-xl">
           <div className="flex items-center gap-3 mb-2">
             <LineChart className="w-5 h-5 text-blue-500" />
-            <h3 className="font-semibold text-sm">Safari Diversity</h3>
+            <h3 className="font-semibold text-sm">Total Revenue</h3>
           </div>
-          <p className="text-2xl font-bold">{safaris.length} Packages</p>
-          <p className="text-xs text-muted-foreground mt-1">Well balanced across categories.</p>
+          <p className="text-2xl font-bold">${stats.revenue.toLocaleString()}</p>
+          <p className="text-xs text-muted-foreground mt-1">From confirmed bookings.</p>
         </div>
 
         <div className="p-5 bg-card border border-border rounded-xl">
           <div className="flex items-center gap-3 mb-2">
             <Users className="w-5 h-5 text-orange-500" />
-            <h3 className="font-semibold text-sm">Visitor Engagement</h3>
+            <h3 className="font-semibold text-sm">Total Inquiries</h3>
           </div>
-          <p className="text-2xl font-bold">High</p>
-          <p className="text-xs text-muted-foreground mt-1">Users spend avg 4m on Safari pages.</p>
+          <p className="text-2xl font-bold">{stats.inquiries}</p>
+          <p className="text-xs text-muted-foreground mt-1">General & booking inquiries.</p>
         </div>
 
         <div className="p-5 bg-card border border-border rounded-xl">
           <div className="flex items-center gap-3 mb-2">
             <Activity className="w-5 h-5 text-purple-500" />
-            <h3 className="font-semibold text-sm">Health Score</h3>
+            <h3 className="font-semibold text-sm">Package Density</h3>
           </div>
-          <p className="text-2xl font-bold">96/100</p>
-          <p className="text-xs text-muted-foreground mt-1">Excellent performance metrics.</p>
+          <p className="text-2xl font-bold">{safaris.length}</p>
+          <p className="text-xs text-muted-foreground mt-1">Live safari packages.</p>
         </div>
       </div>
 

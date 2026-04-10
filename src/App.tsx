@@ -12,6 +12,7 @@ import ErrorBoundary from "@/components/layout/ErrorBoundary";
 import SuspenseFallback from "@/components/layout/SuspenseFallback";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { AIAgentChat } from "@/components/chat/AIAgentChat";
+import { PerformanceReport } from "@/components/ui/performance-monitor";
 
 // Performance: Lazy load pages to reduce initial bundle size
 const Index = lazy(() => import("./pages/Index.tsx"));
@@ -20,6 +21,7 @@ const Safaris = lazy(() => import("./pages/Safaris.tsx"));
 const SafariDetail = lazy(() => import("./pages/SafariDetail.tsx"));
 const Destinations = lazy(() => import("./pages/Destinations.tsx"));
 const Gallery = lazy(() => import("./pages/Gallery.tsx"));
+const TravelInfo = lazy(() => import("./pages/TravelInfo.tsx"));
 const Blog = lazy(() => import("./pages/Blog.tsx"));
 const BlogDetail = lazy(() => import("./pages/BlogDetail.tsx"));
 const Contact = lazy(() => import("./pages/Contact.tsx"));
@@ -30,6 +32,7 @@ const ResetPassword = lazy(() => import("./pages/ResetPassword.tsx"));
 const Dashboard = lazy(() => import("./pages/Dashboard.tsx"));
 const Admin = lazy(() => import("./pages/Admin.tsx"));
 const PaymentSuccess = lazy(() => import("./pages/PaymentSuccess.tsx"));
+const Booking = lazy(() => import("./pages/Booking.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 
 const queryClient = new QueryClient();
@@ -46,6 +49,7 @@ const AnimatedRoutes = () => {
             <Route path="/safaris" element={<Safaris />} />
             <Route path="/safaris/:id" element={<SafariDetail />} />
             <Route path="/destinations" element={<Destinations />} />
+            <Route path="/travel-info" element={<TravelInfo />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:id" element={<BlogDetail />} />
@@ -54,6 +58,7 @@ const AnimatedRoutes = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/booking" element={<ProtectedRoute><Booking /></ProtectedRoute>} />
             
             {/* Security: Protected Routes */}
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
@@ -79,6 +84,7 @@ const App = () => (
           <FloatingButtons />
           <AIAgentChat />
           <CookieConsent />
+          <PerformanceReport />
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>

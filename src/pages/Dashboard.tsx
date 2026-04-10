@@ -110,6 +110,58 @@ const Dashboard = () => {
     navigate("/");
   };
 
+  const handlePayment = async () => {
+    if (!payingBooking) return;
+    
+    setIsPaying(true);
+    try {
+      if (paymentMethod === "card") {
+        // Stripe payment flow
+        const { data, error } = await supabase.functions.invoke("create-stripe-checkout", {
+          body: {
+            booking_id: payingBooking.id,
+            success_url: `${window.location.origin}/payment-success`,
+            cancel_url: `${window.location.origin}/dashboard`,
+          },
+        });
+
+        if (error) throw error;
+        
+        // Redirect to Stripe checkout
+        if (data?.url) {
+          window.location.href = data.url;
+        } else {
+          throw new Error("No checkout URL received");
+        }
+      } else if (paymentMethod === "mpesa") {
+        // M-Pesa payment flow
+        const { data, error } = await supabase.functions.invoke("initiate-mpesa-payment", {
+          body: {
+            booking_id: payingBooking.id,
+            phone_number: mpesaPhone,
+            amount: payingBooking.total_amount,
+          },
+        });
+
+        if (error) throw error;
+        
+        toast.success("STK Push sent to your phone! Please complete the payment.");
+        setPayingBooking(null);
+        setMpesaPhone("");
+        
+        // Refresh bookings after a delay
+        setTimeout(() => {
+          fetchBookings();
+        }, 5000);
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+      toast.error(error instanceof Error ? error.message : "Payment failed. Please try again.");
+    } finally {
+      setIsPaying(false);
+    }
+  };
+
   if (authLoading || loading) {
     return (
       <PageTransition>
