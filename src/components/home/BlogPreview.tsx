@@ -30,9 +30,6 @@ const BlogPreview = () => {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 />
-                <div className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
-                  {post.category}
-                </div>
               </div>
               <div className="p-5 space-y-3">
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">

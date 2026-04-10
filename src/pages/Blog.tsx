@@ -2,6 +2,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageTransition from "@/components/layout/PageTransition";
 import { Calendar, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 import { posts } from "@/data/blogPosts";
@@ -38,15 +39,14 @@ const Blog = () => {
                     style={{ transitionDelay: `${index * 100}ms` }}
                   >
                     <div className="relative aspect-video overflow-hidden">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        loading="lazy"
-                      />
-                      <div className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
-                        {post.category}
-                      </div>
+                      <Link to={`/blog/${post.id}`}>
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                      </Link>
                     </div>
                     <div className="p-5 space-y-3">
                       <div className="flex items-center justify-between text-xs text-muted-foreground">
@@ -62,9 +62,9 @@ const Blog = () => {
                       <p className="text-muted-foreground text-sm leading-relaxed">
                         {post.excerpt}
                       </p>
-                      <button className="flex items-center gap-1 text-sm font-semibold text-accent hover:gap-2 transition-all">
+                      <Link to={`/blog/${post.id}`} className="flex items-center gap-1 text-sm font-semibold text-accent hover:gap-2 transition-all">
                         Read More <ArrowRight className="w-4 h-4" />
-                      </button>
+                      </Link>
                     </div>
                   </article>
                 ))}

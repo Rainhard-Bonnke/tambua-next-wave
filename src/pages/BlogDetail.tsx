@@ -34,7 +34,6 @@ const BlogDetail = () => {
               <div className="max-w-3xl mx-auto">
                 <img src={post.image} alt={post.title} className="w-full rounded-xl mb-6" />
                 <div className="flex items-center gap-3 text-xs mb-2">
-                  <span className="bg-accent/10 text-accent px-3 py-1 rounded-full font-semibold uppercase tracking-wider">{post.category}</span>
                   <span className="flex items-center gap-1 text-muted-foreground">
                     <Calendar className="w-3.5 h-3.5" /> {post.date}
                   </span>
@@ -42,10 +41,10 @@ const BlogDetail = () => {
                 </div>
                 <h1 className="text-3xl font-bold text-foreground mb-4">{post.title}</h1>
                 <p className="text-lg text-muted-foreground mb-8">{post.excerpt}</p>
-                {/* Placeholder for full blog content */}
-                <div className="prose prose-lg max-w-none text-foreground">
-                  <p>This is where the full blog content would go. Replace this with real content from your CMS or markdown files.</p>
-                </div>
+                <div 
+                  className="prose prose-lg max-w-none text-foreground prose-headings:font-playfair prose-headings:text-primary prose-a:text-accent prose-p:leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: post.content }}
+                />
               </div>
             </div>
           </section>

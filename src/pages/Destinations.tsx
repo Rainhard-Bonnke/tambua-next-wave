@@ -111,30 +111,6 @@ const ImageSlider = ({ images, name }: { images: string[]; name: string }) => {
   );
 };
 
-// ─────────────────────────────────────────────────────────
-// Category badge
-// ─────────────────────────────────────────────────────────
-const CategoryBadge = ({ category }: { category: Lodge["category"] }) => {
-  const styles: Record<Lodge["category"], string> = {
-    luxury: "bg-amber-100 text-amber-800 border-amber-200",
-    "mid-range": "bg-green-100 text-green-800 border-green-200",
-    budget: "bg-blue-100 text-blue-800 border-blue-200",
-    camp: "bg-stone-100 text-stone-700 border-stone-200",
-  };
-  const labels: Record<Lodge["category"], string> = {
-    luxury: "Luxury",
-    "mid-range": "Mid-Range",
-    budget: "Budget",
-    camp: "Safari Camp",
-  };
-  return (
-    <span
-      className={`inline-block text-xs font-semibold px-2 py-0.5 rounded border ${styles[category]}`}
-    >
-      {labels[category]}
-    </span>
-  );
-};
 
 // ─────────────────────────────────────────────────────────
 // Lodge card inside destination modal
