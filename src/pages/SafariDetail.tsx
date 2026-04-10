@@ -99,7 +99,6 @@ const SafariDetail = () => {
                   <ArrowLeft className="w-4 h-4" /> Back to Safaris
                 </Link>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="bg-accent text-accent-foreground text-xs font-semibold px-3 py-1 rounded-full">{safari.category}</span>
                   <div className="flex items-center gap-1 text-accent text-sm">
                     <Star className="w-4 h-4 fill-current" /> {safari.rating}
                     <span className="text-white/60">({safari.reviews} reviews)</span>

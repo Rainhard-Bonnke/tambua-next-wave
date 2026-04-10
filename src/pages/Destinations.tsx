@@ -162,9 +162,6 @@ const LodgeCard = ({
         }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-      <div className="absolute bottom-3 left-3">
-        <CategoryBadge category={lodge.category} />
-      </div>
     </div>
     <div className="p-4">
       <h4 className="font-bold text-foreground text-base mb-1">{lodge.name}</h4>
@@ -228,9 +225,6 @@ const LodgeModal = ({
           >
             <X className="w-5 h-5" />
           </button>
-          <div className="absolute bottom-4 left-4">
-            <CategoryBadge category={lodge.category} />
-          </div>
         </div>
 
         {/* Content */}

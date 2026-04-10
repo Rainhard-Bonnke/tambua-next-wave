@@ -14,7 +14,7 @@ const navLinks = [
     { label: "About Us", path: "/about" },
     { label: "Gallery Page", path: "/gallery" },
   ]},
-  { label: "Accommodation", path: "/accommodation" },
+  { label: "Blog", path: "/blog" },
   { label: "Contact Us", path: "/contact" },
 ];
 

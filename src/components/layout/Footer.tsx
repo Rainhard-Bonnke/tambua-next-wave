@@ -69,7 +69,7 @@ const Footer = () => {
                 { label: "Travel Info", path: "/travel-info" },
                 { label: "About Us", path: "/about" },
                 { label: "Gallery Page", path: "/gallery" },
-                { label: "Accommodation", path: "/accommodation" },
+                { label: "Blog News", path: "/blog" },
                 { label: "Contact Us", path: "/contact" },
               ].map((link) => (
                 <li key={link.path}>

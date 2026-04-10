@@ -51,7 +51,6 @@ const FeaturedSafaris = () => {
               <Link to={`/safaris/${safari.id}`} className="block">
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <img src={safari.image} alt={safari.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
-                  <div className="absolute top-3 left-3 bg-accent text-accent-foreground text-xs font-semibold px-3 py-1 rounded-full">{safari.category}</div>
                 </div>
               </Link>
               <div className="p-5 space-y-3">
