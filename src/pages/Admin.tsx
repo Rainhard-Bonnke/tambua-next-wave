@@ -100,22 +100,20 @@ const Admin = () => {
         if (bookingsData && !bookingsError) {
           setBookings(bookingsData as AdminBooking[]);
 
-          // Load profiles for all users with timeout (Must happen after bookingsData arrives)
+          // Fetch profiles in the background (Non-blocking)
           const userIds = [...new Set(bookingsData.map((b: any) => b.user_id))];
           if (userIds.length > 0) {
-            try {
-              const { data: profilesData } = await withTimeout(
-                supabase.from("profiles").select("id, full_name, phone").in("id", userIds)
-              ) as any;
-              
+            withTimeout(
+              supabase.from("profiles").select("id, full_name, phone").in("id", userIds)
+            ).then(({ data: profilesData }: any) => {
               if (profilesData) {
                 const map: Record<string, AdminProfile> = {};
                 profilesData.forEach((p: any) => { map[p.id] = p; });
                 setProfiles(map);
               }
-            } catch (profileErr) {
+            }).catch((profileErr) => {
               console.warn("Profiles fetch timed out or failed:", profileErr);
-            }
+            });
           }
         }
       } else {

@@ -32,8 +32,10 @@ export const useSafaris = () => {
         return localSafaris;
       }
     },
-    staleTime: 1000 * 60 * 30, // Increase to 30 mins for instant navigation
-    gcTime: 1000 * 60 * 60,   // Keep in memory for 1 hour
+    initialData: localSafaris,
+    staleTime: 1000 * 60 * 30, // 30 mins
+    gcTime: 1000 * 60 * 60,   // 1 hour
+    refetchOnWindowFocus: false, // Prevent lag when switching tabs
   });
 };
 
