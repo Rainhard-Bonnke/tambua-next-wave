@@ -55,13 +55,25 @@ const Dashboard = () => {
   }, [user]);
 
   const fetchBookings = async () => {
-    const { data, error } = await supabase
-      .from("bookings")
-      .select("*")
-      .order("created_at", { ascending: false });
+    try {
+      const fetchRequest = async () => {
+        const { data, error } = await supabase
+          .from("bookings")
+          .select("*")
+          .order("created_at", { ascending: false });
+        if (error) throw error;
+        return data;
+      };
 
-    if (!error && data) setBookings(data as Booking[]);
-    setLoading(false);
+      const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), 5000));
+      
+      const data = await Promise.race([fetchRequest(), timeout]);
+      if (data) setBookings(data as Booking[]);
+    } catch (error) {
+      console.warn("Could not fetch bookings or request timed out:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const cancelBooking = async (id: string) => {
@@ -185,11 +197,6 @@ const Dashboard = () => {
               <p className="text-muted-foreground">{user?.email}</p>
             </div>
             <div className="flex items-center gap-4">
-              {isAdmin && (
-                <Button onClick={() => navigate("/admin")} className="rounded-xl bg-accent text-accent-foreground hover:bg-accent/90 font-bold">
-                  <ShieldCheck className="w-4 h-4 mr-2" /> Admin Panel
-                </Button>
-              )}
               <Button variant="outline" onClick={handleSignOut} className="rounded-xl">
                 <LogOut className="w-4 h-4 mr-2" /> Sign Out
               </Button>

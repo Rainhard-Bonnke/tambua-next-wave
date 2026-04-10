@@ -7,27 +7,28 @@ export const useSafaris = () => {
     queryKey: ["safaris"],
     queryFn: async () => {
       try {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const { data, error } = await (supabase as any).from("safaris").select("*");
+        // Enforce a strict 5-second timeout on the Supabase request
+        const fetchSafaris = async () => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const { data, error } = await (supabase as any).from("safaris").select("*");
+          if (error) throw error;
+          return data;
+        };
+
+        const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), 5000));
         
-        if (error) {
-          console.error("Error fetching safaris from Supabase:", error);
-          throw error;
-        }
-        
-        // If the table is empty (e.g. user hasn't inserted them yet), fallback to local mock data
+        const data = await Promise.race([fetchSafaris(), timeout]) as any[];
+
         if (!data || data.length === 0) {
           return localSafaris;
         }
 
-        // Map stripe_price_id back to stripePriceId
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return data.map((item: any) => ({
           ...item,
           stripePriceId: item.stripe_price_id || item.stripePriceId,
         })) as Safari[];
       } catch (err) {
-        // Fallback to purely local data so the site doesn't break if SQL isn't run
+        console.warn("Supabase fetch failed or timed out. Falling back to local Safari data.");
         return localSafaris;
       }
     },
@@ -41,17 +42,28 @@ export const useSafari = (id?: string) => {
     queryFn: async () => {
       if (!id) return null;
       try {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const { data, error } = await (supabase as any).from("safaris").select("*").eq("id", id).maybeSingle();
+        const fetchSafari = async () => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const { data, error } = await (supabase as any).from("safaris").select("*").eq("id", id).maybeSingle();
+          if (error) throw error;
+          return data;
+        };
+
+        const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), 5000));
+        
+        const data = await Promise.race([fetchSafari(), timeout]) as any;
+
         if (data) {
           return {
             ...data,
             stripePriceId: data.stripe_price_id || data.stripePriceId,
           } as Safari;
         }
+        
         // Fallback
         return localSafaris.find((s) => s.id === id) || null;
       } catch (err) {
+        console.warn(`Supabase fetch failed for safari ${id}. Falling back to local data.`);
         return localSafaris.find((s) => s.id === id) || null;
       }
     },

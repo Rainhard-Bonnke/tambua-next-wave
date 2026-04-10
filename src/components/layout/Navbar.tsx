@@ -92,15 +92,6 @@ const Navbar = () => {
               </Button>
             ) : (
               <div className="flex items-center gap-2">
-                {isAdmin && (
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold border-none hidden sm:flex"
-                  >
-                    <Link to="/admin">Admin Dashboard</Link>
-                  </Button>
-                )}
                 <Button
                   asChild
                   className={"bg-transparent text-white hover:bg-white/10 font-semibold border-2 border-white"}
@@ -138,14 +129,7 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
-            {isAdmin && (
-              <Link
-                to="/admin"
-                className="block px-4 py-3 rounded-lg text-sm font-bold bg-accent text-accent-foreground transition-colors"
-              >
-                Admin Dashboard
-              </Link>
-            )}
+            {/* Admin Dashboard button removed */}
             <Button asChild className="w-full mt-3 bg-primary text-primary-foreground hover:bg-primary/90 font-semibold">
               <Link to="/safaris">Let's Get Started</Link>
             </Button>
