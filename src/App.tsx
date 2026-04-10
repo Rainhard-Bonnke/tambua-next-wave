@@ -24,6 +24,7 @@ const Gallery = lazy(() => import("./pages/Gallery.tsx"));
 const TravelInfo = lazy(() => import("./pages/TravelInfo.tsx"));
 const Blog = lazy(() => import("./pages/Blog.tsx"));
 const BlogDetail = lazy(() => import("./pages/BlogDetail.tsx"));
+const Terms = lazy(() => import("./pages/Terms.tsx"));
 const Contact = lazy(() => import("./pages/Contact.tsx"));
 const Login = lazy(() => import("./pages/Login.tsx"));
 const Signup = lazy(() => import("./pages/Signup.tsx"));
@@ -53,6 +54,8 @@ const AnimatedRoutes = () => {
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:id" element={<BlogDetail />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Terms />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
