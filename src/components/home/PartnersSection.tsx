@@ -2,12 +2,12 @@ import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const partners = [
-  { name: "Kenya Wildlife Service", logo: "/images/logos/kws.webp" },
-  { name: "Magical Kenya", logo: "/images/logos/magical-kenya.webp" },
-  { name: "KATO", logo: "/images/logos/kato.webp" },
+  { name: "Kenya Wildlife Service", logo: "/images/logos/kws.png" },
+  { name: "Magical Kenya", logo: "/images/logos/magical-kenya.png" },
+  { name: "KATO", logo: "/images/logos/kato.png" },
   { name: "TripAdvisor", logo: "/images/logos/tripadvisor.svg" },
   { name: "Safari Bookings", logo: "/images/logos/safaribookings.webp" },
-  { name: "Eco Tourism Kenya", logo: "/images/logos/ecotourism.webp" },
+  { name: "Eco Tourism Kenya", logo: "/images/logos/ecotourism.png" },
   { name: "IATA", logo: "/images/logos/iata.svg" },
   { name: "UN Tourism", logo: "/images/logos/un-tourism.svg" },
 ];
