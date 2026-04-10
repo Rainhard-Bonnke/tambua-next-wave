@@ -5,11 +5,9 @@ import { ChevronRight, Play } from "lucide-react";
 import OptimizedImage from "@/components/ui/optimized-image";
 
 const backgroundImages = [
-  "/images/nairobi-real.webp",
-  "/images/maasai-mara-final.webp",
-  "/images/diani-final.webp",
-  "/images/amboseli-final.webp",
-  "/images/lamu-island.webp",
+  "/images/amboseli-real.webp",
+  "/images/roya-ann-miller-GGY3yYwu0Wc-unsplash.webp",
+  "/images/maasai-mara-real.webp",
 ];
 
 const HeroSection = () => {

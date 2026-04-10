@@ -28,9 +28,9 @@ const Index = () => {
             title="Witness the Great Migration"
             description="Embark on an unforgettable journey through Africa's most iconic landscapes, where nature's greatest spectacles unfold before your eyes."
             images={[
-              "/images/amboseli-final.webp",
-              "/images/maasai-mara-wildlife.webp",
-              "/images/samburu-reserve.webp"
+              "/images/wildbeast-migration-1.webp",
+              "/images/wildbeast-migration-2.webp",
+              "/images/wildbeast-migration-3.webp"
             ]}
             align="left"
           />
