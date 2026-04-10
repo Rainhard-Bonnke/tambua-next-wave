@@ -94,15 +94,30 @@ export const AdminSafaris = () => {
         stripe_price_id: editing.stripePriceId,
       };
 
+      // Optimistic Update: Update the local cache immediately
+      queryClient.setQueryData(["safaris"], (old: Safari[] = []) => {
+        const index = old.findIndex((s) => s.id === payload.id);
+        if (index > -1) {
+          const updated = [...old];
+          updated[index] = { ...payload, stripePriceId: payload.stripe_price_id } as Safari;
+          return updated;
+        }
+        return [...old, { ...payload, stripePriceId: payload.stripe_price_id } as Safari];
+      });
+
+      setEditing(null);
+      toast.success("Safari updated (syncing...)");
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { error } = await (supabase as any).from("safaris").upsert(payload);
-      if (error) throw error;
-
-      toast.success("Safari saved successfully");
+      if (error) {
+        toast.error("Cloud sync failed. Ensure you ran the SQL permission script.");
+        throw error;
+      }
+      
       queryClient.invalidateQueries({ queryKey: ["safaris"] });
-      setEditing(null);
     } catch (error) {
-      toast.error("Failed to save safari. Ensure you have run the DB setup script.");
+      console.error("Save error:", error);
     } finally {
       setIsSubmitting(false);
     }

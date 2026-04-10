@@ -16,6 +16,7 @@ import { AdminSafaris } from "@/components/admin/AdminSafaris";
 import { AdminDestinations } from "@/components/admin/AdminDestinations";
 import { AdminInsights } from "@/components/admin/AdminInsights";
 import { AdminInquiries } from "@/components/admin/AdminInquiries";
+import { AdminHealth } from "@/components/admin/AdminHealth";
 
 interface AdminBooking {
   id: string;
@@ -203,8 +204,8 @@ const Admin = () => {
             </Button>
           </div>
 
-          <div className="flex gap-2 mb-8 border-b border-border pb-px">
-            {["bookings", "safaris", "destinations", "messages", "insights"].map(tab => (
+          <div className="flex gap-2 mb-8 border-b border-border pb-px overflow-x-auto whitespace-nowrap scrollbar-hide">
+            {["bookings", "safaris", "destinations", "messages", "insights", "health"].map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -226,6 +227,7 @@ const Admin = () => {
           {activeTab === "destinations" && <AdminDestinations />}
           {activeTab === "messages" && <AdminInquiries />}
           {activeTab === "insights" && <AdminInsights />}
+          {activeTab === "health" && <AdminHealth />}
 
           {activeTab === "bookings" && (
             <>
