@@ -33,11 +33,11 @@ const PartnersSection = () => {
               className="flex flex-col items-center justify-center transition-all duration-300 opacity-80 hover:opacity-100"
               title={partner.name}
             >
-              <div className="bg-white p-3 rounded-2xl shadow-sm border border-border/50 w-full flex items-center justify-center">
+              <div className="bg-slate-100 p-4 rounded-2xl shadow-sm border border-border/50 w-full flex items-center justify-center min-h-[72px]">
                 <img
                   src={partner.logo}
                   alt={partner.name}
-                  className="max-h-12 max-w-full object-contain"
+                  className="h-12 w-auto object-contain"
                   loading="lazy"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = "/images/logos/kws.png";
