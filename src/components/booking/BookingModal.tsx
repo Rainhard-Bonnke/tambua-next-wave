@@ -139,7 +139,7 @@ const BookingModal = ({ open, onOpenChange, preselectedSafari }: BookingModalPro
         });
 
         const whatsappText = `Hello Tambua Next Wave! I would like to book a safari.\n\nSafari: ${selectedSafari.title}\nName: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nDate: ${format(date, "yyyy-MM-dd")}\nGuests: ${form.guests}\n\nNotes: ${form.notes || "None"}`;
-        const whatsappUrl = `https://wa.me/254726207900?text=${encodeURIComponent(whatsappText)}`;
+        const whatsappUrl = `https://wa.me/254704548878?text=${encodeURIComponent(whatsappText)}`;
         window.open(whatsappUrl, '_blank');
 
         toast.success(

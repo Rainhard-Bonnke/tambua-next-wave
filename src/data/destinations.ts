@@ -93,4 +93,78 @@ export const destinations: Destination[] = [
     ],
     safariCount: 5,
   },
+  {
+    id: "diani",
+    name: "Diani Beach",
+    country: "Kenya",
+    description:
+      "A pristine coastal paradise with white sandy beaches, turquoise waters, and vibrant Swahili culture along Kenya's Indian Ocean coastline.",
+    image: "/images/destiations/Diani/diani-beach-new.webp",
+    images: [
+      "/images/destiations/Diani/diani-beach-new.webp",
+      "/images/destiations/Diani/diani-beach-sunset.webp",
+      "/images/destiations/Diani/diani-beach-resort.webp",
+      "/images/diani-extra-1.png",
+      "/images/diani-extra-2.png",
+    ],
+    safariCount: 2,
+  },
+  {
+    id: "chale-island",
+    name: "Chale Island",
+    country: "Kenya",
+    description:
+      "A breathtaking private coral island rising from the turquoise Indian Ocean off Diani Beach — Kenya's most exclusive island escape, accessible only by boat.",
+    image: "/images/Chale Island.jpg",
+    images: [
+      "/images/Chale Island.jpg",
+      "/images/chale Hotel.jpg",
+      "/images/chale-extra-1.png",
+      "/images/chale-extra-2.png",
+      "/images/chale-extra-3.png",
+    ],
+    safariCount: 1,
+  },
+  {
+    id: "watamu",
+    name: "Watamu",
+    country: "Kenya",
+    description:
+      "A pristine coastal paradise north of Mombasa, where the Indian Ocean meets Kenya's most spectacular marine park — famous for coral reefs, sea turtles, world-class game fishing, and warm turquoise waters.",
+    image: "/images/watamu-beach.png",
+    images: [
+      "/images/watamu-beach.png",
+      "/images/watamu-hotel.png",
+      "/images/watamu-bay.png",
+    ],
+    safariCount: 1,
+  },
+  {
+    id: "wasini",
+    name: "Wasini Island",
+    country: "Kenya",
+    description:
+      "A serene, vehicle-free coral island off Kenya's southern coast. Gateway to Kisite Mpunguti Marine Park, offering spectacular dolphin spotting, pristine snorkeling, and authentic Swahili culture.",
+    image: "/images/wasini-island-1.png",
+    images: [
+      "/images/wasini-island-1.png",
+      "/images/wasini-island-2.png",
+    ],
+    safariCount: 1,
+  },
+  {
+    id: "mombasa-north-coast",
+    name: "Mombasa North Coast",
+    country: "Kenya",
+    description:
+      "A vibrant stretch of white sandy beaches along the Indian Ocean, featuring lively resorts, historical sites like Fort Jesus, and excellent warm-water marine life.",
+    image: "/images/wasini-island-1.png",
+    images: [
+      "/images/wasini-island-1.png",
+      "/images/mombasa-north-1.png",
+      "/images/mombasa-north-2.png",
+      "/images/mombasa-north-3.png",
+    ],
+    safariCount: 1,
+  },
 ];

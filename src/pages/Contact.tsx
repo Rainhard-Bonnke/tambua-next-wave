@@ -32,7 +32,7 @@ const Contact = () => {
       });
 
       const whatsappText = `Hello! My name is ${formData.name}.\n\nI have an inquiry regarding: ${formData.subject}\n\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`;
-      const whatsappUrl = `https://wa.me/254726207900?text=${encodeURIComponent(whatsappText)}`;
+      const whatsappUrl = `https://wa.me/254704548878?text=${encodeURIComponent(whatsappText)}`;
       window.open(whatsappUrl, '_blank');
 
       toast.success(
@@ -77,7 +77,7 @@ const Contact = () => {
                 <div className="space-y-5">
                   {[
                     { icon: MapPin, label: "Address", value: "Plainsview Road, Off Mombasa Road, Nairobi, Kenya" },
-                    { icon: Phone, label: "Phone", value: "+254 726 207 900 / +254 792 329 682 / +254 704 548 878" },
+                    { icon: Phone, label: "Phone", value: "UK: +44 793 997 0489 | WhatsApp: +254 704 548 878" },
                     { icon: Mail, label: "Email", value: "info@tambuaafrica.com" },
                     { icon: Clock, label: "Working Hours", value: "Mon - Sat: 8:00 AM - 6:00 PM EAT" },
                   ].map((item) => (

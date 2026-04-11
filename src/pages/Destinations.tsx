@@ -64,6 +64,46 @@ const destinationEnhancements: Record<string, { features: string[]; story: strin
     story:
       "Lake Nakuru turns pink at dawn — not from the light, but from the flamingos. Millions of them sometimes ring the lake's edges in an unbroken coral necklace, so dense and so vivid that first-time visitors literally stop breathing. Behind this spectacle, rhinos graze on the hillside above, leopards move between the yellow fever trees, and the Great Rift Valley escarpment frames everything in geological magnificence.",
   },
+  "chale-island": {
+    features: [
+      "Private coral island: A 10-acre paradise rising from the Indian Ocean, accessible exclusively by motorboat — total seclusion from the mainland",
+      "Iconic heart-shaped infinity pool: Carved into the coral cliff edge with a jaw-dropping drop into the turquoise sea below",
+      "World-class marine biodiversity: A pristine house reef supports sea turtles, dolphins, over 200 coral fish species, and vibrant coral gardens",
+      "Swahili-Arabic heritage architecture: Hand-carved timber, painted tiles, and ocean-facing verandas echo centuries of coastal craftsmanship",
+    ],
+    story:
+      "Chale Island is Kenya's best-kept coastal secret — a coral jewel adrift in the glittering Indian Ocean, separated from the rest of the world by five minutes of blue water. The island wears its age lightly: ancient coral rock formations frame a modern luxury retreat where the heart-shaped infinity pool becomes less a amenity than a statement of intent. Each dawn brings new sea turtle sightings in the shallows, each dusk a sunset that sets the Indian Ocean on fire. Dining here, with bare feet in the sand and fresh Swahili seafood on the table, is as close to paradise as East Africa gets.",
+  },
+  watamu: {
+    features: [
+      "Watamu Marine National Park: One of Kenya's most biodiverse marine reserves — pristine coral gardens, whale sharks, manta rays, and nesting sea turtles",
+      "World-class game fishing: Blue-water fisheries ranked among Africa's best for marlin, sailfish, wahoo, and yellowfin tuna",
+      "Arabuko-Sokoke Forest: Adjacent to Africa's largest coastal forest — home to rare elephants, golden-rumped elephant shrews, and 230+ bird species",
+      "Watamu Beach: A sweeping arc of white sand with warm, calm turquoise waters sheltered by a natural bay — one of Kenya's most beautiful beaches",
+    ],
+    story:
+      "Watamu is where Kenya's coast reveals its most untouched face. The town sits between two of the country's greatest natural treasures — a marine park of extraordinary coral richness and a coastal forest that predates recorded history. Sport fishing boats leave at dawn in search of world-record marlin; by mid-morning the reef is alive with snorkelers chasing sea turtles through coral gardens. The pace here is dictated entirely by the Indian Ocean: slow when the tide is out, unhurried when it's in, and always accompanied by the kind of light that makes every moment feel golden.",
+  },
+  wasini: {
+    features: [
+      "Kisite Mpunguti Marine Park: Simply the best snorkeling and diving in Kenya, heavily populated with resident dolphins and untouched coral.",
+      "Traditional dhow sailing: The only way to access the marine park is via traditional wooden dhows, preserving ancient seafaring culture.",
+      "Vehicle-free serenity: Wasini has zero cars and zero paved roads, offering a completely undisturbed island experience.",
+      "Swahili culture & cuisine: Known for its ancient ruins, Baobab trees, and phenomenal fresh crab and coconut rice dishes.",
+    ],
+    story:
+      "Wasini Island forces you to slow down. The moment you step off the boat onto its sandy paths, time seems to stretch. There are no engines here—only the rustle of wind through massive baobab trees and the lap of the ocean against coral cliffs. Days are spent sailing out on traditional dhows to Kisite Mpunguti, sliding into warm waters to swim alongside pods of playful dolphins, and returning to mainland to feast on Swahili seafood platters. It's a glimpse into the Kenyan coast as it was centuries ago.",
+  },
+  "mombasa-north-coast": {
+    features: [
+      "Pristine Beaches: Long stretches of white sand including Nyali, Bamburi, and Shanzu beaches right on the warm Indian Ocean edge.",
+      "Vibrant Resort Culture: Home to Kenya's most lively and entertaining coastal resorts with extensive pools and watersports.",
+      "Mombasa Marine National Park: Incredible snorkeling and glass-bottom boat tours exploring rich coral gardens just offshore.",
+      "Historic Mombasa Town: Easy access to the 16th-century Fort Jesus, the iconic Mombasa Tusks, and the bustling Old Town.",
+    ],
+    story:
+      "The North Coast of Mombasa vibrates with energy. It's the classic Kenyan beach holiday: wide shores lined with whispering palms leading down to the impossibly warm Indian Ocean. Here, mornings might involve windsurfing across the reef, while afternoons are for exploring the ancient, spice-scented alleyways of Mombasa's Old Town or diving into the history of Fort Jesus. As the sun sets, the resorts come alive, offering a perfect blend of Swahili hospitality and international luxury right on the water's edge.",
+  },
   naivasha: {
     features: [
       "Freshwater Rift Valley lake: Africa's only major freshwater lake in the Rift Valley, surrounded by papyrus and fever trees",

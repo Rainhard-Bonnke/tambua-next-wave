@@ -607,6 +607,120 @@ export const destinationLodges: DestinationLodges[] = [
       },
     ],
   },
+
+  {
+    destinationId: "chale-island",
+    destinationName: "Chale Island",
+    lodges: [
+      {
+        id: "sands-at-chale-island",
+        name: "The Sands at Chale Island",
+        category: "luxury",
+        description: "The Sands at Chale Island is Kenya's most extraordinary private island retreat — a 10-acre coral island rising from the turquoise Indian Ocean, accessible only by a short motorboat ride from Diani Beach. Home to a legendary heart-shaped infinity pool carved into the coral cliff edge, Swahili-Arabic architecture, and world-class snorkeling reefs, it is the definitive island luxury experience on the East African coast.",
+        story: "Arriving at Chale Island feels like stepping out of the world. The 5-minute motorboat crossing delivers you to a place where the Indian Ocean stretches endlessly in every direction, where coral gardens shimmer beneath crystal-clear shallows, and where a signature heart-shaped infinity pool hovers above the reef edge like a jewel suspended over the sea. Evenings here — fresh Swahili seafood, candlelit and ocean-facing, with the warm breeze carrying the scent of frangipani — rank among the most romantic experiences in all of Africa.",
+        features: [
+          "Private 10-acre coral island — accessible exclusively by boat from Diani Beach",
+          "Iconic heart-shaped infinity pool perched on the coral cliff overlooking the Indian Ocean",
+          "World-class house reef snorkeling and scuba diving steps from your villa",
+          "Swahili-Arabic architecture with carved timber, hand-painted tiles and ocean-facing verandas",
+          "Fresh seafood restaurant and oceanfront sunset bar with panoramic Indian Ocean views",
+          "Dhow sunset cruises, deep-sea fishing, kayaking and kitesurfing available",
+        ],
+        image: "/images/chale Hotel.jpg",
+        images: [
+          "/images/chale Hotel.jpg",
+          "/images/Chale Island.jpg",
+          "/images/chale-extra-1.png",
+          "/images/chale-extra-2.png",
+          "/images/chale-extra-3.png",
+        ],
+        website: "https://thesandsatchaleisland.com/",
+      },
+    ],
+  },
+
+  {
+    destinationId: "watamu",
+    destinationName: "Watamu",
+    lodges: [
+      {
+        id: "hemingways-watamu",
+        name: "Hemingways Watamu",
+        category: "luxury",
+        description: "Hemingways Watamu is Kenya's premier beachfront boutique resort — an adults-only all-inclusive retreat perched directly on Blue Flag-awarded Watamu Beach. With just 44 suites facing the azure Indian Ocean, it combines world-class game fishing, snorkeling in the Watamu Marine National Park, and a legendary sundowner culture with the finest Swahili cuisine on the Kenyan coast.",
+        story: "Hemingways earned its name from the spirit of Ernest Hemingway's legendary East African adventures, and it lives up to that legacy daily. Each morning, sport fishing boats launch from the resort in pursuit of marlin, sailfish and wahoo in some of the world's most productive blue-water fisheries. By afternoon, sea turtles nest on the beach steps from your suite. By evening, the Indian Ocean turns every shade of gold as cold drinks appear at the clifftop bar — and the only decision is whether to dine by the ocean or beside the pool.",
+        features: [
+          "Adults-only all-inclusive resort directly on award-winning Watamu Beach",
+          "44 ocean-facing suites with private balconies and Indian Ocean views",
+          "World-class deep-sea game fishing: marlin, sailfish, wahoo in blue-water fisheries",
+          "Direct access to Watamu Marine National Park — pristine coral reefs and sea turtles",
+          "Infinity pool, beachfront bar and acclaimed Swahili-fusion restaurant",
+          "Arabuko-Sokoke Forest excursions, dhow cruises and watersports available",
+        ],
+        image: "/images/watamu-hotel.png",
+        images: [
+          "/images/watamu-hotel.png",
+          "/images/watamu-beach.png",
+          "/images/watamu-bay.png",
+        ],
+        website: "https://www.hemingways.co.ke/",
+      },
+    ],
+  },
+  {
+    destinationId: "wasini",
+    destinationName: "Wasini Island",
+    lodges: [
+      {
+        id: "blue-monkey-beach-cottages",
+        name: "Blue Monkey Beach Cottages",
+        category: "mid-range",
+        description: "Set in a tranquil tropical garden overlooking the brilliant blue waters of the Indian Ocean, Blue Monkey Beach Cottages offers an authentic island experience on car-free Wasini Island. Just minutes by boat from Kisite Mpunguti Marine Park, this eco-friendly retreat perfectly captures the unhurried magic of the Kenyan coast.",
+        story: "Life at Blue Monkey Beach Cottages moves at the pace of the tides. There are no cars here, only sandy paths winding between coral houses and ancient baobab trees. Your day begins with a traditional dhow sailing trip to Kisite Marine Park, where dolphins surf the bow wake. Returning to the island, you'll dine on freshly caught crab and coconut rice, listening to the gentle lap of the ocean just steps from your cottage.",
+        features: [
+          "Located on vehicle-free Wasini Island, accessible only by boat",
+          "Eco-friendly cottages built with traditional Swahili coral rag and makuti thatch",
+          "Direct access to traditional dhow trips for world-class dolphin spotting",
+          "Unbeatable proximity to Kisite Mpunguti Marine Park's snorkeling and diving",
+          "Authentic Swahili seafood dining prepared by local chefs",
+          "Immersive cultural village tours supporting the local community",
+        ],
+        image: "/images/wasini-island-1.png",
+        images: [
+          "/images/wasini-island-1.png",
+          "/images/wasini-island-2.png",
+        ],
+      },
+    ],
+  },
+  {
+    destinationId: "mombasa-north-coast",
+    destinationName: "Mombasa North Coast",
+    lodges: [
+      {
+        id: "serena-beach-resort",
+        name: "Serena Beach Resort & Spa",
+        category: "luxury",
+        description: "Fringed by white beaches and shaded by coconut palms, Serena Beach Resort & Spa brings the history and culture of the Swahili Coast to life. Designed to resemble a 13th-century Swahili town, this tranquil oasis offers ultimate coastal relaxation on Shanzu Beach.",
+        story: "Walking into Serena Beach Resort is like stepping back in time to an ancient Swahili settlement. Winding lanes, carved balconies, and coral pillars lead you to a stunning palm-fringed beachfront. Families and couples alike spend their days enjoying world-class water sports, swimming in the free-form pool, or unwinding at the Maisha Mind Body & Spirit Spa, all while experiencing the warm, vibrant hospitality of the Kenyan coast.",
+        features: [
+          "Located directly on the pristine, white sands of Shanzu Beach",
+          "Unique architecture inspired by a 13th-century Swahili town",
+          "Maisha Mind Body & Spirit Spa offering indulgent coastal treatments",
+          "Extensive water sports including windsurfing, sailing, and scuba diving",
+          "Multiple dining options featuring fresh, local Indian Ocean seafood",
+          "Butterfly pavilion and sea turtle conservation programs on site",
+        ],
+        image: "/images/mombasa-north-1.png",
+        images: [
+          "/images/mombasa-north-1.png",
+          "/images/mombasa-north-2.png",
+          "/images/mombasa-north-3.png",
+        ],
+        website: "https://www.serenahotels.com/serena-beach-resort-spa",
+      },
+    ],
+  },
 ];
 
 export function getLodgesForDestination(destinationId: string): Lodge[] {
