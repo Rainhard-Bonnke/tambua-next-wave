@@ -55,9 +55,9 @@ const Index = () => {
             title="Premium Safari Lodging"
             description="Experience the perfect blend of wild adventure and modern luxury. Boutique stays in the heart of the savannah, tailored just for you."
             images={[
-              "/images/destiations/Lake Naivash/Sopa resort.webp",
-              "/images/destiations/Tsavo/Kilaguni lodge.webp",
-              "/images/destiations/Maasai Mara/Emaiyan camp.webp"
+              "/images/HOTEL ROOM.webp",
+              "/images/destiations/Tsavo/voi lodge swimming pool.webp",
+              "/images/destiations/Tsavo/Kilaguni serena safari lodge food sfood.webp"
             ]}
             interval={7000}
             align="left"

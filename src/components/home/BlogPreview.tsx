@@ -1,10 +1,11 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Calendar, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { posts } from "@/data/blogPosts";
+import { useBlogs } from "@/hooks/useBlogs";
 
 const BlogPreview = () => {
   const { ref, isVisible } = useScrollAnimation();
+  const { data: posts = [] } = useBlogs();
 
   return (
     <section className="section-padding bg-background" ref={ref}>

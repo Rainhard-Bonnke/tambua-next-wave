@@ -43,10 +43,10 @@ export const destinations: Destination[] = [
     country: "Kenya",
     description:
       "A rugged northern frontier known for rare wildlife species, the Ewaso Ng'iro River, and the vibrant Samburu culture.",
-    image: "/images/destiations/Samburu/Saruni Bonfire.webp",
+    image: "/images/destiations/Samburu/Saruni.webp",
     images: [
-      "/images/destiations/Samburu/Saruni Bonfire.webp",
-      "/images/destiations/Samburu/Sopa resort.webp",
+      "/images/destiations/Samburu/Saruni.webp",
+      "/images/destiations/Samburu/Sopa lodge.webp",
       "/images/destiations/Samburu/Game drive samburu lodge river side.webp",
     ],
     safariCount: 4,

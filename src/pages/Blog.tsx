@@ -4,24 +4,24 @@ import PageTransition from "@/components/layout/PageTransition";
 import { Link } from "react-router-dom";
 import { Calendar, ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-
-import { posts } from "@/data/blogPosts";
+import { useBlogs } from "@/hooks/useBlogs";
 
 const Blog = () => {
   const { ref, isVisible } = useScrollAnimation();
+  const { data: posts = [] } = useBlogs();
 
   return (
     <PageTransition>
       <div className="min-h-screen">
         <Navbar />
         <main>
-          <section className="relative pt-32 pb-20 bg-primary text-primary-foreground">
+          <section className="relative pt-32 pb-20 bg-background text-foreground">
             <div className="container-wide mx-auto px-4 sm:px-6 lg:px-8 text-center">
               <span className="text-accent font-semibold text-sm uppercase tracking-wider">
                 Our Blog
               </span>
               <h1 className="text-4xl sm:text-5xl font-bold mt-3">News & Stories</h1>
-              <p className="text-primary-foreground/70 mt-4 max-w-2xl mx-auto text-lg">
+              <p className="text-muted-foreground mt-4 max-w-2xl mx-auto text-lg">
                 Travel tips, safari stories, and the latest news from Tambua Africa.
               </p>
             </div>

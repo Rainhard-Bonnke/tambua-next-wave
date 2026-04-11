@@ -1,4 +1,15 @@
-export const posts = [
+export interface BlogPost {
+  id: string;
+  title: string;
+  excerpt: string;
+  image: string;
+  date: string;
+  category: string;
+  readTime: string;
+  content: string;
+}
+
+export const posts: BlogPost[] = [
   {
     id: "1",
     title: "Kenya's Visa-Free Entry (ETA): Everything Travelers Need to Know for 2026",
