@@ -14,6 +14,7 @@ import Footer from "@/components/layout/Footer";
 import PageTransition from "@/components/layout/PageTransition";
 import { AdminSafaris } from "@/components/admin/AdminSafaris";
 import { AdminDestinations } from "@/components/admin/AdminDestinations";
+import { AdminBlogs } from "@/components/admin/AdminBlogs";
 import { AdminInsights } from "@/components/admin/AdminInsights";
 import { AdminInquiries } from "@/components/admin/AdminInquiries";
 import { AdminHealth } from "@/components/admin/AdminHealth";
@@ -205,7 +206,7 @@ const Admin = () => {
           </div>
 
           <div className="flex gap-2 mb-8 border-b border-border pb-px overflow-x-auto whitespace-nowrap scrollbar-hide">
-            {["bookings", "safaris", "destinations", "messages", "insights", "health"].map(tab => (
+            {["bookings", "safaris", "destinations", "blogs", "messages", "insights", "health"].map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -225,6 +226,7 @@ const Admin = () => {
 
           {activeTab === "safaris" && <AdminSafaris />}
           {activeTab === "destinations" && <AdminDestinations />}
+          {activeTab === "blogs" && <AdminBlogs />}
           {activeTab === "messages" && <AdminInquiries />}
           {activeTab === "insights" && <AdminInsights />}
           {activeTab === "health" && <AdminHealth />}

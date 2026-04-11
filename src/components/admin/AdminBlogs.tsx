@@ -1,7 +1,7 @@
 import { useState, memo } from "react";
-import { useDestinations } from "@/hooks/useDestinations";
+import { useBlogs } from "@/hooks/useBlogs";
 import { supabase } from "@/integrations/supabase/client";
-import { Destination } from "@/data/destinations";
+import { BlogPost } from "@/data/blogPosts";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,21 +12,28 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import { compressImage, createPreviewUrl } from "@/lib/image-utils";
 
-const emptyDestination: Partial<Destination> = {
-  id: "", name: "", country: "", description: "", image: "", safariCount: 0
+const emptyBlog: Partial<BlogPost> = {
+  id: "",
+  title: "",
+  excerpt: "",
+  image: "",
+  date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }),
+  category: "",
+  readTime: "",
+  content: ""
 };
 
-export const AdminDestinations = () => {
-  const { data: destinations = [], isLoading } = useDestinations();
+export const AdminBlogs = () => {
+  const { data: blogs = [], isLoading } = useBlogs();
   const queryClient = useQueryClient();
-  const [editing, setEditing] = useState<Partial<Destination> | null>(null);
+  const [editing, setEditing] = useState<Partial<BlogPost> | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploading, setUploading] = useState(false);
 
-  const handleEdit = (dest: Destination) => setEditing(dest);
-  
+  const handleEdit = (blog: BlogPost) => setEditing(blog);
+
   const handleAdd = () => {
-    setEditing({ ...emptyDestination, id: `dest-${Date.now()}` });
+    setEditing({ ...emptyBlog, id: `blog-${Date.now()}` });
   };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,10 +48,10 @@ export const AdminDestinations = () => {
     try {
       // 2. Compress image
       const compressedFile = await compressImage(file);
-      
+
       const fileExt = compressedFile.name.split(".").pop();
       const fileName = `${Date.now()}-${Math.random()}.${fileExt}`;
-      
+
       const { error: uploadError } = await supabase.storage
         .from("safaris")
         .upload(fileName, compressedFile);
@@ -74,35 +81,37 @@ export const AdminDestinations = () => {
     try {
       const payload = {
         id: editing.id,
-        name: editing.name,
-        country: editing.country,
-        description: editing.description,
+        title: editing.title,
+        excerpt: editing.excerpt,
         image: editing.image,
-        safari_count: editing.safariCount,
+        date: editing.date,
+        category: editing.category,
+        read_time: editing.readTime,
+        content: editing.content,
       };
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { error } = await (supabase as any).from("destinations").upsert(payload);
+      const { error } = await (supabase as any).from("blogs").upsert(payload);
       if (error) throw error;
 
-      toast.success("Destination saved successfully");
-      queryClient.invalidateQueries({ queryKey: ["destinations"] });
+      toast.success("Blog post saved successfully");
+      queryClient.invalidateQueries({ queryKey: ["blogs"] });
       setEditing(null);
     } catch (error) {
-      toast.error("Failed to save destination.");
+      toast.error("Failed to save blog post.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this destination?")) return;
+    if (!confirm("Are you sure you want to delete this blog post?")) return;
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { error } = await (supabase as any).from("destinations").delete().eq("id", id);
+      const { error } = await (supabase as any).from("blogs").delete().eq("id", id);
       if (error) throw error;
-      toast.success("Destination deleted");
-      queryClient.invalidateQueries({ queryKey: ["destinations"] });
+      toast.success("Blog post deleted");
+      queryClient.invalidateQueries({ queryKey: ["blogs"] });
     } catch (error) {
       toast.error("Delete failed");
     }
@@ -114,10 +123,10 @@ export const AdminDestinations = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center bg-card p-6 rounded-2xl border border-border">
         <div>
-          <h2 className="text-xl font-bold">Manage Destinations</h2>
-          <p className="text-muted-foreground text-sm">Add, edit, or remove travel destinations.</p>
+          <h2 className="text-xl font-bold">Manage Blog Posts</h2>
+          <p className="text-muted-foreground text-sm">Add, edit, or remove blog posts.</p>
         </div>
-        <Button onClick={handleAdd} className="bg-accent hover:bg-accent/90"><Plus className="w-4 h-4 mr-2"/> Add Destination</Button>
+        <Button onClick={handleAdd} className="bg-accent hover:bg-accent/90"><Plus className="w-4 h-4 mr-2"/> Add Blog Post</Button>
       </div>
 
       <div className="bg-card rounded-2xl border border-border overflow-hidden">
@@ -126,24 +135,24 @@ export const AdminDestinations = () => {
             <thead className="bg-muted/50 border-b border-border">
               <tr>
                 <th className="text-left p-4 text-sm font-medium text-muted-foreground">Image</th>
-                <th className="text-left p-4 text-sm font-medium text-muted-foreground">Name</th>
-                <th className="text-left p-4 text-sm font-medium text-muted-foreground">Country</th>
-                <th className="text-left p-4 text-sm font-medium text-muted-foreground">Safaris</th>
+                <th className="text-left p-4 text-sm font-medium text-muted-foreground">Title</th>
+                <th className="text-left p-4 text-sm font-medium text-muted-foreground">Category</th>
+                <th className="text-left p-4 text-sm font-medium text-muted-foreground">Date</th>
                 <th className="text-right p-4 text-sm font-medium text-muted-foreground">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {destinations.map((dest) => (
-                <tr key={dest.id} className="border-b border-border hover:bg-muted/20">
+              {blogs.map((blog) => (
+                <tr key={blog.id} className="border-b border-border hover:bg-muted/20">
                   <td className="p-4">
-                    <img src={dest.image} alt={dest.name} className="w-16 h-12 object-cover rounded-md" />
+                    <img src={blog.image} alt={blog.title} className="w-16 h-12 object-cover rounded-md" />
                   </td>
-                  <td className="p-4 font-medium">{dest.name}</td>
-                  <td className="p-4">{dest.country}</td>
-                  <td className="p-4">{dest.safariCount}</td>
+                  <td className="p-4 font-medium max-w-xs truncate">{blog.title}</td>
+                  <td className="p-4">{blog.category}</td>
+                  <td className="p-4">{blog.date}</td>
                   <td className="p-4 text-right space-x-2">
-                    <Button size="sm" variant="outline" onClick={() => handleEdit(dest as Destination)}><Edit className="w-4 h-4"/></Button>
-                    <Button size="sm" variant="destructive" onClick={() => handleDelete(dest.id)}><Trash2 className="w-4 h-4"/></Button>
+                    <Button size="sm" variant="outline" onClick={() => handleEdit(blog as BlogPost)}><Edit className="w-4 h-4"/></Button>
+                    <Button size="sm" variant="destructive" onClick={() => handleDelete(blog.id)}><Trash2 className="w-4 h-4"/></Button>
                   </td>
                 </tr>
               ))}
@@ -153,29 +162,38 @@ export const AdminDestinations = () => {
       </div>
 
       <Dialog open={!!editing} onOpenChange={(open) => !open && setEditing(null)}>
-        <DialogContent className="sm:max-w-xl">
+        <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{editing?.id?.startsWith("dest-") ? "Add New Destination" : "Edit Destination"}</DialogTitle>
+            <DialogTitle>{editing?.id?.startsWith("blog-") ? "Add New Blog Post" : "Edit Blog Post"}</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium">Name</label>
-                <Input value={editing?.name || ""} onChange={(e) => setEditing(prev => ({ ...prev!, name: e.target.value }))} required />
+                <label className="text-sm font-medium">Title</label>
+                <Input value={editing?.title || ""} onChange={(e) => setEditing(prev => ({ ...prev!, title: e.target.value }))} required />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium">Country</label>
-                <Input value={editing?.country || ""} onChange={(e) => setEditing(prev => ({ ...prev!, country: e.target.value }))} required />
+                <label className="text-sm font-medium">Category</label>
+                <Input value={editing?.category || ""} onChange={(e) => setEditing(prev => ({ ...prev!, category: e.target.value }))} required />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium">Safari Count</label>
-                <Input type="number" value={editing?.safariCount || 0} onChange={(e) => setEditing(prev => ({ ...prev!, safariCount: Number(e.target.value) }))} required />
+                <label className="text-sm font-medium">Date</label>
+                <Input value={editing?.date || ""} onChange={(e) => setEditing(prev => ({ ...prev!, date: e.target.value }))} required />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Read Time</label>
+                <Input value={editing?.readTime || ""} onChange={(e) => setEditing(prev => ({ ...prev!, readTime: e.target.value }))} required />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium">Description</label>
-              <Textarea rows={4} value={editing?.description || ""} onChange={(e) => setEditing(prev => ({ ...prev!, description: e.target.value }))} required />
+              <label className="text-sm font-medium">Excerpt</label>
+              <Textarea rows={3} value={editing?.excerpt || ""} onChange={(e) => setEditing(prev => ({ ...prev!, excerpt: e.target.value }))} required />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Content (HTML)</label>
+              <Textarea rows={8} value={editing?.content || ""} onChange={(e) => setEditing(prev => ({ ...prev!, content: e.target.value }))} required />
             </div>
 
             <div className="space-y-2">
@@ -203,4 +221,4 @@ export const AdminDestinations = () => {
   );
 };
 
-export default memo(AdminDestinations);
+export default memo(AdminBlogs);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { useSafaris } from "@/hooks/useSafaris";
 import { supabase } from "@/integrations/supabase/client";
 import { Safari } from "@/data/safaris";
@@ -255,3 +255,5 @@ export const AdminSafaris = () => {
     </div>
   );
 };
+
+export default memo(AdminSafaris);
