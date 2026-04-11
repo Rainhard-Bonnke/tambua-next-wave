@@ -498,7 +498,6 @@ const Destinations = () => {
           {/* Kenya Destinations */}
           <section className="section-padding bg-background" ref={ref}>
             <div className="container-wide mx-auto">
-              <h2 className="text-3xl font-bold text-foreground mb-8">Kenya Destinations</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {destinations.filter(dest => dest.country === 'Kenya').map((dest, index) => {
                   const lodgeCount =
