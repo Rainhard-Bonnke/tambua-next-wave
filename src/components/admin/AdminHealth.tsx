@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { SUPABASE_STORAGE_BUCKET } from "@/lib/supabase-config";
 import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +12,7 @@ export const AdminHealth = () => {
   const [latency, setLatency] = useState<number | null>(null);
   const [dbConn, setDbConn] = useState<'checking' | 'ok' | 'fail'>('checking');
   const [storageConn, setStorageConn] = useState<'checking' | 'ok' | 'fail'>('checking');
+  const [bucketExists, setBucketExists] = useState<boolean | null>(null);
   const [checking, setChecking] = useState(false);
 
   const performCheck = async () => {
@@ -22,12 +24,15 @@ export const AdminHealth = () => {
       setLatency(Date.now() - start);
       setDbConn(dbError ? 'fail' : 'ok');
 
-      // 2. Check Storage Permissions (Try to list buckets)
-      const { error: storageError } = await supabase.storage.listBuckets();
-      setStorageConn(storageError ? 'fail' : 'ok');
+      // 2. Check Storage Permissions and bucket existence
+      const { data: buckets, error: storageError } = await supabase.storage.listBuckets();
+      const hasBucket = !storageError && Array.isArray(buckets) && buckets.some((bucket: any) => bucket.name === SUPABASE_STORAGE_BUCKET);
+      setBucketExists(hasBucket);
+      setStorageConn(storageError || !hasBucket ? 'fail' : 'ok');
     } catch (err) {
       setDbConn('fail');
       setStorageConn('fail');
+      setBucketExists(false);
     } finally {
       setChecking(false);
     }
@@ -73,7 +78,10 @@ export const AdminHealth = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{storageConn === 'ok' ? "Granted" : "Blocked"}</div>
-            <p className="text-xs text-muted-foreground mt-1">Supabase Storage RLS Check</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Supabase Storage RLS Check
+              {bucketExists === false ? ` — missing bucket '${SUPABASE_STORAGE_BUCKET}'` : ''}
+            </p>
           </CardContent>
         </Card>
 

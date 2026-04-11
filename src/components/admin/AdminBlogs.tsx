@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { compressImage, createPreviewUrl } from "@/lib/image-utils";
+import { SUPABASE_STORAGE_BUCKET } from "@/lib/supabase-config";
 
 const emptyBlog: Partial<BlogPost> = {
   id: "",
@@ -53,13 +54,13 @@ export const AdminBlogs = () => {
       const fileName = `${Date.now()}-${Math.random()}.${fileExt}`;
 
       const { error: uploadError } = await supabase.storage
-        .from("safaris")
+        .from(SUPABASE_STORAGE_BUCKET)
         .upload(fileName, compressedFile);
 
       if (uploadError) throw uploadError;
 
       const { data: { publicUrl } } = supabase.storage
-        .from("safaris")
+        .from(SUPABASE_STORAGE_BUCKET)
         .getPublicUrl(fileName);
 
       // 3. Final URL update
