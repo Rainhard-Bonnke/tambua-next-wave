@@ -30,15 +30,20 @@ const PartnersSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.05, duration: 0.4 }}
-              className="flex flex-col items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
+              className="flex flex-col items-center justify-center transition-all duration-300 opacity-80 hover:opacity-100"
               title={partner.name}
             >
-              <img
-                src={partner.logo}
-                alt={partner.name}
-                className="h-10 w-full object-contain"
-                loading="lazy"
-              />
+              <div className="bg-white p-3 rounded-2xl shadow-sm border border-border/50 w-full flex items-center justify-center">
+                <img
+                  src={partner.logo}
+                  alt={partner.name}
+                  className="max-h-12 max-w-full object-contain"
+                  loading="lazy"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = "/images/logos/kws.png";
+                  }}
+                />
+              </div>
             </motion.div>
           ))}
         </div>

@@ -33,8 +33,8 @@ const WhyChooseUs = () => {
               }`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center mb-4">
-                <feature.icon className="w-6 h-6 text-accent" />
+              <div className="w-12 h-12 rounded-xl bg-muted/20 flex items-center justify-center mb-4">
+                <feature.icon className="w-6 h-6 text-black" />
               </div>
               <h3 className="font-bold text-lg mb-2 text-foreground">{feature.title}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
