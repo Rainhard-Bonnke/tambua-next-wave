@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer className="bg-black text-primary-foreground">
       {/* Newsletter */}
       <div className="border-b border-primary-foreground/10">
         <div className="container-wide mx-auto section-padding py-12">

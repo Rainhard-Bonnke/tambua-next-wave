@@ -8,6 +8,7 @@ import { destinationLodges, Lodge } from "@/data/destinations-lodges";
 import { ArrowRight, MapPin, Star, X, ChevronLeft, ChevronRight, Bed } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useAuth } from "@/contexts/AuthContext";
+import OptimizedImage from "@/components/ui/optimized-image";
 
 // ─────────────────────────────────────────────────────────
 // Real destination features + story data
@@ -92,7 +93,7 @@ const ImageSlider = ({ images, name }: { images: string[]; name: string }) => {
   return (
     <>
       {images.map((src, i) => (
-        <img
+        <OptimizedImage
           key={i}
           src={src}
           alt={`${name} ${i + 1}`}
@@ -127,11 +128,10 @@ const LodgeCard = ({
     onClick={onClick}
   >
     <div className="relative h-48 overflow-hidden">
-      <img
+      <OptimizedImage
         src={lodge.image}
         alt={lodge.name}
         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        loading="lazy"
         onError={(e) => {
           (e.target as HTMLImageElement).src =
             "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800";
@@ -185,7 +185,7 @@ const LodgeModal = ({
       >
         {/* Hero image */}
         <div className="relative h-64 rounded-t-2xl overflow-hidden">
-          <img
+          <OptimizedImage
             src={lodge.image}
             alt={lodge.name}
             className="w-full h-full object-cover"

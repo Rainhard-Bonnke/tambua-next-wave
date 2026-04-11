@@ -64,7 +64,7 @@ const HomeFeatureHero = ({
       <div className="container-wide relative z-10 mx-auto flex w-full h-full">
         <div className={`${contentAlign} gap-2`}>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-2 leading-tight">
-            <span className="block text-accent font-semibold tracking-wider" style={{margin:isLeft?"0 0 0 -2px":"0 -2px 0 0",padding:isLeft?"0 0 0 8px":"0 8px 0 0"}}>{slogan}</span>
+            <span className="block text-yellow-400 font-semibold tracking-wider" style={{margin:isLeft?"0 0 0 -2px":"0 -2px 0 0",padding:isLeft?"0 0 0 8px":"0 8px 0 0"}}>{slogan}</span>
             {title}
           </h2>
           <p className="text-lg sm:text-xl text-white/80 mb-8 max-w-2xl leading-relaxed">

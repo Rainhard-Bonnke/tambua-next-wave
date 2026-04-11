@@ -86,9 +86,12 @@ const Navbar = () => {
             {!user ? (
               <Button
                 asChild
-                className={"bg-white text-primary hover:bg-white/90 font-semibold"}
+                size="icon"
+                className={"bg-white text-primary hover:bg-white/90"}
               >
-                <Link to="/login">Sign In / Create Account</Link>
+                <Link to="/login">
+                  <User className="w-5 h-5" />
+                </Link>
               </Button>
             ) : (
               <div className="flex items-center gap-2">

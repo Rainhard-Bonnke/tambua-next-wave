@@ -14,12 +14,12 @@ const WhyChooseUs = () => {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section className="section-padding bg-primary text-primary-foreground" ref={ref}>
+    <section className="section-padding bg-white text-foreground" ref={ref}>
       <div className="container-wide mx-auto">
         <div className="text-center mb-12">
           <span className="text-accent font-semibold text-sm uppercase tracking-wider">Why Choose Us</span>
-          <h2 className="text-3xl sm:text-4xl font-bold mt-2">The Tambua Africa Difference</h2>
-          <p className="text-primary-foreground/70 mt-3 max-w-2xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-bold mt-2 text-foreground">The Tambua Africa Difference</h2>
+          <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
             We go above and beyond to ensure your African adventure exceeds every expectation.
           </p>
         </div>
@@ -28,7 +28,7 @@ const WhyChooseUs = () => {
           {features.map((feature, index) => (
             <div
               key={feature.title}
-              className={`bg-primary-foreground/5 border border-primary-foreground/10 rounded-2xl p-6 hover:bg-primary-foreground/10 transition-all duration-500 ${
+              className={`bg-muted/50 border border-border rounded-2xl p-6 hover:bg-muted transition-all duration-500 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
               style={{ transitionDelay: `${index * 100}ms` }}
@@ -36,8 +36,8 @@ const WhyChooseUs = () => {
               <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center mb-4">
                 <feature.icon className="w-6 h-6 text-accent" />
               </div>
-              <h3 className="font-bold text-lg mb-2">{feature.title}</h3>
-              <p className="text-primary-foreground/70 text-sm leading-relaxed">{feature.description}</p>
+              <h3 className="font-bold text-lg mb-2 text-foreground">{feature.title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
             </div>
           ))}
         </div>

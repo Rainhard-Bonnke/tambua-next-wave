@@ -43,7 +43,7 @@ const HeroSection = () => {
       <div className="relative z-10 w-full px-4 sm:px-8 lg:px-12 text-left">
         <div className="max-w-4xl space-y-6 mt-16 sm:mt-0">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
-            Explore <span className="font-display italic text-accent">Africa</span> Through the
+            Explore <span className="font-display italic text-yellow-400">Africa</span> Through the
             Heart of the East
           </h1>
 
