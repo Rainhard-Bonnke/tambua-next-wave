@@ -61,6 +61,16 @@ const Admin = () => {
     if (user) checkAdminAndLoad();
   }, [user, authLoading]);
 
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      navigate("/");
+    } catch (error) {
+      console.error("Sign out error:", error);
+      toast.error("Failed to sign out");
+    }
+  };
+
   const checkAdminAndLoad = async () => {
     setLoading(true);
     try {
@@ -200,7 +210,7 @@ const Admin = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-3xl font-bold text-foreground">Admin Dashboard</h1>
-            <Button variant="outline" onClick={async () => { await signOut(); navigate("/"); }} className="rounded-xl">
+            <Button variant="outline" onClick={handleSignOut} className="rounded-xl">
               <LogOut className="w-4 h-4 mr-2" /> Sign Out
             </Button>
           </div>
