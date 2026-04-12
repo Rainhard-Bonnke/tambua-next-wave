@@ -5,7 +5,7 @@ import PageTransition from "@/components/layout/PageTransition";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, Loader2 } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, Loader2, MessageCircle } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { submitInquiry } from "@/lib/inquiry";
 import { toast } from "sonner";
@@ -76,8 +76,11 @@ const Contact = () => {
 
                 <div className="space-y-5">
                   {[
-                    { icon: MapPin, label: "Address", value: "Plainsview Road, Off Mombasa Road, Nairobi, Kenya" },
-                    { icon: Phone, label: "Phone", value: "UK: +44 793 997 0489 | WhatsApp: +254 704 548 878" },
+                    { icon: MapPin, label: "Kenya Office", value: "Plainsview Road, Off Mombasa Road, Nairobi, Kenya" },
+                    { icon: MapPin, label: "UK Office", value: "London, United Kingdom" },
+                    { icon: Phone, label: "Kenya Phone", value: "+254 726 207 900 | +254 792 329 682" },
+                    { icon: Phone, label: "UK Phone", value: "+44 793 997 0489" },
+                    { icon: MessageCircle, label: "WhatsApp Support", value: "+254 704 548 878" },
                     { icon: Mail, label: "Email", value: "info@tambuaafrica.com" },
                     { icon: Clock, label: "Working Hours", value: "Mon - Sat: 8:00 AM - 6:00 PM EAT" },
                   ].map((item) => (

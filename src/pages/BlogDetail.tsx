@@ -2,18 +2,28 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageTransition from "@/components/layout/PageTransition";
 import { useParams, useNavigate } from "react-router-dom";
-import { Calendar, ArrowLeft } from "lucide-react";
+import { Calendar, ArrowLeft, Loader2 } from "lucide-react";
 import { useEffect } from "react";
 import { useBlog } from "@/hooks/useBlogs";
 
 const BlogDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data: post } = useBlog(id);
+  const { data: post, isLoading } = useBlog(id);
 
   useEffect(() => {
-    if (id && !post) navigate("/blog");
-  }, [id, post, navigate]);
+    if (!isLoading && id && !post) navigate("/blog");
+  }, [id, post, isLoading, navigate]);
+
+  if (isLoading) {
+    return (
+      <PageTransition>
+        <div className="min-h-screen bg-background flex items-center justify-center">
+          <Loader2 className="w-8 h-8 animate-spin text-accent" />
+        </div>
+      </PageTransition>
+    );
+  }
 
   if (!post) return null;
 

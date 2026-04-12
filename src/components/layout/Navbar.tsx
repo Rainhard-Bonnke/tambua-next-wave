@@ -58,8 +58,8 @@ const Navbar = () => {
                 className="h-10 sm:h-12 w-auto object-contain"
               />
             </div>
-            <span className="font-bold text-lg sm:text-xl text-white">
-              Tambua Africa Tours & Safaris Ltd.
+            <span className="font-bold text-base sm:text-lg md:text-xl text-white">
+              Tambua Africa Tours & Safaris
             </span>
           </Link>
 

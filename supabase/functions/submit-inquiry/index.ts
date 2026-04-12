@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.99.2";
 import { z } from "npm:zod@3.25.76";
+import { Resend } from "npm:resend@3.2.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -250,6 +251,48 @@ const appendInquiryToSheet = async (payload: InquiryPayload, submissionId: strin
   );
 };
 
+const sendInquiryEmail = async (payload: InquiryPayload) => {
+  const resendApiKey = getEnv("RESEND_API_KEY");
+  const resend = new Resend(resendApiKey);
+  const companyEmail = getEnv("COMPANY_EMAIL") || "info@tambuaafrica.com";
+
+  let subject: string;
+  let htmlContent: string;
+
+  if (payload.inquiryType === "contact") {
+    subject = `New Contact Inquiry: ${payload.subject}`;
+    htmlContent = `
+      <h2>New Contact Inquiry</h2>
+      <p><strong>From:</strong> ${payload.fullName}</p>
+      <p><strong>Email:</strong> ${payload.email}</p>
+      <p><strong>Phone:</strong> ${payload.phone || "Not provided"}</p>
+      <p><strong>Subject:</strong> ${payload.subject}</p>
+      <p><strong>Message:</strong></p>
+      <p>${payload.message.replace(/\n/g, "<br>")}</p>
+    `;
+  } else {
+    subject = `New Booking Inquiry: ${payload.safariTitle}`;
+    htmlContent = `
+      <h2>New Booking Inquiry</h2>
+      <p><strong>From:</strong> ${payload.fullName}</p>
+      <p><strong>Email:</strong> ${payload.email}</p>
+      <p><strong>Phone:</strong> ${payload.phone || "Not provided"}</p>
+      <p><strong>Safari:</strong> ${payload.safariTitle}</p>
+      <p><strong>Preferred Date:</strong> ${payload.preferredDate}</p>
+      <p><strong>Guests:</strong> ${payload.guests}</p>
+      <p><strong>Message:</strong></p>
+      <p>${payload.message?.replace(/\n/g, "<br>") || "No special requests"}</p>
+    `;
+  }
+
+  await resend.emails.send({
+    from: "Tambua Africa <noreply@tambuaafrica.com>",
+    to: companyEmail,
+    subject,
+    html: htmlContent,
+  });
+};
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -300,6 +343,14 @@ serve(async (req) => {
 
     if (insertError || !submission) {
       throw new Error(`Failed to save inquiry: ${insertError?.message || "Unknown insert error"}`);
+    }
+
+    // Send email notification
+    try {
+      await sendInquiryEmail(payload);
+    } catch (emailError) {
+      console.error("Email sending failed:", emailError);
+      // Don't fail the request if email fails, just log it
     }
 
     try {

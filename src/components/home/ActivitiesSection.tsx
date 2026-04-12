@@ -1,5 +1,5 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { Compass, Palmtree, Binoculars } from "lucide-react";
+import { Compass, Palmtree, Binoculars, Mountain, Activity, Wind } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -14,25 +14,62 @@ const activities = [
     title: "Cultural Tours",
     description: "Immerse yourself in the rich traditions and heritage of East African communities.",
     images: [
-      "/images/popular%20activities/culture%20tours.webp",
-      "/images/popular%20activities/culture%20tours%20(2).webp",
-      "/images/culture%20tours.webp",
+      "/images/popular activities/culture tours.webp",
+      "/images/popular activities/culture tours (2).webp",
+      "/images/popular activities/culture tours.jpg",
+      "/images/popular activities/culture tours (2).jpg",
     ],
   },
   {
     icon: Palmtree,
     title: "Beach Holidays",
     description: "Relax on pristine white sand beaches along the beautiful Kenyan coastline.",
-    image: "/images/deckchair-beach.webp",
+    images: [
+      "/images/popular activities/beach.jpg",
+      "/images/popular activities/Diani Beach (2).jpg",
+      "/images/popular activities/Chale Island.jpg",
+      "/images/popular activities/chale Hotel.jpg",
+    ],
   },
   {
     icon: Binoculars,
     title: "Game Drives",
     description: "Experience thrilling wildlife encounters in Kenya's world-renowned national parks.",
     images: [
-      "/images/popular%20activities/game%20drives.webp",
-      "/images/popular%20activities/game%20drives1.webp",
-      "/images/maasai-mara-real.webp",
+      "/images/popular activities/game drives.webp",
+      "/images/popular activities/game drives1.webp",
+      "/images/popular activities/game drives.jpg",
+      "/images/popular activities/game drives1.jpg",
+    ],
+  },
+  {
+    icon: Mountain,
+    title: "Hiking Adventures",
+    description: "Challenge yourself with spectacular treks across East Africa's majestic mountains.",
+    images: [
+      "/images/popular activities/Hiking.jpg",
+      "/images/popular activities/Hike.jpg",
+      "/images/popular activities/Hiking (2).jpg",
+    ],
+  },
+  {
+    icon: Activity,
+    title: "Bungee & Jumping",
+    description: "Leap into adventure with heart-pounding bungee jumps over iconic landscapes.",
+    images: [
+      "/images/popular activities/Bangee and Jumping.jpg",
+      "/images/popular activities/Jumping (2).jpg",
+      "/images/popular activities/Jumping.jpg",
+    ],
+  },
+  {
+    icon: Wind,
+    title: "Zipline Canopy",
+    description: "Soar through the air on breathtaking ziplines across lush tropical forests.",
+    images: [
+      "/images/popular activities/Zipline 2.jpg",
+      "/images/popular activities/Zipline.jpg",
+      "/images/popular activities/zipline (2).jpg",
     ],
   },
 ];

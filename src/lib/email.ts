@@ -109,8 +109,8 @@ class EmailService {
         </div>
         
         <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; color: #666; font-size: 12px;">
-          <p>&copy; 2024 Tambua Africa. All rights reserved.</p>
-          <p>Creating unforgettable African experiences since 2024</p>
+          <p>&copy; ${new Date().getFullYear()} Tambua Africa. All rights reserved.</p>
+          <p>Creating unforgettable African experiences since 2008</p>
         </div>
       </div>
     `;
@@ -150,7 +150,7 @@ class EmailService {
         </div>
         
         <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; color: #666; font-size: 12px;">
-          <p>&copy; 2024 Tambua Africa. All rights reserved.</p>
+          <p>&copy; ${new Date().getFullYear()} Tambua Africa. All rights reserved.</p>
         </div>
       </div>
     `;

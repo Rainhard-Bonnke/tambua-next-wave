@@ -15,8 +15,9 @@ export const destinations: Destination[] = [
     country: "Kenya",
     description:
       "A vast red-earth wilderness comprising Tsavo East and West, famous for its 'red elephants', the Mzima Springs, and rugged volcanic landscapes.",
-    image: "/images/destiations/Tsavo/Chilling kilaguni serena lodge.webp",
+    image: "/images/destiations/Tsavo/voi safari lodge4.webp",
     images: [
+      "/images/destiations/Tsavo/voi safari lodge4.webp",
       "/images/destiations/Tsavo/Chilling kilaguni serena lodge.webp",
       "/images/destiations/Tsavo/Kilaguni serena safari lodge food sfood.webp",
       "/images/destiations/Tsavo/Kilaguni lodge.webp",
@@ -57,8 +58,9 @@ export const destinations: Destination[] = [
     country: "Kenya",
     description:
       "A sanctuary for rhinos and flamingos set against the backdrop of the Great Rift Valley, featuring dramatic escarpments and acacia woodlands.",
-    image: "/images/destiations/Lake Nakuru/Lake Nakutu lodge.webp",
+    image: "/images/destiations/Lake Nakuru/Ziwa bush lodge rooms.webp",
     images: [
+      "/images/destiations/Lake Nakuru/Ziwa bush lodge rooms.webp",
       "/images/destiations/Lake Nakuru/Lake Nakutu lodge.webp",
       "/images/destiations/Lake Nakuru/ziwa lodge ambience.webp",
       "/images/destiations/Lake Nakuru/Ziwa bush lodge night view.webp",
@@ -98,14 +100,14 @@ export const destinations: Destination[] = [
     name: "Diani Beach",
     country: "Kenya",
     description:
-      "A pristine coastal paradise with white sandy beaches, turquoise waters, and vibrant Swahili culture along Kenya's Indian Ocean coastline.",
-    image: "/images/destiations/Diani/diani-beach-new.webp",
+      "Voted regularly as Africa's leading beach destination, Diani Beach is a stunning tropical paradise boasting endless stretches of powdery white sand, swaying palms, and warm, crystal-clear turquoise waters. Dive into vibrant coral reefs, indulge in rich Swahili culture, and unwind in world-class resorts along the spectacular Kenyan coast.",
+    image: "/images/diani-beach-coast.webp",
     images: [
+      "/images/diani-beach-coast.webp",
+      "/images/diani-beach.webp",
       "/images/destiations/Diani/diani-beach-new.webp",
       "/images/destiations/Diani/diani-beach-sunset.webp",
       "/images/destiations/Diani/diani-beach-resort.webp",
-      "/images/diani-extra-1.png",
-      "/images/diani-extra-2.png",
     ],
     safariCount: 2,
   },
@@ -145,8 +147,9 @@ export const destinations: Destination[] = [
     country: "Kenya",
     description:
       "A serene, vehicle-free coral island off Kenya's southern coast. Gateway to Kisite Mpunguti Marine Park, offering spectacular dolphin spotting, pristine snorkeling, and authentic Swahili culture.",
-    image: "/images/wasini-island-1.png",
+    image: "/images/diani-beach.webp",
     images: [
+      "/images/diani-beach.webp",
       "/images/wasini-island-1.png",
       "/images/wasini-island-2.png",
     ],
