@@ -6,9 +6,11 @@ const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
 
-const imagesDir = path.join(__dirname, 'public', 'images');
+const publicDir = path.join(__dirname, 'public');
 
 function isImage(file) {
+  // Ignore already optimized webp and logo
+  if (file.toLowerCase().includes('logo')) return false;
   return /\.(jpe?g|png)$/i.test(file);
 }
 
@@ -39,13 +41,13 @@ async function optimizeImage(filePath) {
     
     // Success: Delete the original massive file
     fs.unlinkSync(filePath);
-    console.log(`✅ Optimized & Replaced: ${path.relative(imagesDir, filePath)} -> .webp`);
+    console.log(`✅ Optimized & Replaced: ${path.relative(publicDir, filePath)} -> .webp`);
   } catch (err) {
     console.error(`❌ Error optimizing ${filePath}:`, err.message);
   }
 }
 
 console.log('🚀 Starting Recursive Image Optimization...');
-walkDir(imagesDir).then(() => {
+walkDir(publicDir).then(() => {
   console.log('✨ Optimization Complete!');
 }).catch(console.error);

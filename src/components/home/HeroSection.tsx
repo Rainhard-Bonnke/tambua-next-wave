@@ -7,7 +7,7 @@ import OptimizedImage from "@/components/ui/optimized-image";
 const backgroundImages = [
   "/images/Wild beast migration 2.webp",
   "/images/maasai-mara-real.webp",
-  "/images/Diani Beach (2).jpg",
+  "/images/Diani Beach (2).webp",
 ];
 
 const HeroSection = () => {
@@ -34,6 +34,7 @@ const HeroSection = () => {
             alt="Hero Background"
             className="w-full h-full object-cover"
             priority={index === 0}
+            fetchPriority={index === 0 ? 'high' : 'auto'}
             quality={90}
           />
         </div>

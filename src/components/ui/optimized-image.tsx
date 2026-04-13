@@ -10,6 +10,7 @@ interface OptimizedImageProps {
   priority?: boolean;
   placeholder?: 'blur' | 'empty';
   quality?: number;
+  fetchPriority?: 'high' | 'low' | 'auto';
 }
 
 const OptimizedImage: React.FC<OptimizedImageProps> = ({
@@ -21,6 +22,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   priority = false,
   placeholder = 'blur',
   quality = 75,
+  fetchPriority,
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(priority);
@@ -106,6 +108,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         width={width}
         height={height}
         loading={priority ? 'eager' : 'lazy'}
+        fetchPriority={fetchPriority}
         decoding="async"
         onLoad={handleLoad}
         onError={handleError}
