@@ -3,11 +3,7 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "regions": ["fra1"],
-  "functions": {
-    "src/pages/api/**/*.ts": {
-      "runtime": "@vercel/node"
-    }
-  },
+  "regions": ["fra1"],
   "rewrites": [
     {
       "source": "/api/(.*)",
