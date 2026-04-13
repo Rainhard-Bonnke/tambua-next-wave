@@ -15,27 +15,27 @@ import { lazy, Suspense } from "react";
 import { Loader2 } from "lucide-react";
 
 // Lazy load heavy components
-const Index = lazy(() => import("./pages/Index.tsx"));
-const About = lazy(() => import("./pages/About.tsx"));
-const Safaris = lazy(() => import("./pages/Safaris.tsx"));
-const SafariDetail = lazy(() => import("./pages/SafariDetail.tsx"));
-const Destinations = lazy(() => import("./pages/Destinations.tsx"));
-const Gallery = lazy(() => import("./pages/Gallery.tsx"));
-const TravelInfo = lazy(() => import("./pages/TravelInfo.tsx"));
-const Blog = lazy(() => import("./pages/Blog.tsx"));
-const BlogDetail = lazy(() => import("./pages/BlogDetail.tsx"));
-const Terms = lazy(() => import("./pages/Terms.tsx"));
-const Contact = lazy(() => import("./pages/Contact.tsx"));
-const Login = lazy(() => import("./pages/Login.tsx"));
-const Signup = lazy(() => import("./pages/Signup.tsx"));
-const ForgotPassword = lazy(() => import("./pages/ForgotPassword.tsx"));
-const ResetPassword = lazy(() => import("./pages/ResetPassword.tsx"));
-const Dashboard = lazy(() => import("./pages/Dashboard.tsx"));
-const Admin = lazy(() => import("./pages/Admin.tsx"));
-const PaymentSuccess = lazy(() => import("./pages/PaymentSuccess.tsx"));
-const Booking = lazy(() => import("./pages/Booking.tsx"));
-const NotFound = lazy(() => import("./pages/NotFound.tsx"));
-const ConnectionDiagnostics = lazy(() => import("./pages/ConnectionDiagnostics.tsx"));
+const Index = lazy(() => import("./pages/Index"));
+const About = lazy(() => import("./pages/About"));
+const Safaris = lazy(() => import("./pages/Safaris"));
+const SafariDetail = lazy(() => import("./pages/SafariDetail"));
+const Destinations = lazy(() => import("./pages/Destinations"));
+const Gallery = lazy(() => import("./pages/Gallery"));
+const TravelInfo = lazy(() => import("./pages/TravelInfo"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogDetail = lazy(() => import("./pages/BlogDetail"));
+const Terms = lazy(() => import("./pages/Terms"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Login = lazy(() => import("./pages/Login"));
+const Signup = lazy(() => import("./pages/Signup"));
+const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
+const ResetPassword = lazy(() => import("./pages/ResetPassword"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Admin = lazy(() => import("./pages/Admin"));
+const PaymentSuccess = lazy(() => import("./pages/PaymentSuccess"));
+const Booking = lazy(() => import("./pages/Booking"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const ConnectionDiagnostics = lazy(() => import("./pages/ConnectionDiagnostics"));
 
 const queryClient = new QueryClient();
 
