@@ -12,7 +12,6 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { AIAgentChat } from "@/components/chat/AIAgentChat";
 import { PerformanceReport } from "@/components/ui/performance-monitor";
 import { lazy, Suspense } from "react";
-import { Loader2 } from "lucide-react";
 
 // Lazy load heavy components
 const Index = lazy(() => import("./pages/Index"));
@@ -43,11 +42,7 @@ const AnimatedRoutes = () => {
   const location = useLocation();
   return (
     <ErrorBoundary>
-      <Suspense fallback={
-        <div className="min-h-screen bg-background flex items-center justify-center">
-          <Loader2 className="w-8 h-8 animate-spin text-accent" />
-        </div>
-      }>
+      <Suspense fallback={null}>
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Index />} />
