@@ -76,17 +76,7 @@ export default defineConfig(({ mode }) => ({
     sourcemap: false,
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          if (id.includes('@radix-ui')) {
-            return 'vendor-radix';
-          }
-          if (id.includes('lucide-react') || id.includes('framer-motion') || id.includes('recharts')) {
-            return 'vendor-ui';
-          }
-          if (id.includes('react') || id.includes('@tanstack') || id.includes('react-router')) {
-            return 'vendor-core';
-          }
-        },
+        // Reverted to default chunking for maximum stability
       },
     },
     chunkSizeWarningLimit: 1000,
