@@ -711,7 +711,7 @@ export const destinationLodges: DestinationLodges[] = [
         images: [
           "/images/diani.jpg",
           "/images/diani-beach-coast.webp",
-          "/images/diani-beach-sunset.webp",
+          "/images/deckchair-beach.webp",
         ],
         website: "https://dianisearesort.de/",
       },
@@ -731,7 +731,7 @@ export const destinationLodges: DestinationLodges[] = [
         image: "/images/Mombasa Hotel.jpg",
         images: [
           "/images/Mombasa Hotel.jpg",
-          "/images/diani-beach-resort.webp",
+          "/images/diani-beach.webp",
           "/images/Diani Beach (2).jpg",
         ],
         website: "https://southernpalmskenya.com/",

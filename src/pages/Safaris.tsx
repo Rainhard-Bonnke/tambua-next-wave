@@ -8,6 +8,7 @@ import { useSafaris } from "@/hooks/useSafaris";
 import BookingModal from "@/components/booking/BookingModal";
 import { Star, MapPin, Clock, Filter, Loader2 } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import OptimizedImage from "@/components/ui/optimized-image";
 
 const categories = ["All", "Wildlife Safari", "Beach Holiday", "Cultural Tour", "Adventure"];
 
@@ -30,8 +31,16 @@ const Safaris = () => {
       <div className="min-h-screen">
         <Navbar />
         <main>
-          <section className="relative pt-32 pb-20 bg-primary text-primary-foreground">
-            <div className="container-wide mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-primary text-primary-foreground">
+            <div className="absolute inset-0 z-0 opacity-20">
+              <OptimizedImage 
+                src="/images/amboseli-real.webp" 
+                alt="Safaris Background" 
+                className="w-full h-full object-cover"
+                priority 
+              />
+            </div>
+            <div className="container-wide relative z-10 mx-auto px-4 sm:px-6 lg:px-8 text-center">
               <span className="text-accent font-semibold text-sm uppercase tracking-wider">Our Packages</span>
               <h1 className="text-4xl sm:text-5xl font-bold mt-3">Safari Packages</h1>
               <p className="text-primary-foreground/70 mt-4 max-w-2xl mx-auto text-lg">
@@ -73,7 +82,15 @@ const Safaris = () => {
                   >
                     <Link to={`/safaris/${safari.id}`} className="block">
                       <div className="relative aspect-[16/10] overflow-hidden">
-                        <img src={safari.image} alt={safari.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                        <img 
+                          src={safari.image} 
+                          alt={safari.title} 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                          loading="lazy" 
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800";
+                          }}
+                        />
                       </div>
                     </Link>
                     <div className="p-5 space-y-3">

@@ -16,7 +16,7 @@ serve(async (req) => {
     if (ResultCode === 0 && CallbackMetadata) {
       // Payment Successful
       const metadata = CallbackMetadata.Item;
-      const mpesaReceiptNumber = metadata.find((m: any) => m.Name === "MpesaReceiptNumber")?.Value;
+      const mpesaReceiptNumber = metadata.find((m) => m.Name === "MpesaReceiptNumber")?.Value;
       
       const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
       const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";

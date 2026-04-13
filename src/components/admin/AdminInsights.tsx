@@ -11,7 +11,7 @@ export const AdminInsights = () => {
 
   useEffect(() => {
     const fetchStats = async () => {
-      const { data: bookings } = await supabase.from("bookings").select("total_amount").eq("status", "confirmed" as any);
+      const { data: bookings } = await supabase.from("bookings").select("total_amount").eq("status", "confirmed");
       const { count } = await supabase.from("inquiry_submissions").select("*", { count: 'exact', head: true });
       
       if (bookings) {

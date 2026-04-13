@@ -56,6 +56,8 @@ const getEnv = (name: string) => {
   return value;
 };
 
+const getOptionalEnv = (name: string) => Deno.env.get(name) || null;
+
 const pemToArrayBuffer = (pem: string) => {
   const base64 = pem.replace(/-----BEGIN PRIVATE KEY-----/, "").replace(/-----END PRIVATE KEY-----/, "").replace(/\s+/g, "");
   const binary = atob(base64);
@@ -194,12 +196,19 @@ const ensureHeaders = async (accessToken: string, spreadsheetId: string, sheetTi
 };
 
 const appendInquiryToSheet = async (payload: InquiryPayload, submissionId: string, createdAt: string) => {
-  const spreadsheetId = getEnv("GOOGLE_SHEETS_SPREADSHEET_ID");
-  const rawCredentials = getEnv("GOOGLE_SERVICE_ACCOUNT_JSON");
+  const spreadsheetId = getOptionalEnv("GOOGLE_SHEETS_SPREADSHEET_ID");
+  const rawCredentials = getOptionalEnv("GOOGLE_SERVICE_ACCOUNT_JSON");
+
+  if (!spreadsheetId || !rawCredentials) {
+    console.warn("Google Sheets integration not configured, skipping sheet sync.");
+    return false;
+  }
+
   const credentials = JSON.parse(rawCredentials) as ServiceAccountCredentials;
 
   if (!credentials.client_email || !credentials.private_key) {
-    throw new Error("Google service account JSON is missing required fields");
+    console.warn("Google service account JSON is missing required fields, skipping sheet sync.");
+    return false;
   }
 
   const accessToken = await getGoogleAccessToken(credentials);
@@ -252,9 +261,15 @@ const appendInquiryToSheet = async (payload: InquiryPayload, submissionId: strin
 };
 
 const sendInquiryEmail = async (payload: InquiryPayload) => {
-  const resendApiKey = getEnv("RESEND_API_KEY");
+  const resendApiKey = getOptionalEnv("RESEND_API_KEY");
+  const companyEmail = getOptionalEnv("COMPANY_EMAIL") || "info@tambuaafrica.com";
+
+  if (!resendApiKey) {
+    console.warn("RESEND_API_KEY not configured, skipping email notification.");
+    return false;
+  }
+
   const resend = new Resend(resendApiKey);
-  const companyEmail = getEnv("COMPANY_EMAIL") || "info@tambuaafrica.com";
 
   let subject: string;
   let htmlContent: string;
@@ -353,9 +368,9 @@ serve(async (req) => {
       // Don't fail the request if email fails, just log it
     }
 
-    try {
-      await appendInquiryToSheet(payload, submission.id, submission.created_at);
+    const sheetSynced = await appendInquiryToSheet(payload, submission.id, submission.created_at);
 
+    if (sheetSynced) {
       await supabase
         .from("inquiry_submissions")
         .update({
@@ -370,24 +385,23 @@ serve(async (req) => {
         submissionId: submission.id,
         googleSheetsSynced: true,
       });
-    } catch (syncError) {
-      const syncMessage = syncError instanceof Error ? syncError.message : "Google Sheets sync failed";
-
-      await supabase
-        .from("inquiry_submissions")
-        .update({
-          status: "sync_failed",
-          google_sync_attempted_at: new Date().toISOString(),
-          google_sync_error: syncMessage,
-        })
-        .eq("id", submission.id);
-
-      return jsonResponse({
-        success: true,
-        submissionId: submission.id,
-        googleSheetsSynced: false,
-      });
     }
+
+    const syncMessage = "Google Sheets sync not configured or failed";
+    await supabase
+      .from("inquiry_submissions")
+      .update({
+        status: "sync_failed",
+        google_sync_attempted_at: new Date().toISOString(),
+        google_sync_error: syncMessage,
+      })
+      .eq("id", submission.id);
+
+    return jsonResponse({
+      success: true,
+      submissionId: submission.id,
+      googleSheetsSynced: false,
+    });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown server error";
     console.error("submit-inquiry error:", message);

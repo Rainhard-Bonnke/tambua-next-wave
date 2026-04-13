@@ -17,14 +17,14 @@ export const useBlogs = () => {
           return data;
         };
 
-        const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), 5000));
-        const data = await Promise.race([fetchBlogs(), timeout]) as any[];
+        const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), 5000));
+        const data = await Promise.race([fetchBlogs(), timeout]);
 
         if (!data || data.length === 0) {
           return localPosts;
         }
 
-        return data.map((item: any) => ({
+        return data.map((item) => ({
           id: item.id,
           title: item.title,
           excerpt: item.excerpt,
@@ -63,8 +63,8 @@ export const useBlog = (id?: string) => {
           return data;
         };
 
-        const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), 5000));
-        const data = await Promise.race([fetchBlog(), timeout]) as any;
+        const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), 5000));
+        const data = await Promise.race([fetchBlog(), timeout]);
 
         if (data) {
           return {

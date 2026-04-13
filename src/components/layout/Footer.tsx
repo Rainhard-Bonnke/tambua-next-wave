@@ -123,9 +123,9 @@ const Footer = () => {
                       info@tambuaafrica.com
                     </a>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-primary-foreground/70">
-                    <Phone className="w-4 h-4" />
-                    <span>Kenya: +254 726 207 900</span>
+                  <div className="flex items-start gap-2 text-sm text-primary-foreground/70">
+                    <Phone className="w-4 h-4 mt-1" />
+                    <span>Kenya: +254 726 207 900 / +254 792 329 682 / +254 704 548 78</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-primary-foreground/70">
                     <Phone className="w-4 h-4" />

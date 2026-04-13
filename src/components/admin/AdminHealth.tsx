@@ -26,7 +26,7 @@ export const AdminHealth = () => {
 
       // 2. Check Storage Permissions and bucket existence
       const { data: buckets, error: storageError } = await supabase.storage.listBuckets();
-      const hasBucket = !storageError && Array.isArray(buckets) && buckets.some((bucket: any) => bucket.name === SUPABASE_STORAGE_BUCKET);
+      const hasBucket = !storageError && Array.isArray(buckets) && buckets.some((bucket) => bucket.name === SUPABASE_STORAGE_BUCKET);
       setBucketExists(hasBucket);
       setStorageConn(storageError || !hasBucket ? 'fail' : 'ok');
     } catch (err) {

@@ -12,7 +12,7 @@ interface EmailOptions {
 interface EmailResponse {
   success: boolean;
   message: string;
-  data?: any;
+  data?: unknown;
 }
 
 class EmailService {

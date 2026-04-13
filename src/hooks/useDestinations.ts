@@ -14,16 +14,15 @@ export const useDestinations = () => {
           return data;
         };
 
-        const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), 5000));
+        const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), 5000));
         
-        const data = await Promise.race([fetchDestinations(), timeout]) as any[];
+        const data = await Promise.race([fetchDestinations(), timeout]);
         
         if (!data || data.length === 0) {
           return localDestinations;
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return data.map((item: any) => ({
+        return data.map((item) => ({
           ...item,
           safariCount: item.safari_count || item.safariCount,
         })) as Destination[];

@@ -58,7 +58,7 @@ export const usePerformanceMonitor = () => {
 
     // CLS metric
     const clsObserver = new PerformanceObserver((list) => {
-      list.getEntries().forEach((entry: any) => {
+      list.getEntries().forEach((entry: LayoutShift) => {
         if (!entry.hadRecentInput) {
           metricsData.cumulativeLayoutShift += entry.value;
         }
@@ -69,7 +69,7 @@ export const usePerformanceMonitor = () => {
 
     // FID metric
     const fidObserver = new PerformanceObserver((list) => {
-      list.getEntries().forEach((entry: any) => {
+      list.getEntries().forEach((entry: PerformanceEventTiming) => {
         metricsData.firstInputDelay = entry.processingStart - entry.startTime;
       });
       updateMetrics();

@@ -3,118 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageTransition from "@/components/layout/PageTransition";
-import { destinations } from "@/data/destinations";
+import { destinations, Destination } from "@/data/destinations";
 import { destinationLodges, Lodge } from "@/data/destinations-lodges";
 import { ArrowRight, MapPin, Star, X, ChevronLeft, ChevronRight, Bed } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useAuth } from "@/contexts/AuthContext";
 import OptimizedImage from "@/components/ui/optimized-image";
-
-// ─────────────────────────────────────────────────────────
-// Real destination features + story data
-// ─────────────────────────────────────────────────────────
-const destinationEnhancements: Record<string, { features: string[]; story: string }> = {
-  "masai-mara": {
-    features: [
-      "The Great Migration: Witness up to 1.5 million wildebeest, zebras, and gazelles crossing the Mara River in the spectacle of nature's most dramatic annual event",
-      "Exceptional predator viewing: One of Africa's highest concentrations of lions, leopards, and cheetahs—ideal for photography and wildlife encounters",
-      "Pristine ecosystem: Covers 1,510 square kilometers of intact savannah with diverse habitats from riverine forests to open plains",
-      "Maasai cultural immersion: Home to the Maasai people, offering authentic visits to traditional warrior bomas and insights into pastoral life",
-    ],
-    story:
-      "Masai Mara stands as the crown jewel of African safaris, where the rhythm of nature beats in thunderous hoofbeats and golden dust clouds. Each year, the phenomenon of the Great Migration transforms the landscape into a living stage where survival hangs in the balance—thousands of wildebeest and zebras navigate crocodile-filled rivers while prides of lions watch from the grasslands. The Mara's amber plains stretch endlessly beneath impossibly vast African skies, where every game drive reveals a new chapter: a cheetah sprint at dawn, a rare leopard in an acacia tree, or a family of elephants moving serenely through the bush.",
-  },
-  amboseli: {
-    features: [
-      "Mount Kilimanjaro backdrop: Stunning views of Africa's highest peak (5,895m) framed by elephant herds, creating iconic photography opportunities",
-      "Africa's finest elephant viewing: Over 1,600 elephants concentrate around wetlands, providing unparalleled observation experiences",
-      "Volcanic geology: Ancient lava flows and ash deposits create the park's distinctive gray landscape and nutrient-rich wetlands",
-      "Ol Tukai wetlands: Swampy groundwater-fed oasis supporting dense wildlife concentrations in otherwise arid terrain",
-    ],
-    story:
-      "Amboseli National Park is where Africa's most iconic peak meets Africa's most magnificent giants, creating a landscape of timeless beauty and raw wilderness. The snow-capped crown of Mount Kilimanjaro dominates the horizon, a constant sentinel over fields of red dust where earth-toned elephant herds move with ancient grace.",
-  },
-  tsavo: {
-    features: [
-      "Africa's largest park complex: Tsavo East and West combine to create over 20,000 km² of pristine wilderness",
-      "Red elephant phenomenon: Famous red dust covers both elephants and landscape, creating striking safari photographs",
-      "Ancient volcanic landscape: Chyulu Hills, lava flows, and underground springs create dramatic geological formations",
-      "Remote and undisturbed: Far from tourist crowds, offering genuine wilderness experiences",
-    ],
-    story:
-      "Tsavo is the wild Africa that exists in your imagination—vast, untamed, and refreshingly free from the complexities of tourism infrastructure. This colossal park draws you into genuine frontier territory where red dust hangs in the air like an ancient signature, where enormous bull elephants roam freely, and where your game drive might reveal lions that have never seen a tourist vehicle before.",
-  },
-  samburu: {
-    features: [
-      "Samburu Special Five: Grevy's zebra, reticulated giraffe, gerenuk, Somali ostrich, and Beisa oryx — all endemic to this region",
-      "Ewaso Ng'iro River: Permanent water source creating dense wildlife corridors with crocodile, hippo, and 350+ bird species",
-      "Remote northern wilderness: Far fewer visitors than southern parks, delivering authentic encounters",
-      "Samburu culture: One of Kenya's most vivid indigenous communities, famed for beadwork, ochre, and warrior traditions",
-    ],
-    story:
-      "Samburu is Kenya's northern secret — a semi-desert landscape where the Ewaso Ng'iro River cuts a ribbon of improbable green through the heat shimmer, and where wildlife evolution has taken its own remarkable path. The animals here exist nowhere else on Earth in the same combination, shaped by millions of years of adaptation to this precise, beautiful harshness.",
-  },
-  nakuru: {
-    features: [
-      "Lake Nakuru flamingos: Up to 2 million pink flamingos can ring the lake simultaneously in one of the world's greatest ornithological spectacles",
-      "Rhino sanctuary: Both endangered black and southern white rhinos find refuge in the park's protected sanctuary",
-      "Rift Valley setting: Set within Africa's Great Rift Valley, surrounded by dramatic escarpment scenery",
-      "Rothschild's giraffe: One of Africa's rarest giraffe subspecies thrives in this park",
-    ],
-    story:
-      "Lake Nakuru turns pink at dawn — not from the light, but from the flamingos. Millions of them sometimes ring the lake's edges in an unbroken coral necklace, so dense and so vivid that first-time visitors literally stop breathing. Behind this spectacle, rhinos graze on the hillside above, leopards move between the yellow fever trees, and the Great Rift Valley escarpment frames everything in geological magnificence.",
-  },
-  "chale-island": {
-    features: [
-      "Private coral island: A 10-acre paradise rising from the Indian Ocean, accessible exclusively by motorboat — total seclusion from the mainland",
-      "Iconic heart-shaped infinity pool: Carved into the coral cliff edge with a jaw-dropping drop into the turquoise sea below",
-      "World-class marine biodiversity: A pristine house reef supports sea turtles, dolphins, over 200 coral fish species, and vibrant coral gardens",
-      "Swahili-Arabic heritage architecture: Hand-carved timber, painted tiles, and ocean-facing verandas echo centuries of coastal craftsmanship",
-    ],
-    story:
-      "Chale Island is Kenya's best-kept coastal secret — a coral jewel adrift in the glittering Indian Ocean, separated from the rest of the world by five minutes of blue water. The island wears its age lightly: ancient coral rock formations frame a modern luxury retreat where the heart-shaped infinity pool becomes less a amenity than a statement of intent. Each dawn brings new sea turtle sightings in the shallows, each dusk a sunset that sets the Indian Ocean on fire. Dining here, with bare feet in the sand and fresh Swahili seafood on the table, is as close to paradise as East Africa gets.",
-  },
-  watamu: {
-    features: [
-      "Watamu Marine National Park: One of Kenya's most biodiverse marine reserves — pristine coral gardens, whale sharks, manta rays, and nesting sea turtles",
-      "World-class game fishing: Blue-water fisheries ranked among Africa's best for marlin, sailfish, wahoo, and yellowfin tuna",
-      "Arabuko-Sokoke Forest: Adjacent to Africa's largest coastal forest — home to rare elephants, golden-rumped elephant shrews, and 230+ bird species",
-      "Watamu Beach: A sweeping arc of white sand with warm, calm turquoise waters sheltered by a natural bay — one of Kenya's most beautiful beaches",
-    ],
-    story:
-      "Watamu is where Kenya's coast reveals its most untouched face. The town sits between two of the country's greatest natural treasures — a marine park of extraordinary coral richness and a coastal forest that predates recorded history. Sport fishing boats leave at dawn in search of world-record marlin; by mid-morning the reef is alive with snorkelers chasing sea turtles through coral gardens. The pace here is dictated entirely by the Indian Ocean: slow when the tide is out, unhurried when it's in, and always accompanied by the kind of light that makes every moment feel golden.",
-  },
-  wasini: {
-    features: [
-      "Kisite Mpunguti Marine Park: Simply the best snorkeling and diving in Kenya, heavily populated with resident dolphins and untouched coral.",
-      "Traditional dhow sailing: The only way to access the marine park is via traditional wooden dhows, preserving ancient seafaring culture.",
-      "Vehicle-free serenity: Wasini has zero cars and zero paved roads, offering a completely undisturbed island experience.",
-      "Swahili culture & cuisine: Known for its ancient ruins, Baobab trees, and phenomenal fresh crab and coconut rice dishes.",
-    ],
-    story:
-      "Wasini Island forces you to slow down. The moment you step off the boat onto its sandy paths, time seems to stretch. There are no engines here—only the rustle of wind through massive baobab trees and the lap of the ocean against coral cliffs. Days are spent sailing out on traditional dhows to Kisite Mpunguti, sliding into warm waters to swim alongside pods of playful dolphins, and returning to mainland to feast on Swahili seafood platters. It's a glimpse into the Kenyan coast as it was centuries ago.",
-  },
-  "mombasa-north-coast": {
-    features: [
-      "Pristine Beaches: Long stretches of white sand including Nyali, Bamburi, and Shanzu beaches right on the warm Indian Ocean edge.",
-      "Vibrant Resort Culture: Home to Kenya's most lively and entertaining coastal resorts with extensive pools and watersports.",
-      "Mombasa Marine National Park: Incredible snorkeling and glass-bottom boat tours exploring rich coral gardens just offshore.",
-      "Historic Mombasa Town: Easy access to the 16th-century Fort Jesus, the iconic Mombasa Tusks, and the bustling Old Town.",
-    ],
-    story:
-      "The North Coast of Mombasa vibrates with energy. It's the classic Kenyan beach holiday: wide shores lined with whispering palms leading down to the impossibly warm Indian Ocean. Here, mornings might involve windsurfing across the reef, while afternoons are for exploring the ancient, spice-scented alleyways of Mombasa's Old Town or diving into the history of Fort Jesus. As the sun sets, the resorts come alive, offering a perfect blend of Swahili hospitality and international luxury right on the water's edge.",
-  },
-  naivasha: {
-    features: [
-      "Freshwater Rift Valley lake: Africa's only major freshwater lake in the Rift Valley, surrounded by papyrus and fever trees",
-      "Hell's Gate National Park: Unique cycling-inside-the-park experience through gorges and hot springs",
-      "Crescent Island: Walking safari among zebra, giraffe, and wildebeest on an island within the lake",
-      "Hippo herds: One of Kenya's densest hippo populations, viewable by boat at close range",
-    ],
-    story:
-      "Lake Naivasha is where the Rift Valley exhales. After the drama of Nakuru's flamingos and the red dust of Tsavo, Naivasha offers the lushness and cool that only 1,800 metres of altitude and a freshwater lake can provide. Hippos graze the lawn at dusk, eagles soar over papyrus beds, and the cycling trail through Hell's Gate — where geothermal steam vents beside a gorge that could swallow a city block — is unlike anything else in Kenya.",
-  },
-};
 
 // ─────────────────────────────────────────────────────────
 // Image slider
@@ -314,7 +208,7 @@ const DestinationModal = ({
   dest,
   onClose,
 }: {
-  dest: any;
+  dest: Destination;
   onClose: () => void;
 }) => {
   const { user } = useAuth();
@@ -322,7 +216,6 @@ const DestinationModal = ({
   const [selectedLodge, setSelectedLodge] = useState<Lodge | null>(null);
   const [categoryFilter, setCategoryFilter] = useState<Lodge["category"] | "all">("all");
 
-  const enhancement = destinationEnhancements[dest.id];
   const lodgeData = destinationLodges.find((d) => d.destinationId === dest.id);
   const lodges = lodgeData?.lodges ?? [];
 
@@ -397,28 +290,30 @@ const DestinationModal = ({
             <p className="text-muted-foreground leading-relaxed mb-6">{dest.description}</p>
 
             {/* Features */}
-            {enhancement && (
-              <>
-                <div className="mb-6">
-                  <h3 className="text-lg font-bold text-foreground mb-3">Why Visit</h3>
-                  <ul className="space-y-2">
-                    {enhancement.features.map((f, i) => (
-                      <li key={i} className="flex gap-2 text-sm text-foreground/80">
-                        <span className="text-accent shrink-0 mt-0.5">✦</span>
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="bg-muted/40 rounded-xl p-5 mb-8">
-                  <p className="text-sm font-semibold uppercase tracking-wider text-foreground mb-2">
-                    The Story
-                  </p>
-                  <p className="text-muted-foreground text-sm leading-relaxed italic">
-                    "{enhancement.story}"
-                  </p>
-                </div>
-              </>
+            {dest.features && (
+              <div className="mb-6">
+                <h3 className="text-lg font-bold text-foreground mb-3">Why Visit</h3>
+                <ul className="space-y-2">
+                  {dest.features.map((f, i) => (
+                    <li key={i} className="flex gap-2 text-sm text-foreground/80">
+                      <span className="text-accent shrink-0 mt-0.5">✦</span>
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Story */}
+            {dest.story && (
+              <div className="bg-muted/40 rounded-xl p-5 mb-8">
+                <p className="text-sm font-semibold uppercase tracking-wider text-foreground mb-2">
+                  The Story
+                </p>
+                <p className="text-muted-foreground text-sm leading-relaxed italic">
+                  "{dest.story}"
+                </p>
+              </div>
             )}
 
             {/* Lodges section */}
@@ -515,7 +410,7 @@ const DestinationModal = ({
 const Destinations = () => {
   const { user } = useAuth();
   const { ref, isVisible } = useScrollAnimation();
-  const [selected, setSelected] = useState<any>(null);
+  const [selected, setSelected] = useState<Destination | null>(null);
 
   return (
     <PageTransition>
@@ -523,8 +418,16 @@ const Destinations = () => {
         <Navbar />
         <main>
           {/* Hero */}
-          <section className="relative pt-32 pb-20 bg-primary text-primary-foreground">
-            <div className="container-wide mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-primary text-primary-foreground">
+            <div className="absolute inset-0 z-0 opacity-20">
+              <OptimizedImage 
+                src="/images/diani-beach-coast.webp" 
+                alt="Destinations Background" 
+                className="w-full h-full object-cover"
+                priority 
+              />
+            </div>
+            <div className="container-wide relative z-10 mx-auto px-4 sm:px-6 lg:px-8 text-center">
               <span className="text-white font-semibold text-sm uppercase tracking-wider">
                 Ready to Travel With Real Adventure and Enjoy Natural
               </span>

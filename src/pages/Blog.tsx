@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Calendar, ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useBlogs } from "@/hooks/useBlogs";
+import OptimizedImage from "@/components/ui/optimized-image";
 
 const Blog = () => {
   const { ref, isVisible } = useScrollAnimation();
@@ -15,13 +16,21 @@ const Blog = () => {
       <div className="min-h-screen">
         <Navbar />
         <main>
-          <section className="relative pt-32 pb-20 bg-background text-foreground">
-            <div className="container-wide mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <span className="text-accent font-semibold text-sm uppercase tracking-wider">
+          <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-primary text-white">
+            <div className="absolute inset-0 z-0 opacity-20">
+              <OptimizedImage 
+                src="/images/game%20drives.jpg" 
+                alt="Blog Background" 
+                className="w-full h-full object-cover"
+                priority 
+              />
+            </div>
+            <div className="container-wide relative z-10 mx-auto px-4 sm:px-6 lg:px-8 text-center">
+              <span className="text-white font-semibold text-sm uppercase tracking-wider">
                 Our Blog
               </span>
               <h1 className="text-4xl sm:text-5xl font-bold mt-3">News & Stories</h1>
-              <p className="text-muted-foreground mt-4 max-w-2xl mx-auto text-lg">
+              <p className="text-white/80 mt-4 max-w-2xl mx-auto text-lg">
                 Travel tips, safari stories, and the latest news from Tambua Africa.
               </p>
             </div>

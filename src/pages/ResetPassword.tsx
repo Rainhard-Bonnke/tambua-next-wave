@@ -38,8 +38,8 @@ const ResetPassword = () => {
       await updatePassword(password);
       toast.success("Password updated successfully!");
       navigate("/login");
-    } catch (err: any) {
-      toast.error(err.message || "Could not update password");
+    } catch (err) {
+      toast.error((err as Error).message || "Could not update password");
     } finally {
       setLoading(false);
     }

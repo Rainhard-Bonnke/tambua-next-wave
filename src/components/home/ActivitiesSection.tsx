@@ -4,9 +4,9 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
+  CarouselDots,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 const activities = [
   {
@@ -98,21 +98,24 @@ const ActivitiesSection = () => {
               style={{ transitionDelay: `${index * 150}ms` }}
             >
               {activity.images ? (
-                <Carousel className="w-full h-full" opts={{ loop: true }}>
-                  <CarouselContent className="h-full">
-                    {activity.images.map((image, index) => (
-                      <CarouselItem key={image} className="h-full">
+                <Carousel 
+                  className="w-full h-full absolute inset-0" 
+                  opts={{ loop: true }}
+                  plugins={[Autoplay({ delay: 3500 + index * 200, stopOnInteraction: false })]}
+                >
+                  <CarouselContent className="-ml-0 h-full">
+                    {activity.images.map((image, i) => (
+                      <CarouselItem key={image} className="pl-0 h-full">
                         <img
                           src={image}
-                          alt={`${activity.title} image ${index + 1}`}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          alt={`${activity.title} image ${i + 1}`}
+                          className="w-full h-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-110"
                           loading="lazy"
                         />
                       </CarouselItem>
                     ))}
                   </CarouselContent>
-                  <CarouselPrevious className="left-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white" />
-                  <CarouselNext className="right-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white" />
+                  <CarouselDots className="bottom-[130px] z-20" />
                 </Carousel>
               ) : (
                 <img

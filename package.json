@@ -11,7 +11,9 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "setup-storage-bucket": "node scripts/create-supabase-storage-bucket.js"
+    "setup-storage": "node scripts/setup-storage.js",
+    "setup-db": "npx supabase db reset --project-ref rtgurahirgyjnwdoepso --yes",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

@@ -55,16 +55,16 @@ export const AdminInquiries = () => {
         .select("*")
         .order("created_at", { ascending: false });
 
-      const timeoutPromise = new Promise((_, reject) => 
+      const timeoutPromise = new Promise<never>((_, reject) => 
         setTimeout(() => reject(new Error("Supabase Timeout")), 5000)
       );
 
-      const { data, error } = await Promise.race([fetchPromise, timeoutPromise]) as any;
+      const result = await Promise.race([fetchPromise, timeoutPromise]);
 
-      if (error) {
+      if ('error' in result && result.error) {
         toast.error("Failed to load inquiries");
-      } else if (data) {
-        setInquiries(data as Inquiry[]);
+      } else if ('data' in result && result.data) {
+        setInquiries(result.data as Inquiry[]);
       }
     } catch (err) {
       console.warn("Inquiries fetch timed out or failed:", err);

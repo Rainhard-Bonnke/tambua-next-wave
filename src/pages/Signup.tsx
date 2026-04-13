@@ -27,8 +27,8 @@ const Signup = () => {
     try {
       await signUp(email, password, fullName);
       toast.success("Account created! Please check your email to verify your account before signing in.");
-    } catch (err: any) {
-      toast.error(err.message || "Signup failed");
+    } catch (err) {
+      toast.error((err as Error).message || "Signup failed");
     } finally {
       setLoading(false);
     }

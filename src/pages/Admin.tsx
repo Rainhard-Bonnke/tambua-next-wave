@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -18,6 +18,7 @@ import { AdminBlogs } from "@/components/admin/AdminBlogs";
 import { AdminInsights } from "@/components/admin/AdminInsights";
 import { AdminInquiries } from "@/components/admin/AdminInquiries";
 import { AdminHealth } from "@/components/admin/AdminHealth";
+import ErrorBoundary from "@/components/layout/ErrorBoundary";
 
 interface AdminBooking {
   id: string;
@@ -59,7 +60,7 @@ const Admin = () => {
   useEffect(() => {
     if (!authLoading && !user) { navigate("/login"); return; }
     if (user) checkAdminAndLoad();
-  }, [user, authLoading]);
+  }, [user, authLoading, checkAdminAndLoad, navigate]);
 
   const handleSignOut = async () => {
     try {
@@ -71,7 +72,7 @@ const Admin = () => {
     }
   };
 
-  const checkAdminAndLoad = async () => {
+  const checkAdminAndLoad = useCallback(async () => {
     setLoading(true);
     try {
       // First check context-level admin status (email bypass)
@@ -95,8 +96,8 @@ const Admin = () => {
       }
 
       // Helper for timed queries
-      const withTimeout = async (promise: Promise<any>, timeoutMs: number = 5000) => {
-        const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), timeoutMs));
+      const withTimeout = async <T,>(promise: Promise<T>, timeoutMs: number = 5000): Promise<T> => {
+        const timeout = new Promise<T>((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), timeoutMs));
         return Promise.race([promise, timeout]);
       };
 
@@ -108,22 +109,22 @@ const Admin = () => {
 
       // Process Bookings Result
       if (bookingsResult.status === "fulfilled") {
-        const { data: bookingsData, error: bookingsError } = bookingsResult.value as any;
+        const { data: bookingsData, error: bookingsError } = bookingsResult.value;
         if (bookingsData && !bookingsError) {
           setBookings(bookingsData as AdminBooking[]);
 
           // Fetch profiles in the background (Non-blocking)
-          const userIds = [...new Set(bookingsData.map((b: any) => b.user_id))];
+          const userIds = [...new Set(bookingsData.map((b: AdminBooking) => b.user_id))];
           if (userIds.length > 0) {
             withTimeout(
               supabase.from("profiles").select("id, full_name, phone").in("id", userIds)
-            ).then(({ data: profilesData }: any) => {
+            ).then(({ data: profilesData }) => {
               if (profilesData) {
                 const map: Record<string, AdminProfile> = {};
-                profilesData.forEach((p: any) => { map[p.id] = p; });
+                profilesData.forEach((p: AdminProfile) => { map[p.id] = p; });
                 setProfiles(map);
               }
-            }).catch((profileErr) => {
+            }).catch((profileErr: Error) => {
               console.warn("Profiles fetch timed out or failed:", profileErr);
             });
           }
@@ -134,18 +135,18 @@ const Admin = () => {
 
       // Process Inquiries Result
       if (inquiriesResult.status === "fulfilled") {
-        const { count: unread } = inquiriesResult.value as any;
-        setUnreadCount(unread || 0);
+        const result = inquiriesResult.value as { count: number | null };
+        setUnreadCount(result.count || 0);
       } else {
         console.warn("Inquiries fetch timed out or failed.");
       }
-    } catch (err) {
+    } catch (err: Error) {
       console.error("Unexpected error in checkAdminAndLoad:", err);
       toast.error("An unexpected error occurred while loading the dashboard");
     } finally {
       setLoading(false);
     }
-  };
+  }, [user, isSuperAdmin, navigate]);
 
   const updateStatus = async (bookingId: string, newStatus: string) => {
     const { error } = await supabase
@@ -234,12 +235,12 @@ const Admin = () => {
             ))}
           </div>
 
-          {activeTab === "safaris" && <AdminSafaris />}
-          {activeTab === "destinations" && <AdminDestinations />}
-          {activeTab === "blogs" && <AdminBlogs />}
-          {activeTab === "messages" && <AdminInquiries />}
-          {activeTab === "insights" && <AdminInsights />}
-          {activeTab === "health" && <AdminHealth />}
+          {activeTab === "safaris" && <ErrorBoundary><AdminSafaris /></ErrorBoundary>}
+          {activeTab === "destinations" && <ErrorBoundary><AdminDestinations /></ErrorBoundary>}
+          {activeTab === "blogs" && <ErrorBoundary><AdminBlogs /></ErrorBoundary>}
+          {activeTab === "messages" && <ErrorBoundary><AdminInquiries /></ErrorBoundary>}
+          {activeTab === "insights" && <ErrorBoundary><AdminInsights /></ErrorBoundary>}
+          {activeTab === "health" && <ErrorBoundary><AdminHealth /></ErrorBoundary>}
 
           {activeTab === "bookings" && (
             <>

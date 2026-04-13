@@ -15,15 +15,15 @@ export const useSafaris = () => {
           return data;
         };
 
-        const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), 5000));
+        const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), 5000));
         
-        const data = await Promise.race([fetchSafaris(), timeout]) as any[];
+        const data = await Promise.race([fetchSafaris(), timeout]);
 
         if (!data || data.length === 0) {
           return localSafaris;
         }
 
-        return data.map((item: any) => ({
+        return data.map((item) => ({
           ...item,
           stripePriceId: item.stripe_price_id || item.stripePriceId,
         })) as Safari[];
@@ -47,14 +47,14 @@ export const useSafari = (id?: string) => {
       try {
         const fetchSafari = async () => {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const { data, error } = await (supabase as any).from("safaris").select("*").eq("id", id).maybeSingle();
+          const { data, error } = await supabase.from("safaris").select("*").eq("id", id).maybeSingle();
           if (error) throw error;
           return data;
         };
 
-        const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), 5000));
+        const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Supabase Timeout")), 5000));
         
-        const data = await Promise.race([fetchSafari(), timeout]) as any;
+        const data = await Promise.race([fetchSafari(), timeout]);
 
         if (data) {
           return {
