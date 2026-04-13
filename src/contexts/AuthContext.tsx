@@ -64,13 +64,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           return;
         }
 
-        // Add a timeout to getSession to prevent hanging the whole app
+        // Increased timeout to 30s and made it non-blocking for the UI
         const getSessionPromise = supabase.auth.getSession();
         const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error("Auth Timeout")), 10000)
+          setTimeout(() => reject(new Error("Auth Timeout")), 30000)
         );
 
-        const { data: { session } } = await Promise.race([getSessionPromise, timeoutPromise]) as Awaited<ReturnType<typeof supabase.auth.getSession>>;
+        const raceResult = await Promise.race([getSessionPromise, timeoutPromise]).catch(err => {
+          console.warn("Auth initialization timed out, proceeding as guest:", err.message);
+          return { data: { session: null } };
+        });
+        
+        const session = (raceResult as any)?.data?.session ?? null;
         
         if (mounted) {
           setSession(session);
