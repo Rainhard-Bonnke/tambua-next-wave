@@ -16,8 +16,6 @@ const activities = [
     images: [
       "/images/popular activities/culture tours.webp",
       "/images/popular activities/culture tours (2).webp",
-      "/images/popular activities/culture tours.jpg",
-      "/images/popular activities/culture tours (2).jpg",
     ],
   },
   {
@@ -25,10 +23,10 @@ const activities = [
     title: "Beach Holidays",
     description: "Relax on pristine white sand beaches along the beautiful Kenyan coastline.",
     images: [
-      "/images/popular activities/beach.jpg",
-      "/images/popular activities/Diani Beach (2).jpg",
-      "/images/popular activities/Chale Island.jpg",
-      "/images/popular activities/chale Hotel.jpg",
+      "/images/popular activities/beach.webp",
+      "/images/popular activities/Diani Beach (2).webp",
+      "/images/popular activities/Chale Island.webp",
+      "/images/popular activities/chale Hotel.webp",
     ],
   },
   {
@@ -38,8 +36,6 @@ const activities = [
     images: [
       "/images/popular activities/game drives.webp",
       "/images/popular activities/game drives1.webp",
-      "/images/popular activities/game drives.jpg",
-      "/images/popular activities/game drives1.jpg",
     ],
   },
   {
@@ -47,9 +43,9 @@ const activities = [
     title: "Hiking Adventures",
     description: "Challenge yourself with spectacular treks across East Africa's majestic mountains.",
     images: [
-      "/images/popular activities/Hiking.jpg",
-      "/images/popular activities/Hike.jpg",
-      "/images/popular activities/Hiking (2).jpg",
+      "/images/popular activities/Hiking.webp",
+      "/images/popular activities/Hike.webp",
+      "/images/popular activities/Hiking (2).webp",
     ],
   },
   {
@@ -57,9 +53,9 @@ const activities = [
     title: "Bungee & Jumping",
     description: "Leap into adventure with heart-pounding bungee jumps over iconic landscapes.",
     images: [
-      "/images/popular activities/Bangee and Jumping.jpg",
-      "/images/popular activities/Jumping (2).jpg",
-      "/images/popular activities/Jumping.jpg",
+      "/images/popular activities/Bangee and Jumping.webp",
+      "/images/popular activities/Jumping (2).webp",
+      "/images/popular activities/Jumping.webp",
     ],
   },
   {
@@ -67,9 +63,9 @@ const activities = [
     title: "Zipline Canopy",
     description: "Soar through the air on breathtaking ziplines across lush tropical forests.",
     images: [
-      "/images/popular activities/Zipline 2.jpg",
-      "/images/popular activities/Zipline.jpg",
-      "/images/popular activities/zipline (2).jpg",
+      "/images/popular activities/Zipline 2.webp",
+      "/images/popular activities/Zipline.webp",
+      "/images/popular activities/zipline (2).webp",
     ],
   },
 ];
